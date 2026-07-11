@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Gerador - Nativa App</title>
+    <link rel="stylesheet" href="../CSS/Cadastro_gerador.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body>
+
+    <header class="css-header">
+        <a href="#" class="css-brand">
+            <i class="fa-solid fa-leaf"></i>
+            <span>Nativa App</span>
+        </a>
+        <a href="#" class="css-login-btn">
+            <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+    </header>
+
+    <main class="css-main-container">
+        
+        <div class="css-avatar-square">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+        
+        <h1 class="css-page-title">Cadastre-se como gerador de resíduos</h1>
+
+        <div class="css-register-card">
+            <form action="#" method="POST" autocomplete="off">
+                
+                <div class="css-form-group">
+                    <label class="css-form-label">Nome do Estabelecimento / Residência</label>
+                    <input type="text" class="css-form-input" placeholder="Ex.: Restaurante Verde ou Casa da Silva" required>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">E-mail</label>
+                    <input type="email" class="css-form-input" placeholder="voce@exemplo.com" required>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Telefone / WhatsApp</label>
+                    <input type="tel" class="css-form-input" placeholder="(31) 90000-0000" required>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Região de Belo Horizonte</label>
+                    <select class="css-form-input" required>
+                        <option value="" disabled selected>Selecione a região...</option>
+                        <option value="barreiro">Barreiro</option>
+                        <option value="centro-sul">Centro-Sul</option>
+                        <option value="leste">Leste</option>
+                        <option value="nordeste">Nordeste</option>
+                        <option value="noroeste">Noroeste</option>
+                        <option value="norte">Norte</option>
+                        <option value="oeste">Oeste</option>
+                        <option value="pampulha">Pampulha</option>
+                        <option value="venda-nova">Venda Nova</option>
+                    </select>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Localização do Estabelecimento</label>
+                    <input type="text" class="css-form-input" placeholder="Rua, número, bairro, cidade" required>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Senha</label>
+                    <input type="password" class="css-form-input" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="css-submit-btn">Cadastrar</button>
+                
+                <div class="css-extra-links">
+                    <p>Já possui uma conta? <a href="#" class="css-link-item">Faça login</a></p>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="css-footer">
+        <p>&copy; 2026 Nativa App. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

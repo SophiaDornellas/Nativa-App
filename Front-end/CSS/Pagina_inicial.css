@@ -1,0 +1,195 @@
+ /* ==========================================================================
+           PALETA DE CORES E CONFIGURAÇÕES DO TEMA (Fundo Verde Mais Forte e Fofo)
+           ========================================================================== */
+        :root {
+            --color-bg: #e1f2e5;           /* Verde de fundo mais forte, vivo e aconchegante */
+            --color-primary: #2b7a43;      /* Verde escuro para os textos e destaques */
+            --color-primary-light: #4caf50;/* Verde vivo para a borda fina do hover */
+            --color-dark: #2d3748;         /* Grafite suave para os textos descritivos */
+            --color-white: #ffffff;
+            --color-gray-border: #d2e4d6;
+            --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação suave e fofa */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ==========================================================================
+           ESTILOS DO CABEÇALHO (HEADER)
+           ========================================================================== */
+        .css-header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(43, 122, 67, 0.08);
+        }
+
+        .css-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .css-login-btn {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            padding: 6px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 20px; /* Botão estilo pílula arredondada */
+            text-decoration: none;
+            transition: var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .css-login-btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            transform: scale(1.05);
+        }
+
+        /* ==========================================================================
+           CONTEÚDO PRINCIPAL (HERO E TITULOS)
+           ========================================================================== */
+        .css-main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Elemento decorativo fofo acima do título */
+        .css-welcome-icon {
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .css-hero-title {
+            font-size: 1.7rem;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .css-hero-subtitle {
+            font-size: 0.95rem;
+            color: #556b5c;
+            margin-bottom: 35px;
+            max-width: 450px;
+        }
+
+        /* ==========================================================================
+           GRID E PERFIS (Caixas menores e bem mais abauladas/fofas)
+           ========================================================================== */
+        .css-options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 290px; /* Caixas menores e mais compactas */
+        }
+
+        .css-card-option {
+            background-color: var(--color-white);
+            border: 2px solid var(--color-gray-border);
+            border-radius: 28px; /* Bordas muito mais abauladas e fofas */
+            padding: 25px 20px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 6px 16px rgba(43, 122, 67, 0.06);
+            transition: var(--transition-bounce);
+            display: block;
+        }
+
+        /* Efeito Hover Solicitado: Aumenta levemente com borda verde fina */
+        .css-card-option:hover {
+            transform: scale(1.06); /* Aumenta levemente de forma elástica */
+            border-color: var(--color-primary-light); /* Borda verde fina */
+            box-shadow: 0 12px 24px rgba(43, 122, 67, 0.12);
+        }
+
+        .css-icon-container {
+            font-size: 2.3rem;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .css-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--color-primary);
+        }
+
+        .css-card-desc {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Rodapé */
+        .css-footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #7fa88d;
+        }
+
+        /* Keyframe para um efeito sutil na folha do título */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        /* ==========================================================================
+           RESPONSIVIDADE (Ajuste para telas grandes)
+           ========================================================================== */
+        @media (min-width: 768px) {
+            .css-hero-title {
+                font-size: 2.2rem;
+            }
+
+            .css-options-grid {
+                flex-direction: row;
+                max-width: 620px; /* Mantém compacto mesmo no desktop */
+                gap: 25px;
+            }
+
+            .css-card-option {
+                flex: 1;
+                padding: 35px 25px;
+            }
+        }

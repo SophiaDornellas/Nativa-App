@@ -30,8 +30,8 @@ public class Usuarios implements Serializable {
 	@Column(name = "tipo_usuario", nullable = false)
 	private String tipo_usuario;
 	
-	@Column(name = "endereco", nullable = false)
-	private String endereco;
+	@Column(name = "endereco_regiao", nullable = false)
+	private String endereco_regiao;
 	
 	@Column(name = "latitude", nullable = false)
 	private Double latitude;
@@ -47,13 +47,13 @@ public class Usuarios implements Serializable {
 	}
 	
 	// Note que o id (UID) é passado no construtor porque ele vem do Firebase!
-		public Usuarios(String id, String nome, String email, String telefone, String tipo_usuario, String endereco, Double latitude, Double longitude) {
+		public Usuarios(String id, String nome, String email, String telefone, String tipo_usuario, String endereco_regiao, Double latitude, Double longitude) {
 			this.id = id;
 			this.nome = nome;
 			this.email = email;
 			this.telefone = telefone;
 			this.tipo_usuario = tipo_usuario;
-			this.endereco = endereco;
+			this.endereco_regiao = endereco_regiao;
 			this.latitude = latitude;
 			this.longitude = longitude;
 			this.xp_total = 0; // O XP é sempre inicializado como 0 no cadastro
@@ -101,12 +101,12 @@ public class Usuarios implements Serializable {
 		this.tipo_usuario = tipo_usuario;
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public String getEndereco_regiao() {
+		return endereco_regiao;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setEndereco_regiao (String endereco) {
+		this.endereco_regiao = endereco;
 	}
 
 	public Double getLatitude() {
