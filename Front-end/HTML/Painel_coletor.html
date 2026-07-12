@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Coletor - Nativa App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/Painel_coletor.css">
+</head>
+<body>
+
+    <header class="css-user-header">
+        <div class="css-header-back">
+            <a href="#"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+        </div>
+        <div class="css-profile-card">
+            <div class="css-profile-info">
+                <div class="css-profile-avatar">
+                    <i class="fa-solid fa-truck"></i>
+                </div>
+                <div>
+                    <h2>Carlos</h2>
+                    <p>Coletor Parceiro</p>
+                </div>
+            </div>
+            <div class="css-bonus-box">
+                <span><i class="fa-solid fa-wallet"></i> Bônus Acumulado</span>
+                <strong>R$ 120,00</strong>
+            </div>
+        </div>
+    </header>
+
+    <main class="css-main-content">
+        
+        <details class="css-collapsible-section" open>
+            <summary class="css-section-title">
+                Pedidos Disponíveis na Rede
+                <i class="fa-solid fa-chevron-down css-arrow-icon"></i>
+            </summary>
+            
+            <div class="css-collapsible-body">
+                <form class="css-filter-grid" onsubmit="return false;">
+                    <div class="css-filter-item">
+                        <select class="css-select-input">
+                            <option value="">Tipo de resíduo</option>
+                            <option value="seco">Resíduo seco Misturado</option>
+                            <option value="papelao">Papelão</option>
+                            <option value="plastico">Plástico</option>
+                        </select>
+                    </div>
+                    <div class="css-filter-item">
+                        <select class="css-select-input">
+                            <option value="">Qualquer volume</option>
+                            <option value="pouco">Pouco</option>
+                            <option value="medio">Médio</option>
+                            <option value="muito">Muito</option>
+                        </select>
+                    </div>
+                    <div class="css-filter-item">
+                        <input type="date" class="css-select-input">
+                    </div>
+                    <div class="css-filter-item">
+                        <select class="css-select-input">
+                            <option value="">Região</option>
+                            <option value="barreiro">Barreiro</option>
+                            <option value="centro-sul">Centro-Sul</option>
+                            <option value="leste">Leste</option>
+                            <option value="pampulha">Pampulha</option>
+                            <option value="venda-nova">Venda Nova</option>
+                            <option value="nordeste">Nordeste</option>
+                            <option value="noroeste">Noroeste</option>
+                            <option value="norte">Norte</option>
+                            <option value="oeste">Oeste</option>
+                        </select>
+                    </div>
+                </form>
+
+                <div class="css-cards-list">
+                    <div class="css-request-card">
+                        <div class="css-card-header">
+                            <h3>Padaria do Toninho</h3>
+                            <span class="css-status-badge css-status-red">PENDENTE</span>
+                        </div>
+                        
+                        <span class="css-tag-info"><i class="fa-solid fa-leaf"></i> Resíduo Seco Misturado</span>
+                        
+                        <div class="css-card-details">
+                            <p><i class="fa-solid fa-box"></i> <strong>Volume estimado:</strong> Médio</p>
+                            <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha</p>
+                            <p><i class="fa-solid fa-clock"></i> Segunda-feira, 08h00 — 11h00</p>
+                            <p><i class="fa-solid fa-phone"></i> <strong>Contato:</strong> (31) 98888-7777</p>
+                        </div>
+
+                        <details class="css-obs-details">
+                            <summary>Observação <i class="fa-solid fa-chevron-down"></i></summary>
+                            <p>Entrar pela garagem lateral. Interfonar na recepção de carga e descarga de resíduos.</p>
+                        </details>
+
+                        <button class="css-btn-action css-btn-green">Aceitar e Reservar</button>
+                    </div>
+                </div>
+            </div>
+        </details>
+        
+
+        
+        <section class="css-static-section">
+            <h2 class="css-section-static-title">Minha Agenda de Trabalho</h2>
+            <!-- <span class="css-day-divider">SEGUNDA-FEIRA</span> -->
+
+            <div class="css-cards-list">
+                <div class="css-request-card css-agenda-card">
+                    <div class="css-card-header">
+                        <h3>Padaria do Toninho</h3>
+                        <span class="css-status-badge css-status-orange">Coleta Confirmada</span>
+                    </div>
+
+                    <div class="css-card-details">
+                        <div class="css-address-row">
+                            <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha</p>
+                            <button class="css-btn-route"><i class="fa-solid fa-map-location-dot"></i> Rota</button>
+                        </div>
+                        <p><i class="fa-solid fa-clock"></i> 08h00 — 11h00</p>
+                        <p><i class="fa-solid fa-leaf"></i> Residuo Seco Misturado</p>
+                        <p><i class="fa-solid fa-box"></i> <strong>Volume:</strong> Médio</p>
+                    </div>
+
+                    <div class="css-action-group-split">
+                        <button class="css-btn-action css-btn-red-outline">Cancelar Coleta</button>
+                        <button class="css-btn-action css-btn-blue">Finalizar Coleta</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
