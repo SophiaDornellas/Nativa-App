@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nativa App - Solicitação de Coleta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           PALETA DE CORES E CONFIGURAÇÕES GLOBAIS
+           ========================================================================== */
+        :root {
+            --color-bg: #e1f2e5;              
+            --color-primary: #2b7a43;         
+            --color-primary-light: #4caf50;   
+            --color-bg-selected: #ccebd3;     
+            --color-dark: #2d3748;            
+            --color-white: #ffffff;           
+            --color-gray-border: #d2e4d6;     
+            --color-danger: #dc3545;          
+            --color-danger-hover: #bd2130;
+            --transition-smooth: all 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            min-height: 100vh;
+        }
+
+        .css-main-wrapper {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ==========================================================================
+           PAINEL SUPERIOR DO GERADOR
+           ========================================================================== */
+        .css-top-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-primary);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .css-profile-panel {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 16px rgba(43, 122, 67, 0.15);
+        }
+
+        .css-profile-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .css-store-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .css-store-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .css-store-sub {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .css-badge-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .css-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ==========================================================================
+           ESTILIZAÇÃO DOS HEADERS RETRÁTEIS (NOVO REQUISITO)
+           ========================================================================== */
+        .css-collapsible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .css-collapsible-header i.css-arrow {
+            transition: transform 0.3s ease;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+
+        /* Classe que será alternada via JS para rotacionar a setinha */
+        .css-collapsed i.css-arrow {
+            transform: rotate(-90deg);
+        }
+
+        /* Área de conteúdo que expande/colapsa */
+        .css-collapsible-content {
+            transition: max-height 0.3s ease-out, opacity 0.2s ease;
+            max-height: 1200px; /* Valor alto para acomodar o form aberto */
+            overflow: hidden;
+            opacity: 1;
+        }
+
+        .css-collapsed + .css-collapsible-content {
+            max-height: 0 !important;
+            opacity: 0 !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        /* ==========================================================================
+           FORMULÁRIO DE NOVA SOLICITAÇÃO (CARD BRANCO)
+           ========================================================================== */
+        .css-form-card {
+            background-color: var(--color-white);
+            border-radius: 24px;
+            padding: 24px;
+            border: 2px solid var(--color-gray-border);
+            box-shadow: 0 8px 24px rgba(43, 122, 67, 0.04);
+        }
+
+        .css-section-title {
+            font-size: 1.15rem;
+            color: var(--color-dark);
+            font-weight: 700;
+        }
+
+        .css-form-group {
+            margin-bottom: 20px;
+        }
+
+        .css-form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: 8px;
+        }
+
+        /* Opções de Seleção de Tipo de Material */
+        .css-radio-box {
+            border: 2px solid var(--color-gray-border);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+        }
+
+        /* Mudança: Classe css-selected só será aplicada na ativa por clique */
+        .css-radio-box.css-selected {
+            background-color: #eaf7ed;
+            border-color: var(--color-primary-light);
+            font-weight: 600;
+        }
+
+        /* Sub-opções ocultáveis (Papelão e Plástico) */
+        .css-sub-categories {
+            border-left: 3px solid var(--color-primary-light);
+            margin-left: 12px;
+            padding-left: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .css-checkbox-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* Grid de Volume Estimado */
+        .css-volume-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .css-volume-option {
+            border: 2px solid var(--color-gray-border);
+            border-radius: 14px;
+            padding: 12px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        /* Mudança: Removido o 'css-active' fixo do HTML. Só ativa no clique */
+        .css-volume-option.css-active {
+            background-color: #eaf7ed;
+            border-color: var(--color-primary-light);
+        }
+
+        .css-volume-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .css-volume-desc {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 2px;
+        }
+
+        /* Agendamento e Inputs de Texto */
+        .css-input-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .css-input-field {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 0.85rem;
+            border: 2px solid var(--color-gray-border);
+            border-radius: 12px;
+            outline: none;
+            background-color: #fafdfb;
+            transition: var(--transition-smooth);
+        }
+
+        .css-input-field:focus {
+            border-color: var(--color-primary-light);
+            background-color: var(--color-white);
+        }
+
+        /* Botão Principal de Lançamento */
+        .css-btn-submit {
+            width: 100%;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            transition: var(--transition-smooth);
+        }
+
+        .css-btn-submit:hover {
+            background-color: #215d33;
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================================================
+           SEÇÃO: MINHAS COLETAS RECENTES
+           ========================================================================== */
+        .css-history-section {
+            margin-top: 10px;
+        }
+
+        .css-history-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .css-history-card {
+            background-color: var(--color-white);
+            border: 2px solid var(--color-gray-border);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .css-card-main-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .css-info-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .css-info-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #a0aec0;
+            font-weight: 700;
+        }
+
+        .css-info-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .css-status-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .css-status-pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .css-status-waiting { background-color: #fff5f5; color: #e53e3e; }
+        .css-status-confirmed { background-color: #fefcbf; color: #b7791f; }
+        .css-status-done { background-color: #f0fff4; color: #38a169; }
+
+        /* Dados do Coletor */
+        .css-collector-box {
+            background-color: #f7fafc;
+            border-radius: 10px;
+            padding: 8px 12px;
+            border-left: 3px solid var(--color-primary-light);
+            font-size: 0.8rem;
+        }
+
+        /* Mudança: Layout especial para alinhar o botão de cancelar na mesma linha das infos do coletor */
+        .css-collector-row-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .css-collector-box strong {
+            color: var(--color-primary);
+        }
+
+        /* Botão Cancelar Inteligente e Clean */
+        .css-btn-cancel {
+            background-color: transparent;
+            color: var(--color-danger);
+            border: 1px solid var(--color-danger);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            width: max-content;
+            white-space: nowrap;
+            transition: var(--transition-smooth);
+        }
+
+        .css-btn-cancel:hover {
+            background-color: var(--color-danger);
+            color: var(--color-white);
+        }
+
+        .css-card-footer-align {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        /* Classe utilitária hide */
+        .hide {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+           MEDIA QUERIES (DESKTOP E PROPORÇÕES GRANDES)
+           ========================================================================== */
+        @media (min-width: 580px) {
+            .css-volume-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .css-input-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            .css-card-main-info {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .css-status-container {
+                justify-content: flex-end;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="css-main-wrapper">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <a href="#" class="css-top-nav">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+            <a href="#" class="css-top-nav" style="font-size: 1.15rem;">
+                <i class="fa-solid fa-gear"></i>
+            </a>
+        </div>
+
+        <div class="css-profile-panel">
+            <div class="css-profile-info">
+                <div class="css-store-icon">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <div class="css-store-name">Padaria do Toninho</div>
+                    <div class="css-store-sub">Rua das Flores, 123 - Bairro Verde</div>
+                </div>
+            </div>
+            <div class="css-badge-group">
+                <div class="css-badge"><i class="fa-solid fa-medal"></i> Nível 3</div>
+                <div class="css-badge"><i class="fa-solid fa-leaf"></i> 350 XP</div>
+            </div>
+        </div>
+
+        <main class="css-form-card">
+            <div class="css-collapsible-header" id="js-toggle-form">
+                <h2 class="css-section-title">Nova Solicitação de Coleta</h2>
+                <i class="fa-solid fa-chevron-down css-arrow"></i>
+            </div>
+
+            <div class="css-collapsible-content" style="margin-top: 20px;">
+                <div class="css-form-group">
+                    <label class="css-form-label">Tipo de Material</label>
+                    
+                    <div class="css-radio-box css-selected" id="js-radio-mixed">
+                        <i class="fa-regular fa-circle-dot" id="js-icon-mixed"></i>
+                        <span>Resíduo Seco Misturado (Recomendado)</span>
+                    </div>
+
+                    <div class="css-radio-box" id="js-radio-cat">
+                        <i class="fa-regular fa-circle" id="js-icon-cat"></i>
+                        <span>Separado por Categoria</span>
+                    </div>
+
+                    <div class="css-sub-categories hide" id="js-box-categories">
+                        <label class="css-checkbox-box">
+                            <input type="radio" name="sub-mat" class="js-exclusive-sub"> Papelão
+                        </label>
+                        <label class="css-checkbox-box">
+                            <input type="radio" name="sub-mat" class="js-exclusive-sub"> Plástico
+                        </label>
+                    </div>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Volume Estimado</label>
+                    <div class="css-volume-grid">
+                        <div class="css-volume-option js-vol">
+                            <div class="css-volume-title">Pouco</div>
+                            <div class="css-volume-desc">Até 2 sacos grandes</div>
+                        </div>
+                        <div class="css-volume-option js-vol">
+                            <div class="css-volume-title">Médio</div>
+                            <div class="css-volume-desc">3 a 5 sacos ou caixas</div>
+                        </div>
+                        <div class="css-volume-option js-vol">
+                            <div class="css-volume-title">Muito</div>
+                            <div class="css-volume-desc">Mais de 5 sacos / Fardos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Agendamento de Retirada</label>
+                    <div class="css-input-row">
+                        <div>
+                            <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Data da coleta</span>
+                            <input type="date" class="css-input-field" value="2026-06-16">
+                        </div>
+                        <div>
+                            <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Janela de Horário</span>
+                            <input type="text" class="css-input-field" maxlength="100" placeholder="Ex: Apenas após as 14h">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="css-form-group">
+                    <label class="css-form-label">Observações Adicionais</label>
+                    <input type="text" class="css-input-field" placeholder="Ex: Entrar pelo portão lateral...">
+                </div>
+
+                <button type="submit" class="css-btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Lançar Pedido de Busca
+                </button>
+            </div>
+        </main>
+
+        <section class="css-history-section">
+            <div class="css-collapsible-header" id="js-toggle-history" style="margin-bottom: 14px;">
+                <h3 class="css-history-title">Minhas Coletas Recentes</h3>
+                <i class="fa-solid fa-chevron-down css-arrow"></i>
+            </div>
+
+            <div class="css-collapsible-content">
+                <div class="css-history-card">
+                    <div class="css-card-main-info">
+                        <div class="css-info-block"><span class="css-info-label">Data</span><span class="css-info-value">18/06/2026</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Resíduo Seco</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Médio</span></div>
+                        <div class="css-status-container">
+                            <span class="css-status-pill css-status-waiting">Aguardando coletor</span>
+                        </div>
+                    </div>
+                    <div class="css-collector-box hide"></div>
+                    <div class="css-card-footer-align">
+                        <button class="css-btn-cancel">Cancelar Pedido</button>
+                    </div>
+                </div>
+
+                <div class="css-history-card">
+                    <div class="css-card-main-info">
+                        <div class="css-info-block"><span class="css-info-label">Data</span><span class="css-info-value">12/06/2026</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Papelão</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Muito</span></div>
+                        <div class="css-status-container">
+                            <span class="css-status-pill css-status-confirmed">Coleta confirmada</span>
+                        </div>
+                    </div>
+                    <div class="css-collector-box css-collector-row-layout">
+                        <div>
+                            <i class="fa-solid fa-user-check"></i> <strong>Coletor:</strong> Carlos Silva &nbsp;|&nbsp; <i class="fa-solid fa-phone"></i> (11) 98765-4321
+                        </div>
+                        <button class="css-btn-cancel" style="margin: 0;">Cancelar Pedido</button>
+                    </div>
+                </div>
+
+                <div class="css-history-card">
+                <div class="css-card-main-info">
+                    <div class="css-info-block"><span class="css-info-label">Data</span><span class="css-info-value">05/06/2026</span></div>
+                    <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Resíduo Seco</span></div>
+                    <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Pouco</span></div>
+                    <div class="css-status-container">
+                        <span class="css-status-pill css-status-done">Concluído</span>
+                    </div>
+                </div>
+                <div class="css-collector-box">
+                    <i class="fa-solid fa-user-check"></i> <strong>Coletor:</strong> Marcos Lima
+                </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 1. Abre e fecha as seções usando as setas
+        function setupCollapsible(triggerId) {
+            document.getElementById(triggerId).addEventListener('click', function() {
+                this.classList.toggle('css-collapsed');
+            });
+        }
+        setupCollapsible('js-toggle-form');
+        setupCollapsible('js-toggle-history');
+
+        // 2. Comportamento Condicional dos tipos de Material e suas cores
+        const mixedRadio = document.getElementById('js-radio-mixed');
+        const catRadio = document.getElementById('js-radio-cat');
+        const subBox = document.getElementById('js-box-categories');
+        const iconMixed = document.getElementById('js-icon-mixed');
+        const iconCat = document.getElementById('js-icon-cat');
+
+        mixedRadio.addEventListener('click', () => {
+            mixedRadio.classList.add('css-selected');
+            catRadio.classList.remove('css-selected');
+            subBox.classList.add('hide');
+            iconMixed.className = "fa-regular fa-circle-dot";
+            iconCat.className = "fa-regular fa-circle";
+            // Reseta a sub-seleção
+            document.querySelectorAll('.js-exclusive-sub').forEach(el => el.checked = false);
+        });
+
+        catRadio.addEventListener('click', () => {
+            catRadio.classList.add('css-selected');
+            mixedRadio.classList.remove('css-selected');
+            subBox.classList.remove('hide');
+            iconCat.className = "fa-regular fa-circle-dot";
+            iconMixed.className = "fa-regular fa-circle";
+        });
+
+        // 3. Comportamento exclusivo do Volume (Sem opção pré-selecionada)
+        const volOptions = document.querySelectorAll('.js-vol');
+        volOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                volOptions.forEach(opt => opt.classList.remove('css-active'));
+                option.classList.add('css-active');
+            });
+        });
+    </script>
+</body>
+</html>
