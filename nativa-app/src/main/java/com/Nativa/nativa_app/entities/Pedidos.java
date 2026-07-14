@@ -50,7 +50,7 @@ public class Pedidos implements Serializable{
 	@Column(name = "data_coleta", nullable = false)
 	private LocalDate data_coleta;
 	
-	@Column(name = "horario_coleta", length = 200, nullable = false)
+	@Column(name = "horario_coleta", length = 100, nullable = false)
 	private String horario_coleta;
 	
 	@Column(name = "observacao", columnDefinition = "TEXT")
