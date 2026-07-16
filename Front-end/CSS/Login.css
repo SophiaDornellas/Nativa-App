@@ -268,3 +268,69 @@
                 padding: 40px; /* Mais espaço interno no desktop */
             }
         }
+
+
+
+        .css-reset-box {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #e1f2e5; /* Um tom cinza escuro para destacar do fundo principal */
+    border: 1px solid #333;
+    border-radius: 8px;
+    animation: slideDown 0.3s ease-out; /* Efeito suave ao abrir */
+}
+
+.css-reset-text {
+    font-size: 0.85rem;
+    color: #090909;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* Alinhamento do input e botão de envio */
+.css-reset-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.css-reset-input-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: white;
+    color: black;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.css-reset-input-group input:focus {
+    border-color: #4caf50; /* Borda verde ao focar */
+}
+
+.css-reset-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.css-reset-btn:hover {
+    background-color: #45a049;
+}
+
+/* Animação simples para a caixa surgir de forma sutil */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

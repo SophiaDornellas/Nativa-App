@@ -11,11 +11,11 @@
 <body>
 
     <header class="css-header">
-        <a href="#" class="css-brand">
+        <a href="Pagina_inicial.html" class="css-brand">
             <i class="fa-solid fa-leaf css-brand-icon"></i>
             <span>Nativa App</span>
         </a>
-        <a href="#" class="css-register-nav-btn">
+        <a href="Pagina_inicial.html" class="css-register-nav-btn">
             <i class="fa-solid fa-user-plus"></i>
             <span>Cadastrar</span>
         </a>
@@ -29,11 +29,12 @@
         <h1 class="css-page-title">Entre no Nativa App</h1>
 
         <div class="css-login-card">
-            <form>
+            <form id="form_login">
                 <div class="css-form-group">
                     <label class="css-form-label">E-mail *</label>
                     <input 
                         type="email" 
+                        id="input_login_email"
                         class="css-form-input" 
                         placeholder="seu@email.com" 
                         required
@@ -45,6 +46,7 @@
                     <label class="css-form-label">Senha *</label>
                     <input 
                         type="password" 
+                        id = "input_login_senha"
                         class="css-form-input" 
                         placeholder="Sua senha" 
                         required
@@ -52,30 +54,56 @@
                     >
                 </div>
 
-                <div class="css-utility-row">
-                    <label class="css-checkbox-label">
-                        <input type="checkbox" class="css-checkbox-input">
-                        <span>Lembrar de mim</span>
-                    </label>
-                    <a href="#" class="css-forgot-link">Esqueci minha senha</a>
-                </div>
+               
 
-                <button type="submit" class="css-submit-btn">
+                <button type="submit" class="css-submit-btn" id="bot_logar">
                     <span>Entrar</span>
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 </button>
 
-                <div class="css-extra-links">
-                    <span>Ainda não tem conta? </span>
-                    <a href="#" class="css-link-item">Cadastre-se aqui</a>
-                </div>
+                
             </form>
+       <div class="css-utility-row">
+                    <!-- <label class="css-checkbox-label">
+                        <input type="checkbox" class="css-checkbox-input">
+                        <span>Lembrar de mim</span>
+                    </label> -->
+
+                    <details>
+                     <summary>
+                          <a href="#" class="css-forgot-link">Esqueci minha senha</a>
+                     </summary>
+                     <div class="css-reset-box">
+                         <p class="css-reset-text">
+                           Não se preocupe! Digite seu e-mail abaixo e enviaremos um link para você redefinir sua senha.
+                        </p>
+                       <div class="css-reset-input-group">
+                        
+                            <form id="form_esqueciSenha">
+                                <input type="email" id="input_reset_email" name="email"  placeholder="Digite seu e-mail cadastrado" required />
+                                <button type="submit"  id="bot_esqueciSenha" class="css-reset-btn">Enviar e-mail</button>
+                            </form>
+                       
+                            
+                       </div>
+                    </div>
+                    </details>
+                    
+        </div>
+
+        <div class="css-extra-links">
+                    <span>Ainda não tem conta? </span>
+                    <a href="Pagina_inicial.html" class="css-link-item">Cadastre-se aqui</a>
+                </div>
+
         </div>
     </main>
 
     <footer class="css-footer">
         <p>&copy; 2026 Nativa App. Todos os direitos reservados.</p>
     </footer>
+    
+    <script type="module" src="../JS/Login.js"></script>
 
 </body>
 </html>

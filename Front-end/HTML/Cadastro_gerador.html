@@ -12,11 +12,11 @@
 <body>
 
     <header class="css-header">
-        <a href="#" class="css-brand">
+        <a href="Pagina_inicial.html" class="css-brand">
             <i class="fa-solid fa-leaf"></i>
             <span>Nativa App</span>
         </a>
-        <a href="#" class="css-login-btn">
+        <a href="Login.html" class="css-login-btn">
             <i class="fa-solid fa-right-to-bracket"></i> Login
         </a>
     </header>
@@ -30,26 +30,26 @@
         <h1 class="css-page-title">Cadastre-se como gerador de resíduos</h1>
 
         <div class="css-register-card">
-            <form action="#" method="POST" autocomplete="off">
+            <form id="form_cadastro_gerador" autocomplete="off">
                 
                 <div class="css-form-group">
                     <label class="css-form-label">Nome do Estabelecimento / Residência</label>
-                    <input type="text" class="css-form-input" placeholder="Ex.: Restaurante Verde ou Casa da Silva" required>
+                    <input type="text" id="input_nome_gerador" class="css-form-input" placeholder="Ex.: Restaurante Verde ou Casa da Silva" required>
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">E-mail</label>
-                    <input type="email" class="css-form-input" placeholder="voce@exemplo.com" required autocomplete="off">
+                    <input type="email" id="input_email_gerador" class="css-form-input" placeholder="voce@exemplo.com" required autocomplete="off">
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">Telefone / WhatsApp</label>
-                    <input type="tel" class="css-form-input" placeholder="(31) 90000-0000" required>
+                    <input type="tel" id="input_telefone_gerador" class="css-form-input" placeholder="(31) 90000-0000" required>
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">Região de Belo Horizonte</label>
-                    <select class="css-form-input" required>
+                    <select class="css-form-input" id="input_regiao_gerador" required>
                         <option value="" disabled selected>Selecione a região...</option>
                         <option value="barreiro">Barreiro</option>
                         <option value="centro-sul">Centro-Sul</option>
@@ -65,18 +65,18 @@
 
                 <div class="css-form-group">
                     <label class="css-form-label">Localização do Estabelecimento</label>
-                    <input type="text" class="css-form-input" placeholder="Rua, número, bairro, cidade" required>
+                    <input type="text" id="input_endereco_gerador" class="css-form-input" placeholder="Rua, número, bairro, cidade" required>
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">Senha</label>
-                    <input type="password" class="css-form-input" placeholder="••••••••" required autocomplete="off">
+                    <input type="password" id="input_senha_gerador" class="css-form-input" placeholder="••••••••" required autocomplete="off">
                 </div>
 
                 <button type="submit" class="css-submit-btn">Cadastrar</button>
                 
                 <div class="css-extra-links">
-                    <p>Já possui uma conta? <a href="#" class="css-link-item">Faça login</a></p>
+                    <p>Já possui uma conta? <a href="Login.html" class="css-link-item">Faça login</a></p>
                 </div>
             </form>
         </div>
@@ -86,6 +86,8 @@
     <footer class="css-footer">
         <p>&copy; 2026 Nativa App. Todos os direitos reservados.</p>
     </footer>
+
+    <script type="module" src="../JS/Cadastro_gerador.js"></script>
 
 </body>
 </html>

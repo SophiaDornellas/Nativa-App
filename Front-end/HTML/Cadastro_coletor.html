@@ -11,11 +11,11 @@
 <body>
 
     <header class="css-header">
-        <a href="#" class="css-brand">
+        <a href="../HTML/Pagina_inicial.html" class="css-brand">
             <i class="fa-solid fa-leaf"></i>
             <span>Nativa App</span>
         </a>
-        <a href="#" class="css-login-btn">
+        <a href="../HTML/Login.html" class="css-login-btn">
             <i class="fa-solid fa-right-to-bracket"></i> Login
         </a>
     </header>
@@ -29,32 +29,32 @@
         <h1 class="css-page-title">Cadastre-se como coletor</h1>
 
         <div class="css-register-card">
-            <form action="#" method="POST" autocomplete="off">
+            <form action="#" id="form_cadastro_coletor"  autocomplete="off">
                 
                 <div class="css-form-group">
                     <label class="css-form-label">Nome Completo</label>
-                    <input type="text" class="css-form-input" placeholder="Digite seu nome" required>
+                    <input type="text" id="input_nome_coletor" class="css-form-input" placeholder="Digite seu nome" required>
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">E-mail</label>
-                    <input type="email" class="css-form-input" placeholder="exemplo@email.com" required autocomplete="off">
+                    <input type="email" id="input_email_coletor" class="css-form-input" placeholder="exemplo@email.com" required autocomplete="off">
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">Telefone / WhatsApp</label>
-                    <input type="tel" class="css-form-input" placeholder="(00) 00000-0000" required>
+                    <input type="tel" id="input_telefone_coletor" class="css-form-input" placeholder="(00) 00000-0000" required>
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">Senha</label>
-                    <input type="password" class="css-form-input" placeholder="Crie uma senha segura" required autocomplete="off">
+                    <input type="password" id="input_senha_coletor" class="css-form-input" placeholder="Crie uma senha segura" required autocomplete="off">
                 </div>
 
                 <button type="submit" class="css-submit-btn">Cadastrar</button>
                 
                 <div class="css-extra-links">
-                    <p>Já possui uma conta? <a href="#" class="css-link-item">Faça login</a></p>
+                    <p>Já possui uma conta? <a href="../HTML/Login.html" class="css-link-item">Faça login</a></p>
                 </div>
             </form>
         </div>
@@ -64,6 +64,6 @@
     <footer class="css-footer">
         <p>&copy; 2026 Nativa App. Todos os direitos reservados.</p>
     </footer>
-
+    <script type="module" src="../JS/Cadastro_coletor.js"></script>
 </body>
 </html>
