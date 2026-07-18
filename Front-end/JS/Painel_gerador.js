@@ -4,6 +4,8 @@
 // Importar 'auth' do seu arquivo Firebase-init.js
 // Importar onAuthStateChanged do SDK do Firebase Auth
 
+// Atualizar a página a cada 10s
+
 
 // =========================================================================
 // 2. VARIÁVEIS GLOBAIS E SELETORES DO DOM
