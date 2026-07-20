@@ -64,11 +64,13 @@ public class PedidosController {
 			Usuarios coletor = new Usuarios();
 			coletor.setId(id_coletor);
 		   // return retornar livros com método do repository
-			return pedidoRepository.findByIdGeradorOrderByIdPedidoDesc(coletor);
-	   }catch(Exception e) {
-		   throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
-	   }
-	  
+			return pedidoRepository.findByIdColetorOrderByIdPedidoDesc(coletor);
+			
+	   }catch (com.google.firebase.auth.FirebaseAuthException e) {
+	        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token do coletor inválido ou expirado", e);
+	    } catch (Exception e) {
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao buscar pedidos do coletor", e);
+	    }
   }
   
   @GetMapping("/gerador")
@@ -82,9 +84,11 @@ public class PedidosController {
 			gerador.setId(id_gerador);
 		   // return retornar livros com método do repository
 			return pedidoRepository.findByIdGeradorOrderByIdPedidoDesc(gerador);
-	   }catch(Exception e) {
-		   throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
-	   }
+	   }catch (com.google.firebase.auth.FirebaseAuthException e) {
+	        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token do coletor inválido ou expirado", e);
+	    } catch (Exception e) {
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao buscar pedidos do coletor", e);
+	    }
 	  
   }
   
@@ -102,12 +106,15 @@ public class PedidosController {
 			FirebaseToken decodedToken_gerador = FirebaseAuth.getInstance().verifyIdToken(token_gerador);
 			String id_gerador = decodedToken_gerador.getUid();
 			Usuarios gerador = new Usuarios();
+			gerador.setId(id_gerador);
 			pedido.setId_gerador(gerador);
 		  // return salvar livro 
 			return pedidoRepository.save(pedido);
-	  }catch(Exception e){
-		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
-	  }
+	  }catch (com.google.firebase.auth.FirebaseAuthException e) {
+	        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token do gerador inválido ou expirado", e);
+	    } catch (Exception e) {
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao registrar o pedido de coleta", e);
+	    }
 	  
   }
   
@@ -132,9 +139,13 @@ public class PedidosController {
 		    
 			return ResponseEntity.noContent().build();
 			
-	  }catch(Exception e) {
-		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
-	  }
+	  }catch (ResponseStatusException e) {
+	        throw e; // O "Pedágio Livre": Não deixa o Exception debaixo engolir seu 404 Not Found!
+	    } catch (com.google.firebase.auth.FirebaseAuthException e) {
+	        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+	    } catch (Exception e) {
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao tentar remover o pedido", e);
+	    }
 	  
   }
   
@@ -151,7 +162,7 @@ public class PedidosController {
 		  String id_geradorEditor = decodedToken_gerador.getUid();
 		  
 		  Pedidos pedidoExistente = pedidoRepository.findById(id).orElseThrow(() ->
-          new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado")
+          new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado")
           );
 		  
 		  if(!pedidoExistente.getId_gerador().getId().equals(id_geradorEditor)){

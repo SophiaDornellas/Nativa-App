@@ -43,8 +43,12 @@ public class UsuariosController {
 		  usuario.setId(id_usuario);
 		  return usuarioRepository.save(usuario);
 		  
-		}catch(Exception e) {
-			 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		}catch (com.google.firebase.auth.FirebaseAuthException e) {
+		    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		} catch (org.springframework.dao.DataIntegrityViolationException e) {
+		    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este e-mail já está cadastrado", e);
+		} catch (Exception e) {
+		    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno ao cadastrar o usuário", e);
 		}
 		
 	}
@@ -64,8 +68,12 @@ public class UsuariosController {
 			  
 			  return usuarioRepository.findById(id_usuario).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 			
-		}catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		}catch (ResponseStatusException e) {
+		    throw e; 
+		} catch (com.google.firebase.auth.FirebaseAuthException e) {
+		    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		} catch (Exception e) {
+		    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao buscar dados do perfil", e);
 		}
 	}
 	
@@ -92,8 +100,12 @@ public class UsuariosController {
 			  
 			  return ResponseEntity.ok(usuarioRepository.save(usuarioExistente));
 			
-		}catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		}catch (ResponseStatusException e) {
+		    throw e; 
+		} catch (com.google.firebase.auth.FirebaseAuthException e) {
+		    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		} catch (Exception e) {
+		    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar dados do perfil", e);
 		}
 	}
 	
