@@ -30,16 +30,16 @@ public class Usuarios implements Serializable {
 	@Column(name = "tipo_usuario", nullable = false)
 	private String tipo_usuario;
 	
-	@Column(name = "endereco_regiao", nullable = false)
+	@Column(name = "endereco_regiao")
 	private String endereco_regiao;
 	
-	@Column(name = "latitude", nullable = false)
+	@Column(name = "latitude")
 	private Double latitude;
 	
-	@Column(name = "longitude", nullable = false)
+	@Column(name = "longitude")
 	private Double longitude;
 	
-	@Column(name = "xp_total", nullable = false)
+	@Column(name = "xp_total")
 	private Integer xp_total = 0;
 	
 	public Usuarios() {

@@ -23,8 +23,11 @@ function cadastrarColetor(email, senha, nome, telefone){
        const user = userCredential.user
        user.getIdToken(true).then((idToken)=>{
          
-
+        const emailFire = user.email;
+        console.log(idToken)
+        postarUsuario(idToken, emailFire , nome, telefone)
          // fetch --> post 
+
          // se o post for bem sucedido --> direcionar para painel do coletor.
        })
     })
@@ -33,24 +36,36 @@ function cadastrarColetor(email, senha, nome, telefone){
     })
 }
 
+async function postarUsuario(idToken, email, nome, telefone){
+      try{
+           const resposta = await fetch("http://localhost:8080/usuario", {
+              method: "POST",
+
+              headers: {
+                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${idToken}`
+              },
+
+              body:  JSON.stringify({
+                "nome": nome,
+                "email": email,
+                "telefone": telefone,
+                "tipo_usuario": "COLETOR"
+            })
+           })
+
+           if(resposta.ok){
+            console.log("Usuário cadastrado com sucesso no banco Java!")
+            window.location.href = "Painel_coletor.html"
+           }
+      }catch(erro){
+        console.log( "Erro no fetch (post do coletor)" + erro)
+      }
+}
 
 
 
-// ELEMENTOS A MAPEAR DO DOM:
-// - Input "Nome Completo" [20]
-// - Input "E-mail" [20]
-// - Input "Telefone / WhatsApp" [21]
-// - Input "Senha" [21]
-// - Formulário de Cadastro (evento de submit) [21]
 
-// ESTRUTURAS E LÓGICAS DE PROGRAMAÇÃO:
-// Evento: Submit do Formulário:
-//    - Bloquear recarregamento da página (event.preventDefault())
-//    - Capturar Nome, E-mail, Telefone e Senha dos inputs [20, 21]
-//    - Chamar 'createUserWithEmailAndPassword(auth, email, senha)' [4, 7]
-//    - No Sucesso da criação de credenciais no Firebase:
-//         * Pegar o UID gerado pelo Firebase para esse usuário
-//         * Fazer uma requisição HTTP POST para o seu back-end Java Spring Boot [22-24]
-//           enviando um JSON contendo: { uid, nome, telefone, email }
-//         * No sucesso do banco Java: redirecionar para o painel de coletas
+
+
 //    - No Erro: verificar se o erro é de "e-mail já em uso" ou "senha muito curta" e exibir mensagem amigável na tela

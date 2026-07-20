@@ -36,20 +36,35 @@ public class UsuariosController {
 			@RequestBody Usuarios usuario) {
 		
 		try {
+			
+			System.out.println("NOME RECEBIDO: " + usuario.getNome());
+		    System.out.println("EMAIL RECEBIDO: " + usuario.getEmail());
+		    System.out.println("TIPO RECEBIDO: " + usuario.getTipo_usuario());
+		    System.out.println("token RECEBIDO: " + idToken_usuario);
+		    
 		  String token_usuario = idToken_usuario.replace("Bearer", "").trim();
 		  FirebaseToken decodedToken_usuario = FirebaseAuth.getInstance().verifyIdToken(token_usuario);
 		  String id_usuario = decodedToken_usuario.getUid();
+		  
+		    System.out.println("NOME RECEBIDO: " + usuario.getNome());
+		    System.out.println("EMAIL RECEBIDO: " + usuario.getEmail());
+		    System.out.println("TIPO RECEBIDO: " + usuario.getTipo_usuario());
+		    System.out.println("token RECEBIDO: " + id_usuario);
 		
 		  usuario.setId(id_usuario);
 		  return usuarioRepository.save(usuario);
 		  
-		}catch (com.google.firebase.auth.FirebaseAuthException e) {
-		    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
-		} catch (org.springframework.dao.DataIntegrityViolationException e) {
-		    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este e-mail já está cadastrado", e);
-		} catch (Exception e) {
+		}catch(Exception e) {
+			e.printStackTrace(); // 💡 Isso vai cuspir o erro real e a causa no console do Eclipse!
 		    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno ao cadastrar o usuário", e);
 		}
+		//catch (com.google.firebase.auth.FirebaseAuthException e) {
+		  //  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+		//} catch (org.springframework.dao.DataIntegrityViolationException e) {
+		    //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este e-mail já está cadastrado", e);
+		//} catch (Exception e) {
+		  //  throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno ao cadastrar o usuário", e);
+		//}
 		
 	}
 	
