@@ -43,27 +43,27 @@ function logar(email, senha){
         const user = userCredential.user
 
         user.getIdToken(true).then((idToken)=>{
-        //    fetch("http://localhost:8080/api/usuarios/perfil", {
-        //         method: "GET",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             "Authorization": "Bearer " + idToken // Enviando o token de forma segura
-        //         }
-        //     })
-        //     .then(response => response.json())
-        //     .then(dadosUsuario => {
-        //         // 3. O seu back-end responde informando qual é o papel dele (role)
-        //         if (dadosUsuario.role === "GERADOR") {
-        //             window.location.href = "Painel_gerador.html";
-        //         } else if (dadosUsuario.role === "COLETOR") {
-        //             window.location.href = "Painel_coletor.html";
-        //         } else {
-        //             alert("Perfil não identificado no sistema!");
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error("Erro ao buscar perfil no back-end:", error);
-        //     });
+           fetch("http://localhost:8080/api/usuarios/perfil", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + idToken // Enviando o token de forma segura
+                }
+            })
+            .then(response => response.json())
+            .then(dadosUsuario => {
+                // 3. O seu back-end responde informando qual é o papel dele (role)
+                if (dadosUsuario.role === "GERADOR") {
+                    window.location.href = "Painel_gerador.html";
+                } else if (dadosUsuario.role === "COLETOR") {
+                    window.location.href = "Painel_coletor.html";
+                } else {
+                    alert("Perfil não identificado no sistema!");
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao buscar perfil no back-end:", error);
+            });
         })
 
     })

@@ -415,6 +415,91 @@
         }
 
         /* ==========================================================================
+   CORREÇÃO DO CARDS DO HISTÓRICO (DESIGN DENSO E ALINHADO)
+   ========================================================================== */
+
+/* Barra Superior do Card (Data + Status alinhados nas pontas) */
+.css-card-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-gray-border);
+}
+
+.css-date-tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.css-date-tag i {
+    color: var(--color-primary);
+    margin-right: 4px;
+}
+
+/* Reorganização do Grid principal para ficar em 4 colunas perfeitamente alinhadas */
+.css-card-main-info {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px;
+    padding-top: 6px;
+}
+
+.css-xp-text {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* Remove a seta preta feia original do browser no details */
+.css-obs-details summary::-webkit-details-marker,
+.css-obs-details summary::marker {
+    display: none !important;
+    content: "";
+}
+
+.css-obs-details {
+    margin-top: 2px;
+}
+
+.css-obs-summary {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #666;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.css-obs-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+/* Anima a setinha do FontAwesome quando abre */
+.css-obs-details[open] .css-obs-arrow {
+    transform: rotate(180deg);
+}
+
+.css-obs-content {
+    font-size: 0.78rem;
+    color: #444;
+    margin-top: 6px;
+    background-color: #f7fafc;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--color-primary-light);
+}
+
+/* Ajuste mobile para não quebrar em telas bem pequenas */
+@media (max-width: 480px) {
+    .css-card-main-info {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+        /* ==========================================================================
            MEDIA QUERIES (DESKTOP E PROPORÇÕES GRANDES)
            ========================================================================== */
         @media (min-width: 580px) {
@@ -432,3 +517,162 @@
                 gap: 12px;
             }
         }
+
+
+
+        /* ==========================================================================
+   MODAL DE EDIÇÃO DO PERFIL DO GERADOR (COMPACTO E RESPONSIVO)
+   ========================================================================== */
+.gen-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gen-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gen-modal-card {
+    background-color: var(--color-white, #ffffff);
+    width: 100%;
+    max-width: 460px;
+    border-radius: 20px;
+    padding: 22px 18px 18px 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto; /* Permite rolar em telas muito pequenas */
+}
+
+.gen-modal-overlay.active .gen-modal-card {
+    transform: translateY(0);
+}
+
+.gen-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #777;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gen-modal-close:hover {
+    color: var(--color-red, #dc3545);
+}
+
+.gen-modal-title {
+    font-size: 1.1rem;
+    color: var(--color-primary, #2b7a43);
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gen-address-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary, #2b7a43);
+    margin: 12px 0 8px 0;
+    padding-top: 8px;
+    border-top: 1px dashed #d2e4d6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gen-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.gen-modal-field label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-dark, #2d3748);
+}
+
+.gen-modal-input, .gen-modal-select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    border: 1.5px solid var(--color-gray-border, #d2e4d6);
+    border-radius: 10px;
+    outline: none;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.gen-modal-input:focus, .gen-modal-select:focus {
+    border-color: var(--color-primary, #2b7a43);
+}
+
+/* Grid de duas colunas para otimizar espaço */
+.gen-modal-grid-2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* O primeiro campo fica maior que o segundo */
+    gap: 8px;
+}
+
+
+/* ==========================================================================
+   ESTILOS DO MODAL DE LOGOUT / SAIR
+   ========================================================================== */
+.gen-modal-logout-card {
+    max-width: 380px !important;
+    text-align: center;
+    padding: 24px 20px !important;
+}
+
+.gen-modal-logout-text {
+    font-size: 0.88rem;
+    color: #555;
+    margin: 12px 0 20px 0;
+}
+
+/* Botão Vermelho Centralizado de Sair */
+.css-btn-logout-danger {
+    width: 100%;
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    border: none;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+}
+
+.css-btn-logout-danger:hover {
+    background-color: var(--color-danger-hover);
+    transform: translateY(-1px);
+}

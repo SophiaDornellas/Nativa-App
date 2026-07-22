@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nativa App - Solicitação de Coleta</title>
     <link rel="stylesheet" href="../CSS/Painel_gerador.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    
 </head>
+
 <body>
 
     <div class="css-main-wrapper">
 
+        <!-- NAV SUPERIOR -->
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <a href="#" class="css-top-nav">
                 <i class="fa-solid fa-arrow-left"></i> Voltar
@@ -22,6 +23,7 @@
             </a>
         </div>
 
+        <!-- PERFIL SUPERIOR -->
         <div class="css-profile-panel">
             <div class="css-profile-info">
                 <div class="css-store-icon">
@@ -38,79 +40,85 @@
             </div>
         </div>
 
+        <!-- FORMULÁRIO DE NOVA SOLICITAÇÃO -->
         <main class="css-form-card">
             <div class="css-collapsible-header" id="js-toggle-form">
                 <h2 class="css-section-title">Nova Solicitação de Coleta</h2>
                 <i class="fa-solid fa-chevron-down css-arrow"></i>
             </div>
 
-            <div class="css-collapsible-content" style="margin-top: 20px;">
-                <div class="css-form-group">
-                    <label class="css-form-label">Tipo de Material</label>
+            <!-- Div retrátil direta (Irmã adjacente da .css-collapsible-header) -->
+            <div class="css-collapsible-content">
+                <form id="formLancarPedido" style="margin-top: 20px;">
                     
-                    <div class="css-radio-box css-selected" id="js-radio-mixed">
-                        <i class="fa-regular fa-circle-dot" id="js-icon-mixed"></i>
-                        <span>Resíduo Seco Misturado (Recomendado)</span>
-                    </div>
+                    <div class="css-form-group">
+                        <label class="css-form-label">Tipo de Material</label>
 
-                    <div class="css-radio-box" id="js-radio-cat">
-                        <i class="fa-regular fa-circle" id="js-icon-cat"></i>
-                        <span>Separado por Categoria</span>
-                    </div>
-
-                    <div class="css-sub-categories hide" id="js-box-categories">
-                        <label class="css-checkbox-box">
-                            <input type="radio" name="sub-mat" class="js-exclusive-sub"> Papelão
-                        </label>
-                        <label class="css-checkbox-box">
-                            <input type="radio" name="sub-mat" class="js-exclusive-sub"> Plástico
-                        </label>
-                    </div>
-                </div>
-
-                <div class="css-form-group">
-                    <label class="css-form-label">Volume Estimado</label>
-                    <div class="css-volume-grid">
-                        <div class="css-volume-option js-vol">
-                            <div class="css-volume-title">Pouco</div>
-                            <div class="css-volume-desc">Até 2 sacos grandes</div>
+                        <div class="css-radio-box css-selected" id="js-radio-mixed">
+                            <i class="fa-regular fa-circle-dot" id="js-icon-mixed"></i>
+                            <span>Resíduo Seco Misturado</span>
                         </div>
-                        <div class="css-volume-option js-vol">
-                            <div class="css-volume-title">Médio</div>
-                            <div class="css-volume-desc">3 a 5 sacos ou caixas</div>
+
+                        <div class="css-radio-box" id="js-radio-cat">
+                            <i class="fa-regular fa-circle" id="js-icon-cat"></i>
+                            <span>Separado por Categoria</span>
                         </div>
-                        <div class="css-volume-option js-vol">
-                            <div class="css-volume-title">Muito</div>
-                            <div class="css-volume-desc">Mais de 5 sacos / Fardos</div>
+
+                        <div class="css-sub-categories hide" id="js-box-categories">
+                            <label class="css-checkbox-box">
+                                <input type="radio" name="sub-mat" class="js-exclusive-sub"> Papelão
+                            </label>
+                            <label class="css-checkbox-box">
+                                <input type="radio" name="sub-mat" class="js-exclusive-sub"> Plástico
+                            </label>
                         </div>
                     </div>
-                </div>
 
-                <div class="css-form-group">
-                    <label class="css-form-label">Agendamento de Retirada</label>
-                    <div class="css-input-row">
-                        <div>
-                            <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Data da coleta</span>
-                            <input type="date" class="css-input-field" value="2026-06-16">
-                        </div>
-                        <div>
-                            <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Janela de Horário</span>
-                            <input type="text" class="css-input-field" maxlength="100" placeholder="Ex: Apenas após as 14h">
+                    <div class="css-form-group">
+                        <label class="css-form-label">Volume Estimado</label>
+                        <div class="css-volume-grid">
+                            <div class="css-volume-option js-vol">
+                                <div class="css-volume-title" id="opcaoVolumePouco">Pouco</div>
+                                <div class="css-volume-desc">Até 2 sacos grandes</div>
+                            </div>
+                            <div class="css-volume-option js-vol">
+                                <div class="css-volume-title" id="opcaoVolumeMedio">Médio</div>
+                                <div class="css-volume-desc">3 a 5 sacos ou caixas</div>
+                            </div>
+                            <div class="css-volume-option js-vol">
+                                <div class="css-volume-title" id="opcaoVolumeMuito">Muito</div>
+                                <div class="css-volume-desc">Mais de 5 sacos / Fardos</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="css-form-group">
-                    <label class="css-form-label">Observações Adicionais</label>
-                    <input type="text" class="css-input-field" placeholder="Ex: Entrar pelo portão lateral...">
-                </div>
+                    <div class="css-form-group">
+                        <label class="css-form-label">Agendamento de Retirada</label>
+                        <div class="css-input-row">
+                            <div>
+                                <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Data da coleta</span>
+                                <input type="date" class="css-input-field" required id="inputDataColeta">
+                            </div>
+                            <div>
+                                <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Janela de Horário</span>
+                                <input type="text" class="css-input-field" id="inputHorarioColeta" maxlength="100" placeholder="Ex: Apenas após as 14h">
+                            </div>
+                        </div>
+                    </div>
 
-                <button type="submit" class="css-btn-submit">
-                    <i class="fa-solid fa-paper-plane"></i> Lançar Pedido de Busca
-                </button>
+                    <div class="css-form-group">
+                        <label class="css-form-label">Observações Adicionais</label>
+                        <input type="text" class="css-input-field" id="iputObservacaoColeta" placeholder="Ex: Entrar pelo portão lateral...">
+                    </div>
+
+                    <button type="submit" id="lancarPedido" class="css-btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> Lançar Pedido de Busca
+                    </button>
+                </form>
             </div>
         </main>
 
+        <!-- SEÇÃO DE HISTÓRICO (INCLUÍDA DENTRO DO MAIN-WRAPPER PARA EXPANDIR) -->
         <section class="css-history-section">
             <div class="css-collapsible-header" id="js-toggle-history" style="margin-bottom: 14px;">
                 <h3 class="css-history-title">Minhas Coletas Recentes</h3>
@@ -118,30 +126,49 @@
             </div>
 
             <div class="css-collapsible-content">
+                <!-- CARD 1: AGUARDANDO COLETOR -->
                 <div class="css-history-card">
+                    <div class="css-card-top-bar">
+                        <span class="css-date-tag"><i class="fa-regular fa-calendar"></i> 18/06/2026</span>
+                        <span class="css-status-pill css-status-waiting">Aguardando coletor</span>
+                    </div>
+
                     <div class="css-card-main-info">
-                        <div class="css-info-block"><span class="css-info-label">Data</span><span class="css-info-value">18/06/2026</span></div>
                         <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Resíduo Seco</span></div>
                         <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Médio</span></div>
-                        <div class="css-status-container">
-                            <span class="css-status-pill css-status-waiting">Aguardando coletor</span>
-                        </div>
+                        <div class="css-info-block"><span class="css-info-label">Horário</span><span class="css-info-value">08h - 11h</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Ganho</span><span class="css-info-value css-xp-text"><i class="fa-solid fa-leaf"></i> +50 XP</span></div>
                     </div>
-                    <div class="css-collector-box hide"></div>
+
+                    <details class="css-obs-details">
+                        <summary class="css-obs-summary">Observação <i class="fa-solid fa-chevron-down css-obs-arrow"></i></summary>
+                        <p class="css-obs-content">Deixar os sacos próximos ao portão principal de carga e descarga.</p>
+                    </details>
+
                     <div class="css-card-footer-align">
                         <button class="css-btn-cancel">Cancelar Pedido</button>
                     </div>
                 </div>
 
+                <!-- CARD 2: COLETA CONFIRMADA -->
                 <div class="css-history-card">
+                    <div class="css-card-top-bar">
+                        <span class="css-date-tag"><i class="fa-regular fa-calendar"></i> 12/06/2026</span>
+                        <span class="css-status-pill css-status-confirmed">Coleta confirmada</span>
+                    </div>
+
                     <div class="css-card-main-info">
-                        <div class="css-info-block"><span class="css-info-label">Data</span><span class="css-info-value">12/06/2026</span></div>
                         <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Papelão</span></div>
                         <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Muito</span></div>
-                        <div class="css-status-container">
-                            <span class="css-status-pill css-status-confirmed">Coleta confirmada</span>
-                        </div>
+                        <div class="css-info-block"><span class="css-info-label">Horário</span><span class="css-info-value">Após 14h</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Ganho</span><span class="css-info-value css-xp-text"><i class="fa-solid fa-leaf"></i> +50 XP</span></div>
                     </div>
+
+                    <details class="css-obs-details">
+                        <summary class="css-obs-summary">Observação <i class="fa-solid fa-chevron-down css-obs-arrow"></i></summary>
+                        <p class="css-obs-content">Entrar pela garagem lateral e interfonar na recepção.</p>
+                    </details>
+
                     <div class="css-collector-box css-collector-row-layout">
                         <div>
                             <i class="fa-solid fa-user-check"></i> <strong>Coletor:</strong> Carlos Silva &nbsp;|&nbsp; <i class="fa-solid fa-phone"></i> (11) 98765-4321
@@ -150,25 +177,145 @@
                     </div>
                 </div>
 
+                <!-- CARD 3: CONCLUÍDO -->
                 <div class="css-history-card">
-                <div class="css-card-main-info">
-                    <div class="css-info-block"><span class="css-info-label">Data</span><span class="css-info-value">05/06/2026</span></div>
-                    <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Resíduo Seco</span></div>
-                    <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Pouco</span></div>
-                    <div class="css-status-container">
+                    <div class="css-card-top-bar">
+                        <span class="css-date-tag"><i class="fa-regular fa-calendar"></i> 05/06/2026</span>
                         <span class="css-status-pill css-status-done">Concluído</span>
                     </div>
-                </div>
-                <div class="css-collector-box">
-                    <i class="fa-solid fa-user-check"></i> <strong>Coletor:</strong> Marcos Lima
-                </div>
+
+                    <div class="css-card-main-info">
+                        <div class="css-info-block"><span class="css-info-label">Material</span><span class="css-info-value">Resíduo Seco</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Volume</span><span class="css-info-value">Pouco</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Horário</span><span class="css-info-value">10h - 12h</span></div>
+                        <div class="css-info-block"><span class="css-info-label">Ganho</span><span class="css-info-value css-xp-text"><i class="fa-solid fa-leaf"></i> +50 XP</span></div>
+                    </div>
+
+                    <details class="css-obs-details">
+                        <summary class="css-obs-summary">Observação <i class="fa-solid fa-chevron-down css-obs-arrow"></i></summary>
+                        <p class="css-obs-content">Coleta realizada com sucesso na entrada do estabelecimento.</p>
+                    </details>
+
+                    <div class="css-collector-box">
+                        <i class="fa-solid fa-user-check"></i> <strong>Coletor:</strong> Marcos Lima
+                    </div>
                 </div>
             </div>
         </section>
+
+    </div> <!-- FIM DO CSS-MAIN-WRAPPER -->
+
+    <!-- MODAL FLUTUANTE -->
+    <div class="gen-modal-overlay" id="modalEditarPerfilGerador">
+        <div class="gen-modal-card">
+            <button class="gen-modal-close" id="btnFecharModalGerador">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="gen-modal-title">
+                <i class="fa-solid fa-store"></i> Editar Perfil do Estabelecimento
+            </h3>
+
+            <form id="formEditarPerfilGerador" onsubmit="return false;">
+                <div class="gen-modal-field">
+                    <label for="genEditNome">Nome / Razão Social:</label>
+                    <input type="text" id="genEditNome" class="gen-modal-input" placeholder="Ex: Padaria do Toninho">
+                </div>
+
+                <div class="gen-modal-field">
+                    <label for="genEditTelefone">Telefone de Contato:</label>
+                    <input type="tel" id="genEditTelefone" class="gen-modal-input" placeholder="(31) 99999-9999">
+                </div>
+
+                <div class="gen-address-section-title">
+                    <i class="fa-solid fa-location-dot"></i> Endereço do Estabelecimento
+                </div>
+
+                <div class="gen-modal-grid-2">
+                    <div class="gen-modal-field">
+                        <label for="genEditRua">Rua / Logradouro:</label>
+                        <input type="text" id="genEditRua" class="gen-modal-input" placeholder="Ex: Av. Otacílio Negrão">
+                    </div>
+
+                    <div class="gen-modal-field">
+                        <label for="genEditNumero">Número:</label>
+                        <input type="text" id="genEditNumero" class="gen-modal-input" placeholder="Ex: 1200">
+                    </div>
+                </div>
+
+                <div class="gen-modal-grid-2">
+                    <div class="gen-modal-field">
+                        <label for="genEditBairro">Bairro:</label>
+                        <input type="text" id="genEditBairro" class="gen-modal-input" placeholder="Ex: Pampulha">
+                    </div>
+
+                    <div class="gen-modal-field">
+                        <label for="genEditRegiao">Região de BH:</label>
+                        <select id="genEditRegiao" class="gen-modal-select">
+                            <option value="">Selecione...</option>
+                            <option value="Barreiro">Barreiro</option>
+                            <option value="Centro-Sul">Centro-Sul</option>
+                            <option value="Leste">Leste</option>
+                            <option value="Pampulha">Pampulha</option>
+                            <option value="Venda Nova">Venda Nova</option>
+                            <option value="Nordeste">Nordeste</option>
+                            <option value="Noroeste">Noroeste</option>
+                            <option value="Norte">Norte</option>
+                            <option value="Oeste">Oeste</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="gen-modal-grid-2">
+                    <div class="gen-modal-field">
+                        <label for="genEditCidade">Cidade:</label>
+                        <select id="genEditCidade" class="gen-modal-select">
+                            <option value="Belo Horizonte" selected>Belo Horizonte</option>
+                        </select>
+                    </div>
+
+                    <div class="gen-modal-field">
+                        <label for="genEditEstado">Estado (UF):</label>
+                        <select id="genEditEstado" class="gen-modal-select">
+                            <option value="MG" selected>MG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="btnSalvarPerfilGerador" class="css-btn-submit" style="margin-top: 15px; width: 100%;">
+                    <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações
+                </button>
+            </form>
+        </div>
     </div>
 
+    <!-- =========================================================================
+     MODAL DE CONFIRMAÇÃO DE SAIR (FLUTUANTE)
+     ========================================================================= -->
+<div class="gen-modal-overlay" id="modalConfirmarSair">
+    <div class="gen-modal-card gen-modal-logout-card">
+        <!-- Botão Fechar (X) -->
+        <button class="gen-modal-close" id="btnFecharModalSair">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3 class="gen-modal-title" style="justify-content: center; color: var(--color-danger);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+        </h3>
+
+        <p class="gen-modal-logout-text">
+            Tem certeza de que deseja encerrar sua sessão no aplicativo?
+        </p>
+
+        <!-- Botão Principal de Logout -->
+        <button type="button" id="btnConfirmarLogout" class="css-btn-logout-danger">
+            <i class="fa-solid fa-power-off"></i> Sair
+        </button>
+    </div>
+</div>
+
+    <script type="module" src="../JS/Painel_gerador.js"></script>
     <script>
-        // 1. Abre e fecha as seções usando as setas
         function setupCollapsible(triggerId) {
             document.getElementById(triggerId).addEventListener('click', function() {
                 this.classList.toggle('css-collapsed');
@@ -177,7 +324,6 @@
         setupCollapsible('js-toggle-form');
         setupCollapsible('js-toggle-history');
 
-        // 2. Comportamento Condicional dos tipos de Material e suas cores
         const mixedRadio = document.getElementById('js-radio-mixed');
         const catRadio = document.getElementById('js-radio-cat');
         const subBox = document.getElementById('js-box-categories');
@@ -190,7 +336,6 @@
             subBox.classList.add('hide');
             iconMixed.className = "fa-regular fa-circle-dot";
             iconCat.className = "fa-regular fa-circle";
-            // Reseta a sub-seleção
             document.querySelectorAll('.js-exclusive-sub').forEach(el => el.checked = false);
         });
 
@@ -202,7 +347,6 @@
             iconMixed.className = "fa-regular fa-circle";
         });
 
-        // 3. Comportamento exclusivo do Volume (Sem opção pré-selecionada)
         const volOptions = document.querySelectorAll('.js-vol');
         volOptions.forEach(option => {
             option.addEventListener('click', () => {

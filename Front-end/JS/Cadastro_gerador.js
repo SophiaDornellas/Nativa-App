@@ -13,6 +13,19 @@ form_cadastro_gerador.addEventListener("submit", (e) => {
    const endereco_gerador = document.querySelector("#input_endereco_gerador").value
    const regiao_gerador = document.querySelector("#input_regiao_gerador").value
 
+//    // Exemplo de como montar na hora de enviar o PUT/POST de edição:
+// const rua = document.getElementById("genEditRua").value.trim();
+// const numero = document.getElementById("genEditNumero").value.trim();
+// const bairro = document.getElementById("genEditBairro").value.trim();
+// const regiao = document.getElementById("genEditRegiao").value.trim();
+
+// // Padrão: "Rua, Número - Bairro - Região"
+// const endereco_regiao = `Rua ${rua}, ${numero} - Bairro ${bairro} - ${regiao}`;
+
+// RuaEnumero=
+// cidade
+// estado= 
+
    cadastrarGerador(email_gerador, senha_gerador, nome_gerador, telefone_gerador, endereco_gerador, regiao_gerador)
 
 
@@ -25,7 +38,7 @@ function cadastrarGerador(email, senha, nome, telefone, endereco, regiao) {
 
          const user = userCredential.user
          const emailFire = user.email
-         const endereco_regiao = endereco + regiao
+         const endereco_regiao = endereco + regiao //Enviar Bairro para o back-end!!!
 
          user.getIdToken(true).then((idToken) => {
 

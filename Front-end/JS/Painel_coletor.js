@@ -513,25 +513,11 @@ function aparecerBoxEdicao() {
 }
 
 
-
-
-// =========================================================================
-// 6. CONTROLADOR DE AÇÕES NOS CARDS (EVENT DELEGATION)
-// =========================================================================
-// Adicionar ouvinte de "click" no container geral da página (.css-main-content)
-// Capturar o ID do pedido clicado através do card pai mais próximo (.css-request-card)
-
-// ➔ SUB-BLOCO A: Botão "Aceitar e Reservar" (.js-btn-aceitar)
-//    - Fazer FETCH PUT/POST para a API Java associando o pedido a este coletor
-//    - Recarregar as listas do painel e da agenda em caso de sucesso
-
 // ➔ SUB-BLOCO B: Botão "Finalizar Coleta" (.css-btn-blue)
 //    - Fazer FETCH PUT para a API Java alterando o estado do pedido para concluído
 //    - Atualizar o saldo de bônus do coletor no ecrã
 
-// ➔ SUB-BLOCO C: Botão "Cancelar Coleta" (.css-btn-red-outline)
-//    - Exibir uma caixinha de confirmação com confirm()
-//    - Se confirmado, fazer FETCH PUT para a API Java libertando o pedido de volta para a rede
+
 
 // ➔ SUB-BLOCO D: Botão "Rota" (.css-btn-route)
 //    - Capturar o endereço em texto de dentro do card
