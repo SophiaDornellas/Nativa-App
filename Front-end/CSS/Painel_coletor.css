@@ -407,3 +407,103 @@ body {
         padding: 12px;
     }
 }
+
+
+/* ==========================================================================
+   MODAL FLUTUANTE DE EDIÇÃO DE PERFIL
+   ========================================================================== */
+.css-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido semitransparente */
+    backdrop-filter: blur(4px); /* Efeito de desfoque sutil no fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    z-index: 9999;
+    
+    /* Estado oculto padrão */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* CLASSE QUE FAZ O MODAL APARECER */
+.css-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.css-modal-card {
+    background-color: var(--color-white);
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    padding: 24px 20px 20px 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.css-modal-overlay.active .css-modal-card {
+    transform: translateY(0);
+}
+
+/* Botão de Fechar (X) */
+.css-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #777;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.css-modal-close:hover {
+    color: var(--color-red);
+}
+
+.css-modal-title {
+    font-size: 1.15rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.css-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.css-modal-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-dark);
+}
+
+.css-modal-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border: 1.5px solid var(--color-gray-border);
+    border-radius: 10px;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.css-modal-input:focus {
+    border-color: var(--color-primary);
+}

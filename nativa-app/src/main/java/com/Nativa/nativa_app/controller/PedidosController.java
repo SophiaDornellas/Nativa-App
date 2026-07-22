@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Nativa.nativa_app.repository.PedidosRepository;
+import com.Nativa.nativa_app.repository.UsuariosRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 
@@ -38,6 +39,8 @@ import java.util.List;
 public class PedidosController {
   @Autowired
   private PedidosRepository pedidoRepository;
+  @Autowired
+  private UsuariosRepository usuarioRepository;
   
   @GetMapping
   public List<Pedidos> retornarPedidos(
@@ -149,9 +152,9 @@ public class PedidosController {
 	  
   }
   
-  @PutMapping("/{id}")
+  @PutMapping("/gerador-edita/{id}")
   @Transactional
-  public ResponseEntity<Pedidos> editarPedido(
+  public ResponseEntity<Pedidos> geradorEditaPedido(
 		  @RequestHeader("Authorization") String idToken_gerador,
 		  @RequestBody Pedidos pedidoAtualizado,
 		  @PathVariable Long id){
@@ -177,6 +180,46 @@ public class PedidosController {
 	  }catch(Exception e) {
 		  throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
 	  }
+  }
+  
+  @PutMapping("/coletor-edita/{id}")
+  @Transactional
+  public ResponseEntity<Pedidos> coletorEditaPedido(
+		  @RequestHeader("Authorization") String idToken_coletor,
+		  @RequestBody Pedidos pedidoAtualizado,
+		  @PathVariable Long id){
+	  
+	  try {
+		  String token_coletor = idToken_coletor.replace("Bearer", "").trim();
+		  FirebaseToken decodedToken_coletor = FirebaseAuth.getInstance().verifyIdToken(token_coletor);
+		  String id_coletorEditor = decodedToken_coletor.getUid();
+		  
+		  Pedidos pedidoExistente = pedidoRepository.findById(id).orElseThrow(() ->
+          new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado")
+          );
+		  
+		   pedidoExistente.setStatus(pedidoAtualizado.getStatus());
+
+	        // LÓGICA DE CANCELAMENTO / RESERVA:
+	        if ("AGUARDANDO COLETOR".equalsIgnoreCase(pedidoAtualizado.getStatus())) {
+	            // Se o coletor está cancelando a coleta, libera o pedido zerando o coletor
+	            pedidoExistente.setId_coletor(null);
+	        } else {
+	            // Se está aceitando/reservando, associa o coletor logado ao pedido
+	            Usuarios coletorEditor = usuarioRepository.getReferenceById(id_coletorEditor);
+	            pedidoExistente.setId_coletor(coletorEditor);
+	        }
+		  
+		  return ResponseEntity.ok(pedidoRepository.save(pedidoExistente));
+		  
+		  
+	  }catch (com.google.firebase.auth.FirebaseAuthException e) {
+	        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido ou expirado", e);
+	    } catch (ResponseStatusException e) {
+	        throw e;
+	    } catch (Exception e) {
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar pedido: " + e.getMessage(), e);
+	    }
   }
 	  
   

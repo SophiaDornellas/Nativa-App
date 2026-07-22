@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Coletor - Nativa App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/Painel_coletor.css">
+    <style>
+        /* 1. Ajusta o container pai para separar o "Voltar" (esquerda) da "Engrenagem" (direita) */
+        .css-header-back {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* 2. Atualização da classe .css-top-nav */
+        .css-top-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-primary);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
 </head>
+
 <body>
 
     <header class="css-user-header">
         <div class="css-header-back">
             <a href="#"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+
+            <a href="#" class="css-top-nav" id="btnEngrenagem" style="font-size: 1.15rem;">
+                <i class="fa-solid fa-gear"></i>
+            </a>
         </div>
         <div class="css-profile-card">
             <div class="css-profile-info">
@@ -19,7 +45,7 @@
                     <i class="fa-solid fa-truck"></i>
                 </div>
                 <div>
-                    <h2>Carlos</h2>
+                    <h2 id="nomeColetorHeader">Carlos</h2>
                     <p>Coletor Parceiro</p>
                 </div>
             </div>
@@ -31,37 +57,37 @@
     </header>
 
     <main class="css-main-content">
-        
+
         <details class="css-collapsible-section" open>
             <summary class="css-section-title">
                 Pedidos Disponíveis na Rede
                 <i class="fa-solid fa-chevron-down css-arrow-icon"></i>
             </summary>
-            
+
             <div class="css-collapsible-body">
                 <form class="css-filter-grid" onsubmit="return false;">
                     <div class="css-filter-item">
-                        <select class="css-select-input">
-                            <option value="">Tipo de resíduo</option>
+                        <select class="css-select-input" id="tipoResiduoFiltro">
+                            <option value=""> Todos tipos de resíduos</option>
                             <option value="seco">Resíduo seco Misturado</option>
                             <option value="papelao">Papelão</option>
                             <option value="plastico">Plástico</option>
                         </select>
                     </div>
                     <div class="css-filter-item">
-                        <select class="css-select-input">
-                            <option value="">Qualquer volume</option>
+                        <select class="css-select-input" id="volumeFiltro">
+                            <option value=""> Todos volumes</option>
                             <option value="pouco">Pouco</option>
                             <option value="medio">Médio</option>
                             <option value="muito">Muito</option>
                         </select>
                     </div>
                     <div class="css-filter-item">
-                        <input type="date" class="css-select-input">
+                        <input type="date" class="css-select-input" id="dataFiltro" placeholder="Todas datas">
                     </div>
                     <div class="css-filter-item">
-                        <select class="css-select-input">
-                            <option value="">Região</option>
+                        <select class="css-select-input" id="regiaoFiltro">
+                            <option value=""> Todas Regiões</option>
                             <option value="barreiro">Barreiro</option>
                             <option value="centro-sul">Centro-Sul</option>
                             <option value="leste">Leste</option>
@@ -76,14 +102,14 @@
                 </form>
 
                 <div class="css-cards-list">
-                    <div class="css-request-card">
+                    <!-- <div class="css-request-card">
                         <div class="css-card-header">
                             <h3>Padaria do Toninho</h3>
                             <span class="css-status-badge css-status-red">PENDENTE</span>
                         </div>
-                        
+
                         <span class="css-tag-info"><i class="fa-solid fa-leaf"></i> Resíduo Seco Misturado</span>
-                        
+
                         <div class="css-card-details">
                             <p><i class="fa-solid fa-box"></i> <strong>Volume estimado:</strong> Médio</p>
                             <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha</p>
@@ -97,50 +123,86 @@
                         </details>
 
                         <button class="css-btn-action css-btn-green">Aceitar e Reservar</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </details>
-        
 
 
-         <details class="css-collapsible-section" open>
+
+        <details class="css-collapsible-section" open>
             <summary class="css-section-title">
                 <h2 class="css-section-static-title">Minha Agenda de Trabalho</h2>
                 <i class="fa-solid fa-chevron-down css-arrow-icon"></i>
             </summary>
-        
+
             <section class="css-static-section">
-            
-            <!-- <span class="css-day-divider">SEGUNDA-FEIRA</span> -->
 
-              <div class="css-cards-list">
-                <div class="css-request-card css-agenda-card">
-                    <div class="css-card-header">
-                        <h3>Padaria do Toninho</h3>
-                        <span class="css-status-badge css-status-orange">Coleta Confirmada</span>
-                    </div>
+                <!-- <span class="css-day-divider">SEGUNDA-FEIRA</span> -->
 
-                    <div class="css-card-details">
-                        <div class="css-address-row">
-                            <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha</p>
-                            <button class="css-btn-route"><i class="fa-solid fa-map-location-dot"></i> Rota</button>
+                <div class="css-cards-list">
+                    <!-- <div class="css-request-card css-agenda-card">
+                        <div class="css-card-header">
+                            <h3>Padaria do Toninho</h3>
+                            <span class="css-status-badge css-status-orange">Coleta Confirmada</span>
                         </div>
-                        <p><i class="fa-solid fa-clock"></i> 08h00 — 11h00</p>
-                        <p><i class="fa-solid fa-leaf"></i> Residuo Seco Misturado</p>
-                        <p><i class="fa-solid fa-box"></i> <strong>Volume:</strong> Médio</p>
-                    </div>
 
-                    <div class="css-action-group-split">
-                        <button class="css-btn-action css-btn-red-outline">Cancelar Coleta</button>
-                        <button class="css-btn-action css-btn-blue">Finalizar Coleta</button>
-                    </div>
+                        <div class="css-card-details">
+                            <div class="css-address-row">
+                                <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha
+                                </p>
+                                <button class="css-btn-route"><i class="fa-solid fa-map-location-dot"></i> Rota</button>
+                            </div>
+                            <p><i class="fa-solid fa-clock"></i> 08h00 — 11h00</p>
+                            <p><i class="fa-solid fa-leaf"></i> Residuo Seco Misturado</p>
+                            <p><i class="fa-solid fa-box"></i> <strong>Volume:</strong> Médio</p>
+                        </div>
+
+                        <div class="css-action-group-split">
+                            <button class="css-btn-action css-btn-red-outline">Cancelar Coleta</button>
+                            <button class="css-btn-action css-btn-blue">Finalizar Coleta</button>
+                        </div>
+                    </div> -->
                 </div>
-              </div>
             </section>
-         </details>
+        </details>
 
     </main>
 
+    <!-- =========================================================================
+         MODAL DE EDIÇÃO DE PERFIL (FLUTUANTE)
+         ========================================================================= -->
+    <div class="css-modal-overlay" id="modalEditarPerfil">
+        <div class="css-modal-card">
+            <!-- Botão de Fechar (X) -->
+            <button class="css-modal-close" id="btnFecharModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="css-modal-title">
+                <i class="fa-solid fa-user-pen"></i> Editar Perfil
+            </h3>
+
+            <form id="formEditarPerfil" onsubmit="return false;">
+                <div class="css-modal-field">
+                    <label for="editNome">Nome:</label>
+                    <input type="text" id="editNome" class="css-modal-input" placeholder="Digite seu nome">
+                </div>
+
+                <div class="css-modal-field">
+                    <label for="editTelefone">Telefone:</label>
+                    <input type="tel" id="editTelefone" class="css-modal-input" placeholder="(31) 99999-9999">
+                </div>
+
+                <button type="submit" class="css-btn-action css-btn-green" style="margin-top: 10px;">
+                    Salvar Alterações
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../JS/Painel_coletor.js"></script>
+
 </body>
+
 </html>

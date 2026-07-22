@@ -35,22 +35,11 @@ public class UsuariosController {
 			@RequestHeader("Authorization") String idToken_usuario,
 			@RequestBody Usuarios usuario) {
 		
-		try {
-			
-			System.out.println("NOME RECEBIDO: " + usuario.getNome());
-		    System.out.println("EMAIL RECEBIDO: " + usuario.getEmail());
-		    System.out.println("TIPO RECEBIDO: " + usuario.getTipo_usuario());
-		    System.out.println("token RECEBIDO: " + idToken_usuario);
-		    
+		try {		    
 		  String token_usuario = idToken_usuario.replace("Bearer", "").trim();
 		  FirebaseToken decodedToken_usuario = FirebaseAuth.getInstance().verifyIdToken(token_usuario);
 		  String id_usuario = decodedToken_usuario.getUid();
-		  
-		    System.out.println("NOME RECEBIDO: " + usuario.getNome());
-		    System.out.println("EMAIL RECEBIDO: " + usuario.getEmail());
-		    System.out.println("TIPO RECEBIDO: " + usuario.getTipo_usuario());
-		    System.out.println("token RECEBIDO: " + id_usuario);
-		
+		  		
 		  usuario.setId(id_usuario);
 		  return usuarioRepository.save(usuario);
 		  
