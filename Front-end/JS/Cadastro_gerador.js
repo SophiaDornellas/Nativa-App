@@ -121,3 +121,21 @@ async function postarUsuario(idToken, email, nome, telefone, endereco_regiao, la
 //   * O e-mail já esteja cadastrado no Firebase Auth. [21]
 //   * O endereço está errado, curto, api de geolocalização está offline, endereço errado.
 //   * A sua API Java Spring Boot retorne algum erro de banco de dados ou conexão. Se a senha for fraca, ou já existir email, etc
+
+//VALIDAR AS COORDENADAS PARA NÃO VIR ERRADO ***
+
+// fetch(urlMapas)
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data && data.length > 0) {
+//             // ✅ Encontrou o endereço exato!
+//             let latitude = data[0].lat;
+//             let longitude = data[0].lon;
+
+//             // Prossegue salvando no backend...
+//         } else {
+//             // ❌ O endereço digitado não existe ou está incompleto
+//             alert("Não encontramos o endereço informado. Verifique o nome da rua e o número.");
+//             return; // Impede o envio do cadastro
+//         }
+//     });

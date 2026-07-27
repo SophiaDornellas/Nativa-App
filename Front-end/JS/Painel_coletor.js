@@ -210,7 +210,8 @@ function mostrarPedidosdaAgenda(dados) {
         // Evento para abrir o endereço no Google Maps
         btnRota.addEventListener("click", () => {
             if (enderecoTexto !== "Endereço não cadastrado") {
-                const urlMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(enderecoTexto)}`;
+                // const urlMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(enderecoTexto)}`;
+                const urlMaps = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(enderecoTexto)}&dir_action=navigate`;
                 window.open(urlMaps, "_blank");
             } else {
                 alert("Este gerador não possui um endereço cadastrado.");
