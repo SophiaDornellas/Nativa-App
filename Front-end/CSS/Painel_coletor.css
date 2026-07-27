@@ -12,6 +12,9 @@
     --color-orange: #f0a924;
     --color-blue: #0d6efd;
     --transition-fast: all 0.3s ease;
+    --color-danger: #dc3545; /* 👈 ADICIONADO */
+    --color-danger-hover: #bb2d3b; /* 👈 ADICIONADO */
+    --transition-smooth: all 0.3s ease; /* 👈 ADICIONADO */
 }
 
 /* RESET E CONFIGURAÇÕES CORE */
@@ -506,4 +509,44 @@ body {
 
 .css-modal-input:focus {
     border-color: var(--color-primary);
+}
+
+
+/* ==========================================================================
+   ESTILOS DO MODAL DE LOGOUT / SAIR
+   ========================================================================== */
+.gen-modal-logout-card {
+    max-width: 380px !important;
+    text-align: center;
+    padding: 24px 20px !important;
+}
+
+.gen-modal-logout-text {
+    font-size: 0.88rem;
+    color: #555;
+    margin: 12px 0 20px 0;
+}
+
+/* Botão Vermelho Centralizado de Sair */
+.css-btn-logout-danger {
+    width: 100%;
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    border: none;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+}
+
+.css-btn-logout-danger:hover {
+    background-color: var(--color-danger-hover);
+    transform: translateY(-1px);
 }

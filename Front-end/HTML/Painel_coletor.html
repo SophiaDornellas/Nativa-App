@@ -33,7 +33,7 @@
 
     <header class="css-user-header">
         <div class="css-header-back">
-            <a href="#"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+            <a href="#" id="btnVoltarSair"><i class="fa-solid fa-arrow-left Sair"></i> Voltar</a>
 
             <a href="#" class="css-top-nav" id="btnEngrenagem" style="font-size: 1.15rem;">
                 <i class="fa-solid fa-gear"></i>
@@ -200,6 +200,29 @@
             </form>
         </div>
     </div>
+
+    <!-- =========================================================================
+     MODAL DE CONFIRMAÇÃO DE SAIR (FLUTUANTE)
+     ========================================================================= -->
+  <div class="css-modal-overlay" id="modalConfirmarSair">
+    <div class="css-modal-card gen-modal-logout-card">
+        <button class="css-modal-close" id="btnFecharModalSair">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3 class="css-modal-title" style="justify-content: center; color: var(--color-red);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+        </h3>
+
+        <p class="gen-modal-logout-text">
+            Tem certeza de que deseja encerrar sua sessão no aplicativo?
+        </p>
+
+        <button type="button" id="btnConfirmarLogout" class="css-btn-logout-danger">
+            <i class="fa-solid fa-power-off"></i> Sair
+        </button>
+    </div>
+</div>
 
     <script type="module" src="../JS/Painel_coletor.js"></script>
 

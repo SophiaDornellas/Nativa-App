@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.Nativa.nativa_app.entities.Usuarios;
 import com.Nativa.nativa_app.repository.UsuariosRepository;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 
@@ -69,7 +70,7 @@ public class UsuariosController {
 			  String token_usuario = idToken_usuario.replace("Bearer", "").trim();
 			  FirebaseToken decodedToken_usuario = FirebaseAuth.getInstance().verifyIdToken(token_usuario);
 			  String id_usuario = decodedToken_usuario.getUid();
-			  
+			  System.out.println(id_usuario);
 			  return usuarioRepository.findById(id_usuario).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 			
 		}catch (ResponseStatusException e) {

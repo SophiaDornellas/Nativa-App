@@ -41,9 +41,10 @@ function logar(email, senha){
     .then((userCredential)=>{
 
         const user = userCredential.user
+        console.log(user.email)
 
         user.getIdToken(true).then((idToken)=>{
-           fetch("http://localhost:8080/api/usuarios/perfil", {
+           fetch("http://localhost:8080/usuario/perfil", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -52,10 +53,11 @@ function logar(email, senha){
             })
             .then(response => response.json())
             .then(dadosUsuario => {
+                console.log(dadosUsuario)
                 // 3. O seu back-end responde informando qual é o papel dele (role)
-                if (dadosUsuario.role === "GERADOR") {
+                if (dadosUsuario.tipo_usuario === "GERADOR") {
                     window.location.href = "Painel_gerador.html";
-                } else if (dadosUsuario.role === "COLETOR") {
+                } else if (dadosUsuario.tipo_usuario === "COLETOR") {
                     window.location.href = "Painel_coletor.html";
                 } else {
                     alert("Perfil não identificado no sistema!");
@@ -73,17 +75,17 @@ function logar(email, senha){
 }
 
   function esqueciSenha(email){
-    // if(!email){
-    //     alert("Precisa preencher o email")
-    // }
+    if(!email){
+        alert("Precisa preencher o email")
+    }
     sendPasswordResetEmail(auth, email)
     .then(()=>{
-         //aparecer mensagem de email enviado
-        // const resetContainer = document.querySelector(".css-reset-conteiner");
-        //    if (resetContainer) {
-        //         resetContainer.removeAttribute("open");
-        //      }
-        // console.log("email enviado")
+        //  aparecer mensagem de email enviado
+        const resetContainer = document.querySelector(".css-reset-conteiner");
+           if (resetContainer) {
+                resetContainer.removeAttribute("open");
+             }
+        console.log("email enviado")
     }
     )
     .catch((error)=>{

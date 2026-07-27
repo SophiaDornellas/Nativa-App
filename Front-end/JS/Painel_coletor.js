@@ -1,5 +1,5 @@
 import { auth } from "../JS/Firebase-init.js"
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -11,13 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
             carregarDadosDoPerfil()
             carregarMinhaAgenda()
             aparecerBoxEdicao()
-            
+            configurarBotaoVoltarSair()
+
             // Chamar a função que vai montar o filtro e acionar o get dos pedidos
             const selectResiduo = document.getElementById("tipoResiduoFiltro");
             const selectVolume = document.getElementById("volumeFiltro");
             const inputData = document.getElementById("dataFiltro");
             const selectRegiao = document.getElementById("regiaoFiltro");
-            
+
             obterFiltros()
 
             // Para acionar o get dos pedidos sempre que o filtro for alterado
@@ -61,7 +62,7 @@ function obterFiltros() {
 
     console.log("Filtros selecionados:", param.toString());
     carregarPedidosDisponiveis(param.toString())
-    
+
 }
 
 
@@ -99,19 +100,19 @@ async function carregarDadosDoPerfil() {
 
 
 async function carregarPedidosDisponiveis(param) {
-    try{
-    const resposta = await fetch("http://localhost:8080/pedido" + "?" + param)
+    try {
+        const resposta = await fetch("http://localhost:8080/pedido" + "?" + param)
 
-    if(resposta.ok){
-       const dados = await resposta.json()
-       console.log(dados)
-       mostrarPedidosdaLista(dados)
+        if (resposta.ok) {
+            const dados = await resposta.json()
+            console.log(dados)
+            mostrarPedidosdaLista(dados)
 
-    }else{
-        console.log("resposta não retornou ok" + resposta.status)
-    }
-    } catch(error){
-      console.error("Falha ao comunicar com a API para buscar os pedidos", error);
+        } else {
+            console.log("resposta não retornou ok" + resposta.status)
+        }
+    } catch (error) {
+        console.error("Falha ao comunicar com a API para buscar os pedidos", error);
     }
     // Fazer FETCH GET para /api/pedidos/disponiveis passando os parâmetros de busca
     // Limpar o container de pedidos no HTML
@@ -119,23 +120,23 @@ async function carregarPedidosDisponiveis(param) {
 }
 
 async function carregarMinhaAgenda() {
-   try{
-     const resposta = await fetch("http://localhost:8080/pedido/coletor",{
-       method: "GET",
-       headers: {
-        'Authorization': `Bearer ${window.token}`
-       }
-    })
-    if(resposta.ok){
-        const dados = await resposta.json()
-        console.log("AGENDA DO COLETOR:", dados)
-        mostrarPedidosdaAgenda(dados)
-    }else{
-        console.log(resposta.status)
+    try {
+        const resposta = await fetch("http://localhost:8080/pedido/coletor", {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${window.token}`
+            }
+        })
+        if (resposta.ok) {
+            const dados = await resposta.json()
+            console.log("AGENDA DO COLETOR:", dados)
+            mostrarPedidosdaAgenda(dados)
+        } else {
+            console.log(resposta.status)
+        }
+    } catch (error) {
+        console.log("erro na requisição dos pedidos da agenda do coletor" + error)
     }
-} catch(error){
-  console.log("erro na requisição dos pedidos da agenda do coletor" + error)
-}
     // Fazer FETCH GET para /api/pedidos/agenda enviando o token do coletor
     // Limpar o container da seção "Minha Agenda de Trabalho"
     // Mapear os dados e injetar os cards com os botões de Cancelar/Finalizar
@@ -144,7 +145,7 @@ async function carregarMinhaAgenda() {
 function mostrarPedidosdaAgenda(dados) {
     // 1. Seleciona o container específico da Agenda do Coletor
     const containerAgenda = document.querySelector(".css-static-section .css-cards-list");
-    
+
     if (!containerAgenda) return;
 
     // 2. Limpa os cards estáticos anteriores
@@ -205,7 +206,7 @@ function mostrarPedidosdaAgenda(dados) {
         let btnRota = document.createElement("button");
         btnRota.classList.add("css-btn-route");
         btnRota.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> Rota`;
-        
+
         // Evento para abrir o endereço no Google Maps
         btnRota.addEventListener("click", () => {
             if (enderecoTexto !== "Endereço não cadastrado") {
@@ -294,7 +295,7 @@ function atribuirDadosDoPerfil(dados) {
 function mostrarPedidosdaLista(dados) {
     // 1. Seleciona o container específico dos cards de pedidos disponíveis
     const listaPedidos = document.querySelector(".css-collapsible-body .css-cards-list");
-    
+
     if (!listaPedidos) return;
 
     // 2. Limpa o conteúdo estático anterior da tela
@@ -417,11 +418,11 @@ function mostrarPedidosdaLista(dados) {
     });
 }
 
-async function aceitarPedido(idPedido){
-    try{
+async function aceitarPedido(idPedido) {
+    try {
 
         // const user = auth.currentUser;
-        
+
         // if (!user) {
         //     console.error("Usuário não está logado no Firebase!");
         //     alert("Sua sessão expirou. Por favor, faça login novamente.");
@@ -431,26 +432,26 @@ async function aceitarPedido(idPedido){
 
         // // 2. FORÇA a geração de um token 100% NOVO e VÁLIDO no momento do clique
         // const tokenFresco = await user.getIdToken(true);
-       const resposta = await fetch("http://localhost:8080/pedido/coletor-edita/" + idPedido, {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${window.token}`,
-        },
-         body: JSON.stringify({
-               "status": "COLETA CONFIRMADA"
+        const resposta = await fetch("http://localhost:8080/pedido/coletor-edita/" + idPedido, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.token}`,
+            },
+            body: JSON.stringify({
+                "status": "COLETA CONFIRMADA"
             })
-       })
+        })
 
-       if (resposta.ok) {
-            console.log("✅ Pedido reservado com sucesso!");            
+        if (resposta.ok) {
+            console.log("✅ Pedido reservado com sucesso!");
             // Re-executa a busca para recarregar a lista (o pedido sumirá pois o status mudou!)
             carregarMinhaAgenda()
-            obterFiltros(); 
+            obterFiltros();
         } else {
             console.error("Erro no servidor. Status:", resposta.status);
         }
-    } catch(error){
+    } catch (error) {
 
     }
 }
@@ -470,7 +471,7 @@ async function cancelarColeta(idPedido) {
 
         if (resposta.ok) {
             console.log("✅ Coleta cancelada e liberada de volta para a rede!");
-            
+
             // Recarrega ambas as seções da tela
             obterFiltros();        // Reaparece na lista de disponíveis
             carregarMinhaAgenda(); // Sumi da agenda do coletor
@@ -508,6 +509,57 @@ function aparecerBoxEdicao() {
             if (e.target === modalEditarPerfil) {
                 modalEditarPerfil.classList.remove("active");
             }
+        });
+    }
+}
+
+
+async function executarLogout() {
+    try {
+        await signOut(auth);
+        console.log("Usuário deslogado com sucesso.");
+        window.location.href = "Login.html";
+    } catch (error) {
+        console.error("Erro ao tentar deslogar do Firebase:", error);
+        alert("Ocorreu um erro ao tentar sair da conta.");
+    }
+}
+
+// 1. Configura a abertura/fechamento do Modal ao clicar no botão 'Voltar'
+function configurarBotaoVoltarSair() {
+    const btnVoltar = document.querySelector("#btnVoltarSair"); // Pega o primeiro link "Voltar"
+    const modalSair = document.getElementById("modalConfirmarSair");
+    const btnFechar = document.getElementById("btnFecharModalSair");
+    const btnLogout = document.getElementById("btnConfirmarLogout");
+
+    // Abrir o modal ao clicar em "Voltar"
+    if (btnVoltar && modalSair) {
+        btnVoltar.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalSair.classList.add("active");
+        });
+    }
+
+    // Fechar ao clicar no 'X'
+    if (btnFechar && modalSair) {
+        btnFechar.addEventListener("click", () => {
+            modalSair.classList.remove("active");
+        });
+    }
+
+    // Fechar ao clicar no fundo transparente fora da caixa
+    if (modalSair) {
+        modalSair.addEventListener("click", (e) => {
+            if (e.target === modalSair) {
+                modalSair.classList.remove("active");
+            }
+        });
+    }
+
+    // Executar a função de Logout ao clicar no botão vermelho "Sair"
+    if (btnLogout) {
+        btnLogout.addEventListener("click", () => {
+            executarLogout();
         });
     }
 }
