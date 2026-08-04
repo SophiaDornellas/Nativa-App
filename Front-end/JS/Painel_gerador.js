@@ -338,8 +338,11 @@ async function carregarHistoricoColetas() {
         })
         if (resposta.ok) {
             const dados = await resposta.json()
-            // console.log("Histórico de coleta:", dados)
-            mostrarHistoricoColetas(dados)
+            // 🔔 Verifica se houve mudanças e dispara notificações
+            verificarNotificacoes(dados);
+
+            // Desenha os cards atualizados
+            mostrarHistoricoColetas(dados);
         } else {
             console.log(resposta.status)
         }
@@ -506,6 +509,10 @@ function mostrarHistoricoColetas(dados) {
             }
         });
 
+        // Verifica se a coleta foi finalizada/concluída
+        const statusUpper = String(item.status).toUpperCase();
+        const coletaFinalizada = statusUpper.includes("FINALIZADO") || statusUpper.includes("CONCLUIDO") || statusUpper.includes("CONCLUÍDO");
+
         if (item.id_coletor && typeof item.id_coletor === "object" && item.id_coletor.nome) {
             collectorBox.classList.add("css-collector-box", "css-collector-row-layout");
 
@@ -515,19 +522,42 @@ function mostrarHistoricoColetas(dados) {
 
             collectorBox.appendChild(infoColetor);
 
-            // Permite cancelar apenas se o pedido ainda não tiver sido concluído
-            if (!statusLower.includes("concluído") && !statusLower.includes("concluido")) {
+            // ❌ Se NÃO estiver finalizado, permite exibir o botão de cancelar pelo gerador
+            if (!coletaFinalizada) {
                 btnCancelar.style.margin = "0";
                 collectorBox.appendChild(btnCancelar);
             }
         } else {
-            // Se ainda não tem coletor aceito (Aguardando coletor)
+            // Se ainda está aguardando coletor
             collectorBox.classList.add("css-card-footer-align");
 
-            if (!statusLower.includes("concluído") && !statusLower.includes("concluido")) {
+            // ❌ Se NÃO estiver finalizado, permite exibir o botão de cancelar pelo gerador
+            if (!coletaFinalizada) {
                 collectorBox.appendChild(btnCancelar);
             }
         }
+        // if (item.id_coletor && typeof item.id_coletor === "object" && item.id_coletor.nome) {
+        //     collectorBox.classList.add("css-collector-box", "css-collector-row-layout");
+
+        //     let infoColetor = document.createElement("div");
+        //     let telColetor = item.id_coletor.telefone ? ` &nbsp;|&nbsp; <i class="fa-solid fa-phone"></i> ${item.id_coletor.telefone}` : "";
+        //     infoColetor.innerHTML = `<i class="fa-solid fa-user-check"></i> <strong>Coletor:</strong> ${item.id_coletor.nome}${telColetor}`;
+
+        //     collectorBox.appendChild(infoColetor);
+
+        //     // Permite cancelar apenas se o pedido ainda não tiver sido concluído
+        //     if (!statusLower.includes("concluído") && !statusLower.includes("concluido")) {
+        //         btnCancelar.style.margin = "0";
+        //         collectorBox.appendChild(btnCancelar);
+        //     }
+        // } else {
+        //     // Se ainda não tem coletor aceito (Aguardando coletor)
+        //     collectorBox.classList.add("css-card-footer-align");
+
+        //     if (!statusLower.includes("concluído") && !statusLower.includes("concluido")) {
+        //         collectorBox.appendChild(btnCancelar);
+        //     }
+        // }
 
         // --- INJETA OS ELEMENTOS DENTRO DO CARD ---
         card.appendChild(cardTopBar);
@@ -627,4 +657,64 @@ async function executarLogout() {
         console.error("Erro ao tentar deslogar do Firebase:", error);
         alert("Ocorreu um erro ao tentar sair da conta.");
     }
+}
+
+
+
+
+function exibirNotificacao(mensagem, tipo = "accepted") {
+    const container = document.getElementById("toastContainer");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.classList.add("css-toast", tipo === "accepted" ? "css-toast-accepted" : "css-toast-cancelled");
+
+    const icone = tipo === "accepted" ? "fa-circle-check" : "fa-triangle-exclamation";
+
+    toast.innerHTML = `
+        <i class="fa-solid ${icone}"></i>
+        <div>${mensagem}</div>
+    `;
+
+    container.appendChild(toast);
+
+    // Remove a notificação da tela após 5 segundos
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+}
+
+
+function verificarNotificacoes(novosDados) {
+    if (!novosDados || !Array.isArray(novosDados)) return;
+
+    // Recupera o histórico de status salvo anteriormente
+    const statusAnterioresJSON = localStorage.getItem("status_pedidos_gerador");
+    const statusAnteriores = statusAnterioresJSON ? JSON.parse(statusAnterioresJSON) : {};
+
+    const novosStatus = {};
+
+    novosDados.forEach(pedido => {
+        const id = pedido.id_pedido;
+        const statusAtual = String(pedido.status).toUpperCase();
+        const statusAntigo = statusAnteriores[id];
+
+        // 1. O coletor aceitou o pedido
+        if (statusAntigo && statusAntigo.includes("AGUARDANDO") && statusAtual.includes("CONFIRMADA")) {
+            const nomeColetor = pedido.id_coletor?.nome ? pedido.id_coletor.nome : "Um coletor";
+            exibirNotificacao(`<strong>Pedido Aceito!</strong> ${nomeColetor} confirmou a coleta do seu resíduo.`, "accepted");
+        }
+
+        // 2. O coletor cancelou a coleta
+        if (statusAntigo && statusAntigo.includes("CONFIRMADA") && statusAtual.includes("AGUARDANDO")) {
+            exibirNotificacao(`<strong>Coleta Cancelada!</strong> O pedido voltou para a lista de aguardando coletor.`, "cancelled");
+        }
+
+        // Salva o estado atual do pedido
+        novosStatus[id] = statusAtual;
+    });
+
+    // Atualiza o localStorage com os status mais recentes
+    localStorage.setItem("status_pedidos_gerador", JSON.stringify(novosStatus));
 }

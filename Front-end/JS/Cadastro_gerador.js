@@ -10,106 +10,120 @@ form_cadastro_gerador.addEventListener("submit", (e) => {
    const senha_gerador = document.querySelector("#input_senha_gerador").value
    const nome_gerador = document.querySelector("#input_nome_gerador").value
    const telefone_gerador = document.querySelector("#input_telefone_gerador").value
-   const endereco_gerador = document.querySelector("#input_endereco_gerador").value
-   const regiao_gerador = document.querySelector("#input_regiao_gerador").value
 
-//    // Exemplo de como montar na hora de enviar o PUT/POST de edição:
-// const rua = document.getElementById("genEditRua").value.trim();
-// const numero = document.getElementById("genEditNumero").value.trim();
-// const bairro = document.getElementById("genEditBairro").value.trim();
-// const regiao = document.getElementById("genEditRegiao").value.trim();
+   const rua = document.querySelector("#input_rua_gerador").value.trim()
+   const numero = document.querySelector("#input_numero_gerador").value.trim()
+   const bairro = document.querySelector("#input_bairro_gerador").value.trim()
+   const regiao_gerador = document.querySelector("#input_regiao_gerador").value.trim()
+   const cidade = document.querySelector("#input_cidade_gerador").value.trim()
+   const estado = document.querySelector("#input_estado_gerador").value.trim()
 
-// // Padrão: "Rua, Número - Bairro - Região"
-// const endereco_regiao = `Rua ${rua}, ${numero} - Bairro ${bairro} - ${regiao}`;
+   // 2. Criação da variável 'endereco' montada e formatada
+   const enderecoCompleto_gerador = `${rua}, ${numero} - ${bairro}, ${cidade} - ${estado} (${regiao_gerador})`;
+   
 
-// RuaEnumero=
-// cidade
-// estado= 
+   
 
-   cadastrarGerador(email_gerador, senha_gerador, nome_gerador, telefone_gerador, endereco_gerador, regiao_gerador)
+
+      //    // Exemplo de como montar na hora de enviar o PUT/POST de edição:
+      // const rua = document.getElementById("genEditRua").value.trim();
+      // const numero = document.getElementById("genEditNumero").value.trim();
+      // const bairro = document.getElementById("genEditBairro").value.trim();
+      // const regiao = document.getElementById("genEditRegiao").value.trim();
+
+      // // Padrão: "Rua, Número - Bairro - Região"
+      // const endereco_regiao = `Rua ${rua}, ${numero} - Bairro ${bairro} - ${regiao}`;
+
+      // RuaEnumero=
+      // cidade
+      // estado= 
+
+      cadastrarGerador(email_gerador, senha_gerador, nome_gerador, telefone_gerador, enderecoCompleto_gerador )
 
 
 })
 
-function cadastrarGerador(email, senha, nome, telefone, endereco, regiao) {
+function cadastrarGerador(email, senha, nome, telefone, enderecoCompleto_gerador) {
 
    createUserWithEmailAndPassword(auth, email, senha)
       .then((userCredential) => {
 
          const user = userCredential.user
          const emailFire = user.email
-         const endereco_regiao = endereco + regiao //Enviar Bairro para o back-end!!!
+         // const endereco_regiao = endereco + regiao //Enviar Bairro para o back-end!!!
 
          user.getIdToken(true).then((idToken) => {
 
             // 1. Usamos a busca estruturada + o parâmetro de email oficial da documentação!
-            const ruaENumero = "Rua Meridional, 42"; // Ex: "Rua dos Guajajaras, 175"
-            const cidade = "Belo Horizonte";
-            const estado = "MG";
+            // const ruaENumero = "Rua Meridional, 42"; // Ex: "Rua dos Guajajaras, 175"
+            // const cidade = "Belo Horizonte";
+            // const estado = "MG";
 
-            const emailIdentificacao = "sophiadornellas7@gmail.com"; // ◄ Coloque um e-mail real aqui!
+            // const emailIdentificacao = "sophiadornellas7@gmail.com"; // ◄ Coloque um e-mail real aqui!
 
-            const urlMapas = `https://nominatim.openstreetmap.org/search?format=json&limit=1&street=${encodeURIComponent(ruaENumero)}&city=${encodeURIComponent(cidade)}&state=${encodeURIComponent(estado)}&email=${encodeURIComponent(emailIdentificacao)}`;
+            // const urlMapas = `https://nominatim.openstreetmap.org/search?format=json&limit=1&street=${encodeURIComponent(ruaENumero)}&city=${encodeURIComponent(cidade)}&state=${encodeURIComponent(estado)}&email=${encodeURIComponent(emailIdentificacao)}`;
 
-            console.log("URL Estruturada:", urlMapas);
+            // console.log("URL Estruturada:", urlMapas);
 
-         
-            console.log("TODAS AS INFORMAÇÕES" + emailFire, senha, nome, telefone, endereco, regiao, endereco_regiao)
 
-            fetch(urlMapas)
-               .then(response => response.json())
-               .then(data => {
-                  console.log("Resposta exata da API:", data); // Agora deve vir preenchida!
-
-                  let latitude = 0.0;
-                  let longitude = 0.0;
-
-                  if (data && data.length > 0) {
-                     latitude = parseFloat(data[0].lat);
-                     longitude = parseFloat(data[0].lon);
-                     console.log("Coordenadas obtidas:", latitude, longitude);
-                  } else {
-                     console.warn("Endereço não encontrado pelo OpenStreetMap. Salvando com coordenadas padrão (0.0).");
-                  }
-                  postarUsuario(idToken, emailFire , nome, telefone, endereco_regiao, latitude, longitude)
+            console.log("TODAS AS INFORMAÇÕES" + emailFire, senha, nome, telefone, enderecoCompleto_gerador)
+            postarUsuario(idToken, emailFire, nome, telefone, enderecoCompleto_gerador)
                   // Continuar com o fluxo (Fetch POST para salvar no Firebase/Banco, etc.)
-               })
-               .catch(error => {
-                  console.error("Erro ao buscar no OpenStreetMap:", error);
-               })
+
+            // fetch(urlMapas)
+            //    .then(response => response.json())
+            //    .then(data => {
+            //       console.log("Resposta exata da API:", data); // Agora deve vir preenchida!
+
+            //       let latitude = 0.0;
+            //       let longitude = 0.0;
+
+            //       if (data && data.length > 0) {
+            //          latitude = parseFloat(data[0].lat);
+            //          longitude = parseFloat(data[0].lon);
+            //          console.log("Coordenadas obtidas:", latitude, longitude);
+            //       } else {
+            //          console.warn("Endereço não encontrado pelo OpenStreetMap. Salvando com coordenadas padrão (0.0).");
+            //       }
+            //       // postarUsuario(idToken, emailFire, nome, telefone, endereco_regiao, latitude, longitude)
+            //       // // Continuar com o fluxo (Fetch POST para salvar no Firebase/Banco, etc.)
+            //    })
+            //    .catch(error => {
+            //       console.error("Erro ao buscar no OpenStreetMap:", error);
+            //    })
          })
       }
       )
 }
 
-async function postarUsuario(idToken, email, nome, telefone, endereco_regiao, latitude, longitude){
-      try{
-           const resposta = await fetch("http://localhost:8080/usuario", {
-              method: "POST",
+async function postarUsuario(idToken, email, nome, telefone, enderecoCompleto_gerador) {
+   try {
+      const resposta = await fetch("http://localhost:8080/usuario", {
+         method: "POST",
 
-              headers: {
-                 'Content-Type': 'application/json',
-                 'Authorization': `Bearer ${idToken}`
-              },
+         headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`
+         },
 
-              body:  JSON.stringify({
-                "nome": nome,
-                "email": email,
-                "telefone": telefone,
-                "tipo_usuario": "GERADOR",
-                "endereco_regiao": endereco_regiao,
-                "latitude": latitude,
-                "longitude": longitude
-            })
-           })
+         body: JSON.stringify({
+            "nome": nome,
+            "email": email,
+            "telefone": telefone,
+            "tipo_usuario": "GERADOR",
+            "endereco_regiao": enderecoCompleto_gerador,
+            // "latitude": latitude,
+            // "longitude": longitude
+         })
+      })
 
-           if(resposta.ok){
-            console.log("Usuário cadastrado com sucesso no banco Java!")
-            window.location.href = "Painel_gerador.html"
-           }
-      }catch(erro){
-        console.log( "Erro no fetch (post do coletor)" + erro)
+      if (resposta.ok) {
+         console.log("Usuário cadastrado com sucesso no banco Java!")
+         window.location.href = "Painel_gerador.html"
       }
+   } catch (erro) {
+      console.log("Erro no fetch (post do coletor)" + erro)
+   }
 }
 
 

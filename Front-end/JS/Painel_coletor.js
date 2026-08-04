@@ -7,11 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (user) {
             window.token = await user.getIdToken()
-            console.log(window.token)
-            carregarDadosDoPerfil()
-            carregarMinhaAgenda()
+            // console.log(window.token)
+            // carregarDadosDoPerfil()
+            // carregarMinhaAgenda()
             aparecerBoxEdicao()
             configurarBotaoVoltarSair()
+
+             setInterval(() => {
+                carregarDadosDoPerfil();
+                carregarMinhaAgenda()
+                obterFiltros()
+            }, 3000);
 
             // Chamar a função que vai montar o filtro e acionar o get dos pedidos
             const selectResiduo = document.getElementById("tipoResiduoFiltro");
@@ -60,7 +66,7 @@ function obterFiltros() {
         }
     }
 
-    console.log("Filtros selecionados:", param.toString());
+    // console.log("Filtros selecionados:", param.toString());
     carregarPedidosDisponiveis(param.toString())
 
 }
@@ -105,7 +111,7 @@ async function carregarPedidosDisponiveis(param) {
 
         if (resposta.ok) {
             const dados = await resposta.json()
-            console.log(dados)
+            // console.log(dados)
             mostrarPedidosdaLista(dados)
 
         } else {
@@ -129,7 +135,7 @@ async function carregarMinhaAgenda() {
         })
         if (resposta.ok) {
             const dados = await resposta.json()
-            console.log("AGENDA DO COLETOR:", dados)
+            // console.log("AGENDA DO COLETOR:", dados)
             mostrarPedidosdaAgenda(dados)
         } else {
             console.log(resposta.status)
@@ -141,6 +147,144 @@ async function carregarMinhaAgenda() {
     // Limpar o container da seção "Minha Agenda de Trabalho"
     // Mapear os dados e injetar os cards com os botões de Cancelar/Finalizar
 }
+
+// function mostrarPedidosdaAgenda(dados) {
+//     // 1. Seleciona o container específico da Agenda do Coletor
+//     const containerAgenda = document.querySelector(".css-static-section .css-cards-list");
+
+//     if (!containerAgenda) return;
+
+//     // 2. Limpa os cards estáticos anteriores
+//     containerAgenda.innerHTML = "";
+
+//     // 3. Caso o coletor não tenha nenhum pedido aceito na sua agenda
+//     if (!dados || dados.length === 0) {
+//         let mensagemVazia = document.createElement("p");
+//         mensagemVazia.style.textAlign = "center";
+//         mensagemVazia.style.color = "#666";
+//         mensagemVazia.style.padding = "16px";
+//         mensagemVazia.textContent = "Você ainda não aceitou nenhuma coleta.";
+//         containerAgenda.appendChild(mensagemVazia);
+//         return;
+//     }
+
+//     // 4. Mapeia e constrói a estrutura DOM de cada pedido reservado
+//     dados.forEach((item) => {
+
+//         // Tratamento de valores nulos/vazios
+//         for (let chave in item) {
+//             if (item[chave] === null || item[chave] === "") {
+//                 item[chave] = "Não informado";
+//             }
+//         }
+
+//         // --- CARD PRINCIPAL (.css-request-card .css-agenda-card) ---
+//         let card = document.createElement("div");
+//         card.classList.add("css-request-card", "css-agenda-card");
+//         card.setAttribute("data-id", item.id_pedido);
+
+//         // --- HEADER DO CARD (.css-card-header) ---
+//         let cardHeader = document.createElement("div");
+//         cardHeader.classList.add("css-card-header");
+
+//         let titulo = document.createElement("h3");
+//         titulo.textContent = item.id_gerador?.nome ? item.id_gerador.nome : "Gerador sem nome";
+
+//         let badgeStatus = document.createElement("span");
+//         badgeStatus.classList.add("css-status-badge", "css-status-orange");
+//         badgeStatus.textContent = item.status;
+
+//         cardHeader.appendChild(titulo);
+//         cardHeader.appendChild(badgeStatus);
+
+//         // --- CONTAINER DE DETALHES (.css-card-details) ---
+//         let cardDetails = document.createElement("div");
+//         cardDetails.classList.add("css-card-details");
+
+//         // Linha com Endereço + Botão Rota
+//         let addressRow = document.createElement("div");
+//         addressRow.classList.add("css-address-row");
+
+//         let pEndereco = document.createElement("p");
+//         let enderecoTexto = item.id_gerador?.endereco_regiao || item.regiao || "Endereço não cadastrado";
+//         pEndereco.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${enderecoTexto}`;
+
+//         let btnRota = document.createElement("button");
+//         btnRota.classList.add("css-btn-route");
+//         btnRota.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> Rota`;
+
+//         // Evento para abrir o endereço no Google Maps
+//         btnRota.addEventListener("click", () => {
+//             if (enderecoTexto !== "Endereço não cadastrado") {
+//                 // const urlMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(enderecoTexto)}`;
+//                 const urlMaps = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(enderecoTexto)}&dir_action=navigate`;
+//                 window.open(urlMaps, "_blank");
+//             } else {
+//                 alert("Este gerador não possui um endereço cadastrado.");
+//             }
+//         });
+
+//         addressRow.appendChild(pEndereco);
+//         addressRow.appendChild(btnRota);
+
+//         // Horário
+//         let pHorario = document.createElement("p");
+//         pHorario.innerHTML = `<i class="fa-solid fa-clock"></i> ${item.data_coleta} — ${item.horario_coleta}`;
+
+//         // Tipo de Resíduo
+//         let pResiduo = document.createElement("p");
+//         pResiduo.innerHTML = `<i class="fa-solid fa-leaf"></i> ${item.tipo_residuo}`;
+
+//         // Volume
+//         let pVolume = document.createElement("p");
+//         pVolume.innerHTML = `<i class="fa-solid fa-box"></i> <strong>Volume:</strong> ${item.volume}`;
+
+//         cardDetails.appendChild(addressRow);
+//         cardDetails.appendChild(pHorario);
+//         cardDetails.appendChild(pResiduo);
+//         cardDetails.appendChild(pVolume);
+
+//         // --- GRUPO DE BOTÕES DE AÇÃO (.css-action-group-split) ---
+//         let actionGroup = document.createElement("div");
+//         actionGroup.classList.add("css-action-group-split");
+
+//         // Botão Cancelar
+//         let btnCancelar = document.createElement("button");
+//         btnCancelar.classList.add("css-btn-action", "css-btn-red-outline");
+//         btnCancelar.textContent = "Cancelar Coleta";
+//         btnCancelar.setAttribute("data-id", item.id_pedido);
+//         btnCancelar.addEventListener("click", () => {
+//             let idPedido = btnCancelar.getAttribute("data-id");
+//             if (confirm("Tem certeza que deseja cancelar e liberar este pedido de volta para a rede?")) {
+//                 console.log("Cancelar pedido ID:", idPedido);
+//                 cancelarColeta(idPedido)
+//             }
+//         });
+
+//         // Botão Finalizar
+//         let btnFinalizar = document.createElement("button");
+//         btnFinalizar.classList.add("css-btn-action", "css-btn-blue");
+//         btnFinalizar.textContent = "Finalizar Coleta";
+//         btnFinalizar.setAttribute("data-id", item.id_pedido);
+//         btnFinalizar.addEventListener("click", () => {
+//             let idPedido = btnFinalizar.getAttribute("data-id");
+//             console.log("Finalizar pedido ID:", idPedido);
+//             finalizarColeta(idPedido)
+//             // Aqui chamará sua função de concluir a coleta
+//         });
+
+//         actionGroup.appendChild(btnCancelar);
+//         actionGroup.appendChild(btnFinalizar);
+
+//         // --- ANEXA TODOS OS ELEMENTOS AO CARD ---
+//         card.appendChild(cardHeader);
+//         card.appendChild(cardDetails);
+//         card.appendChild(actionGroup);
+
+//         // Injeta na Agenda
+//         containerAgenda.appendChild(card);
+//     });
+// }
 
 function mostrarPedidosdaAgenda(dados) {
     // 1. Seleciona o container específico da Agenda do Coletor
@@ -185,7 +329,14 @@ function mostrarPedidosdaAgenda(dados) {
         titulo.textContent = item.id_gerador?.nome ? item.id_gerador.nome : "Gerador sem nome";
 
         let badgeStatus = document.createElement("span");
-        badgeStatus.classList.add("css-status-badge", "css-status-orange");
+        
+        // Verifica se o status é Finalizado para mudar a cor do Badge
+        const statusUpper = String(item.status).toUpperCase();
+        if (statusUpper === "FINALIZADO" || statusUpper === "COLETA FINALIZADA") {
+            badgeStatus.classList.add("css-status-badge", "css-status-green");
+        } else {
+            badgeStatus.classList.add("css-status-badge", "css-status-orange");
+        }
         badgeStatus.textContent = item.status;
 
         cardHeader.appendChild(titulo);
@@ -210,7 +361,6 @@ function mostrarPedidosdaAgenda(dados) {
         // Evento para abrir o endereço no Google Maps
         btnRota.addEventListener("click", () => {
             if (enderecoTexto !== "Endereço não cadastrado") {
-                // const urlMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(enderecoTexto)}`;
                 const urlMaps = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(enderecoTexto)}&dir_action=navigate`;
                 window.open(urlMaps, "_blank");
             } else {
@@ -233,46 +383,68 @@ function mostrarPedidosdaAgenda(dados) {
         let pVolume = document.createElement("p");
         pVolume.innerHTML = `<i class="fa-solid fa-box"></i> <strong>Volume:</strong> ${item.volume}`;
 
+        // ➕ 1. ADICIONE ESTA LINHA: Extrai o telefone do gerador
+        let pContato = document.createElement("p");
+        let telefoneTexto = item.id_gerador?.telefone || "Sem telefone";
+        pContato.innerHTML = `<i class="fa-solid fa-phone"></i> <strong>Contato:</strong> ${telefoneTexto}`;
+
         cardDetails.appendChild(addressRow);
         cardDetails.appendChild(pHorario);
         cardDetails.appendChild(pResiduo);
         cardDetails.appendChild(pVolume);
+        cardDetails.appendChild(pContato);
 
-        // --- GRUPO DE BOTÕES DE AÇÃO (.css-action-group-split) ---
-        let actionGroup = document.createElement("div");
-        actionGroup.classList.add("css-action-group-split");
-
-        // Botão Cancelar
-        let btnCancelar = document.createElement("button");
-        btnCancelar.classList.add("css-btn-action", "css-btn-red-outline");
-        btnCancelar.textContent = "Cancelar Coleta";
-        btnCancelar.setAttribute("data-id", item.id_pedido);
-        btnCancelar.addEventListener("click", () => {
-            let idPedido = btnCancelar.getAttribute("data-id");
-            if (confirm("Tem certeza que deseja cancelar e liberar este pedido de volta para a rede?")) {
-                console.log("Cancelar pedido ID:", idPedido);
-                cancelarColeta(idPedido)
-            }
-        });
-
-        // Botão Finalizar
-        let btnFinalizar = document.createElement("button");
-        btnFinalizar.classList.add("css-btn-action", "css-btn-blue");
-        btnFinalizar.textContent = "Finalizar Coleta";
-        btnFinalizar.setAttribute("data-id", item.id_pedido);
-        btnFinalizar.addEventListener("click", () => {
-            let idPedido = btnFinalizar.getAttribute("data-id");
-            console.log("Finalizar pedido ID:", idPedido);
-            // Aqui chamará sua função de concluir a coleta
-        });
-
-        actionGroup.appendChild(btnCancelar);
-        actionGroup.appendChild(btnFinalizar);
-
-        // --- ANEXA TODOS OS ELEMENTOS AO CARD ---
+        // --- ANEXA CABEÇALHO E DETALHES ---
         card.appendChild(cardHeader);
         card.appendChild(cardDetails);
-        card.appendChild(actionGroup);
+
+        // --- CONDICIONAL DOS BOTÕES / RODAPÉ DO CARD ---
+        if (statusUpper === "FINALIZADO" || statusUpper === "COLETA FINALIZADA") {
+            // Se o pedido está FINALIZADO: exibe mensagem confirmando a entrega
+            let finishedBox = document.createElement("div");
+            finishedBox.classList.add("css-finished-text");
+            finishedBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> Coleta Concluída com Sucesso`;
+            
+            card.appendChild(finishedBox);
+        } else {
+            // Se o pedido NÃO está finalizado: exibe os botões de Cancelar e Finalizar
+            let actionGroup = document.createElement("div");
+            actionGroup.classList.add("css-action-group-split");
+
+            // Botão Cancelar
+            let btnCancelar = document.createElement("button");
+            btnCancelar.classList.add("css-btn-action", "css-btn-red-outline");
+            btnCancelar.textContent = "Cancelar Coleta";
+            btnCancelar.setAttribute("data-id", item.id_pedido);
+            btnCancelar.addEventListener("click", () => {
+                let idPedido = btnCancelar.getAttribute("data-id");
+                if (confirm("Tem certeza que deseja cancelar e liberar este pedido de volta para a rede?")) {
+                    cancelarColeta(idPedido);
+                }
+            });
+
+            // Botão Finalizar
+            let btnFinalizar = document.createElement("button");
+            btnFinalizar.classList.add("css-btn-action", "css-btn-blue");
+            btnFinalizar.textContent = "Finalizar Coleta";
+            btnFinalizar.setAttribute("data-id", item.id_pedido);
+            // 💡 CAPTURA O ID DA PROPRIEDADE INTERNA (.id):
+            let idGeradorReal = item.id_gerador?.id ? item.id_gerador.id : item.id_gerador;
+            btnFinalizar.setAttribute("data-id-gerador", idGeradorReal);
+            btnFinalizar.addEventListener("click", () => {
+                let idPedido = btnFinalizar.getAttribute("data-id");
+                let idGerador = btnFinalizar.getAttribute("data-id-gerador");
+                if (confirm("Deseja realmente marcar esta coleta como finalizada?")) {
+                    finalizarColeta(idPedido);
+                    atualizarXpGerador(idGerador)
+                }
+            });
+
+            actionGroup.appendChild(btnCancelar);
+            actionGroup.appendChild(btnFinalizar);
+
+            card.appendChild(actionGroup);
+        }
 
         // Injeta na Agenda
         containerAgenda.appendChild(card);
@@ -281,7 +453,7 @@ function mostrarPedidosdaAgenda(dados) {
 
 
 function atribuirDadosDoPerfil(dados) {
-    console.log(dados.telefone)
+    // console.log(dados.telefone)
     const elementoNomePerfil = document.querySelector("#nomeColetorHeader")
     const inputEditNome = document.getElementById("editNome")
     const inputEditTelefone = document.getElementById("editTelefone")
@@ -562,6 +734,103 @@ function configurarBotaoVoltarSair() {
         btnLogout.addEventListener("click", () => {
             executarLogout();
         });
+    }
+}
+
+async function editarPerfil(nome, telefone) {
+    try {
+        const resposta = await fetch("http://localhost:8080/usuario", {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.token}`
+            },
+            body: JSON.stringify({
+                "nome": nome,
+                "telefone": telefone
+                // Nota: O Spring Boot preserva ou atualiza o objeto com base na lógica do Controller
+            })
+        });
+
+        if (resposta.ok) {
+            console.log("✅ Perfil atualizado com sucesso!");
+            
+            // Recarrega os dados na tela para atualizar o nome no Header e inputs
+            await carregarDadosDoPerfil();
+
+            // Sombra/Fecha o modal após salvar
+            const modalEditarPerfil = document.getElementById("modalEditarPerfil");
+            if (modalEditarPerfil) {
+                modalEditarPerfil.classList.remove("active");
+            }
+
+            alert("Perfil atualizado com sucesso!");
+        } else {
+            console.error("Erro ao atualizar perfil. Status:", resposta.status);
+            alert("Não foi possível atualizar o perfil. Tente novamente.");
+        }
+    } catch (error) {
+        console.error("Falha ao comunicar com a API para editar perfil:", error);
+        alert("Erro de conexão ao tentar salvar as alterações.");
+    }
+}
+
+
+    async function finalizarColeta(idPedido) {
+    try {
+        const resposta = await fetch("http://localhost:8080/pedido/coletor-edita/" + idPedido, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.token}`
+            },
+            body: JSON.stringify({
+                "status": "FINALIZADO" // 👈 Define o novo status
+            })
+        });
+
+        if (resposta.ok) {
+            console.log("✅ Coleta finalizada com sucesso!");
+            alert("Coleta finalizada com sucesso! Parabéns!");
+
+            // Atualiza a agenda na tela (o pedido sumirá pois o status não é mais de 'agendado/reservado')
+            carregarMinhaAgenda();
+        } else {
+            console.error("Erro ao finalizar coleta. Status:", resposta.status);
+            alert("Erro ao tentar finalizar a coleta. Tente novamente.");
+        }
+    } catch (error) {
+        console.error("Falha na requisição finalizarColeta:", error);
+        alert("Erro de conexão ao tentar finalizar a coleta.");
+    }
+}
+
+
+async function atualizarXpGerador(idGerador) {
+    if (!idGerador || idGerador === "Não informado" || idGerador === "[object Object]") {
+        console.error("ID do Gerador inválido para atualização de XP:", idGerador);
+        return;
+    }
+
+    try {
+        const resposta = await fetch("http://localhost:8080/usuario/adicionar-xp/" + idGerador, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.token}` // 👈 Token do Coletor autoriza a chamada
+            },
+            body: JSON.stringify({
+                "xp": 50 // 👈 +50 XP por padrão
+            })
+        });
+
+        if (resposta.ok) {
+            console.log("✅ +50 XP somados com sucesso ao perfil do gerador!");
+        } else {
+            console.error("Erro ao atualizar XP do gerador. Status:", resposta.status);
+        }
+    } catch (error) {
+        console.error("Falha ao comunicar com a API para atualizar XP:", error);
     }
 }
 

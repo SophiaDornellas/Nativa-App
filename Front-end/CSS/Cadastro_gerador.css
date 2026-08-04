@@ -224,3 +224,24 @@ body {
             font-size: 0.8rem;
             color: #7fa88d;
         }
+
+        /* ==========================================================================
+   GRID DE ENDEREÇO DENTRO DO FORMULÁRIO DE CADASTRO
+   ========================================================================== */
+.gen-modal-grid-2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* O primeiro campo fica mais largo que o segundo */
+    gap: 10px;
+}
+
+.gen-address-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary, #2b7a43);
+    margin: 12px 0 8px 0;
+    padding-top: 8px;
+    border-top: 1px dashed #d2e4d6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

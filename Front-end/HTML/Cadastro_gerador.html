@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Gerador - Nativa App</title>
     <link rel="stylesheet" href="../CSS/Cadastro_gerador.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
+
 </head>
+
 <body>
 
     <header class="css-header">
@@ -22,32 +24,35 @@
     </header>
 
     <main class="css-main-container">
-        
+
         <div class="css-avatar-square">
             <i class="fa-solid fa-hand-holding-heart"></i>
         </div>
-        
+
         <h1 class="css-page-title">Cadastre-se como gerador de resíduos</h1>
 
         <div class="css-register-card">
             <form id="form_cadastro_gerador" autocomplete="off">
-                
+
                 <div class="css-form-group">
                     <label class="css-form-label">Nome do Estabelecimento / Residência</label>
-                    <input type="text" id="input_nome_gerador" class="css-form-input" placeholder="Ex.: Restaurante Verde ou Casa da Silva" required>
+                    <input type="text" id="input_nome_gerador" class="css-form-input"
+                        placeholder="Ex.: Restaurante Verde ou Casa da Silva" required>
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">E-mail</label>
-                    <input type="email" id="input_email_gerador" class="css-form-input" placeholder="voce@exemplo.com" required autocomplete="off">
+                    <input type="email" id="input_email_gerador" class="css-form-input" placeholder="voce@exemplo.com"
+                        required autocomplete="off">
                 </div>
 
                 <div class="css-form-group">
                     <label class="css-form-label">Telefone / WhatsApp</label>
-                    <input type="tel" id="input_telefone_gerador" class="css-form-input" placeholder="(31) 90000-0000" required>
+                    <input type="tel" id="input_telefone_gerador" class="css-form-input" placeholder="(31) 90000-0000"
+                        required>
                 </div>
 
-                <div class="css-form-group">
+                <!-- <div class="css-form-group">
                     <label class="css-form-label">Região de Belo Horizonte</label>
                     <select class="css-form-input" id="input_regiao_gerador" required>
                         <option value="" disabled selected>Selecione a região...</option>
@@ -66,15 +71,105 @@
                 <div class="css-form-group">
                     <label class="css-form-label">Localização do Estabelecimento</label>
                     <input type="text" id="input_endereco_gerador" class="css-form-input" placeholder="Rua, número, bairro, cidade" required>
+                </div> -->
+
+                <!-- ÁREA PARA PREENCHER ENDEREÇO COMPLETO E ESPECÍFICO -->
+                <div class="gen-address-section-title">
+                    <i class="fa-solid fa-location-dot"></i> Endereço do Estabelecimento
                 </div>
+                <div class="gen-modal-grid-2">
+
+                    <div class="css-form-group">
+                        <label class="css-form-label">Rua / Logradouro</label>
+                        <input type="text" id="input_rua_gerador" class="css-form-input"
+                            placeholder="Ex: Av. Afonso Pena" required>
+                    </div>
+
+                    <div class="css-form-group">
+                        <label class="css-form-label">Número</label>
+                        <input type="text" id="input_numero_gerador" class="css-form-input" placeholder="Ex: 1500"
+                            required>
+                    </div>
+                </div>
+
+                <div class="gen-modal-grid-2">
+                    <div class="css-form-group">
+                        <label class="css-form-label">Bairro</label>
+                        <input type="text" id="input_bairro_gerador" class="css-form-input" placeholder="Ex: Centro"
+                            required>
+                    </div>
+
+                    <div class="css-form-group">
+                        <label class="css-form-label">Região de BH</label>
+                        <select class="css-form-input" id="input_regiao_gerador" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Barreiro">Barreiro</option>
+                            <option value="Centro-Sul">Centro-Sul</option>
+                            <option value="Leste">Leste</option>
+                            <option value="Nordeste">Nordeste</option>
+                            <option value="Noroeste">Noroeste</option>
+                            <option value="Norte">Norte</option>
+                            <option value="Oeste">Oeste</option>
+                            <option value="Pampulha">Pampulha</option>
+                            <option value="Venda Nova">Venda Nova</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="gen-modal-grid-2">
+                    <div class="css-form-group">
+                        <label class="css-form-label">Cidade</label>
+                        <select class="css-form-input" id="input_cidade_gerador" required>
+                            <option value="Belo Horizonte" selected>Belo Horizonte</option>
+                            <option value="Uberlândia">Uberlândia</option>
+                            <option value="Contagem">Contagem</option>
+                            <option value="Juiz de Fora">Juiz de Fora</option>
+                            <option value="Betim">Betim</option>
+                            <option value="Montes Claros">Montes Claros</option>
+                            <option value="Ribeirão das Neves">Ribeirão das Neves</option>
+                            <option value="Uberaba">Uberaba</option>
+                            <option value="Governador Valadares">Governador Valadares</option>
+                            <option value="Ipatinga">Ipatinga</option>
+                            <option value="Sete Lagoas">Sete Lagoas</option>
+                            <option value="Divinópolis">Divinópolis</option>
+                            <option value="Santa Luzia">Santa Luzia</option>
+                            <option value="Ibirité">Ibirité</option>
+                            <option value="Poços de Caldas">Poços de Caldas</option>
+                            <option value="Patos de Minas">Patos de Minas</option>
+                            <option value="Pouso Alegre">Pouso Alegre</option>
+                            <option value="Teófilo Otoni">Teófilo Otoni</option>
+                            <option value="Barbacena">Barbacena</option>
+                            <option value="Sabará">Sabará</option>
+                            <option value="Varginha">Varginha</option>
+                        </select>
+                    </div>
+
+                    <div class="css-form-group">
+                        <label class="css-form-label">Estado (UF)</label>
+                        <select class="css-form-input" id="input_estado_gerador" required>
+                            <option value="MG" selected>MG</option>
+                            <option value="AC">SP</option>
+                            <option value="AL">ES</option>
+                            <option value="AP">RJ</option>
+                            <option value="AM">BA</option>
+                            <option value="BA">SC</option>
+                            <option value="CE">CE</select>
+                        </select>
+                    </div>
+                </div>
+
+
+             
+
 
                 <div class="css-form-group">
                     <label class="css-form-label">Senha</label>
-                    <input type="password" id="input_senha_gerador" class="css-form-input" placeholder="••••••••" required autocomplete="off">
+                    <input type="password" id="input_senha_gerador" class="css-form-input" placeholder="••••••••"
+                        required autocomplete="off">
                 </div>
 
                 <button type="submit" class="css-submit-btn">Cadastrar</button>
-                
+
                 <div class="css-extra-links">
                     <p>Já possui uma conta? <a href="Login.html" class="css-link-item">Faça login</a></p>
                 </div>
@@ -90,4 +185,5 @@
     <script type="module" src="../JS/Cadastro_gerador.js"></script>
 
 </body>
+
 </html>

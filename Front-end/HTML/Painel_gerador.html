@@ -24,7 +24,7 @@
         </div>
 
         <!-- PERFIL SUPERIOR -->
-        <div class="css-profile-panel">
+        <!-- <div class="css-profile-panel">
             <div class="css-profile-info">
                 <div class="css-store-icon">
                     <i class="fa-solid fa-store"></i>
@@ -37,6 +37,27 @@
             <div class="css-badge-group">
                 <div class="css-badge"><i class="fa-solid fa-medal"></i> Nível 3</div>
                 <div class="css-badge"><i class="fa-solid fa-leaf"></i> 350 XP</div>
+            </div>
+        </div> -->
+
+        <div class="css-profile-panel">
+            <div class="css-profile-info">
+                <div class="css-store-icon">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <div class="css-store-name"></div>
+                    <div class="css-store-sub"></div>
+                </div>
+            </div>
+            
+            <div class="css-badge-group">
+                <a href="Ranking_xp.html" class="css-badge css-badge-btn">
+                    <i class="fa-solid fa-medal"></i> Nível 1
+                </a>
+                <a href="Ranking_xp.html" class="css-badge css-badge-btn">
+                    <i class="fa-solid fa-leaf"></i> <span id="jsXpGerador">0 XP</span>
+                </a>
             </div>
         </div>
 
@@ -313,6 +334,7 @@
         </button>
     </div>
 </div>
+<div id="toastContainer" class="css-toast-container"></div>
 
     <script type="module" src="../JS/Painel_gerador.js"></script>
     <script>
