@@ -34,3 +34,5 @@ build/
 
 # Chaves e Segredos do Firebase / Google Cloud
 *.json
+src/main/resources/*.json
+
