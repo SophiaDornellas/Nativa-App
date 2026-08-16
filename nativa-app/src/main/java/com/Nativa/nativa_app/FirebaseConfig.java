@@ -5,6 +5,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import java.io.File;
+import java.io.FileInputStream;
 
 //import javax.annotation.PostConstruct;
 import jakarta.annotation.PostConstruct;
@@ -18,8 +20,20 @@ public class FirebaseConfig {
     public void initializeFirebase() {
         try {
             // Carrega o arquivo JSON de forma segura a partir da pasta src/main/resources
-            ClassPathResource resource = new ClassPathResource("nativa-app-c4f73-firebase-adminsdk-fbsvc-e6a96254b3.json");
-            InputStream serviceAccount = resource.getInputStream();
+            //ClassPathResource resource = new ClassPathResource("nativa-app-c4f73-firebase-adminsdk-fbsvc-e6a96254b3.json");
+            //InputStream serviceAccount = resource.getInputStream();
+            
+            String nomeArquivo = "nativa-app-c4f73-firebase-adminsdk-fbsvc-e6a96254b3.json";
+            InputStream serviceAccount;
+
+            File arquivoRender = new File("/etc/secrets/" + nomeArquivo);
+            if (arquivoRender.exists()) {
+                // Carrega do Secret Files no Render
+                serviceAccount = new FileInputStream(arquivoRender);
+            } else {
+                // Carrega da pasta src/main/resources local no seu computador
+                serviceAccount = new ClassPathResource(nomeArquivo).getInputStream();
+            }
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
