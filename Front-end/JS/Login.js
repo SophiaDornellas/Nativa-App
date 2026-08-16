@@ -3,6 +3,8 @@ import {signInWithEmailAndPassword,
         sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
+const API_URL_SERVIDOR = "https://nativa-app.onrender.com"
+
 // IMPORTAÇÕES:
 // - Importar 'auth' de './firebase-config.js' [4]
 // - Importar funções do Firebase: 'signInWithEmailAndPassword' e 'sendPasswordResetEmail' [7, 12]
@@ -44,7 +46,7 @@ function logar(email, senha){
         console.log(user.email)
 
         user.getIdToken(true).then((idToken)=>{
-           fetch("http://localhost:8080/usuario/perfil", {
+           fetch(`${API_URL_SERVIDOR}/usuario/perfil`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
