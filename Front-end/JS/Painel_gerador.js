@@ -1,6 +1,8 @@
 import { auth } from "../JS/Firebase-init.js"
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
+const API_URL_SERVIDOR = "https://nativa-app.onrender.com"
+
 document.addEventListener("DOMContentLoaded", () => {
 
     onAuthStateChanged(auth, async (user) => {
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 async function carregarDadosDoPerfil() {
 
     try {
-        const resposta = await fetch("http://localhost:8080/usuario/perfil", {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/usuario/perfil`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${window.token}`
@@ -66,7 +68,7 @@ async function criarNovoPedido(pedidoBody) {
     // if (!pedidoBo) return;
 
     try {
-        const resposta = await fetch("http://localhost:8080/pedido", {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -330,7 +332,7 @@ function limparCampos() {
 
 async function carregarHistoricoColetas() {
     try {
-        const resposta = await fetch("http://localhost:8080/pedido/gerador", {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido/gerador`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${window.token}`
@@ -583,7 +585,7 @@ function mostrarHistoricoColetas(dados) {
 
 async function cancelarColeta(idPedido) {
   try{
-    const resposta = await fetch("http://localhost:8080/pedido/" + idPedido, {
+    const resposta = await fetch(`${API_URL_SERVIDOR}/pedido/` + idPedido, {
         method: "DELETE",
         headers: {
             'Authorization': `Bearer ${window.token}`
