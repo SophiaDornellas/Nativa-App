@@ -2,6 +2,7 @@ import{auth} from "../JS/Firebase-init.js"
 import{createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 const form_cadastro_coletor = document.querySelector("#form_cadastro_coletor")
+const API_URL_SERVIDOR = "https://nativa-app.onrender.com"
 
 
 
@@ -38,7 +39,7 @@ function cadastrarColetor(email, senha, nome, telefone){
 
 async function postarUsuario(idToken, email, nome, telefone){
       try{
-           const resposta = await fetch("http://localhost:8080/usuario", {
+           const resposta = await fetch(`${API_URL_SERVIDOR}/usuario`, {
               method: "POST",
 
               headers: {
