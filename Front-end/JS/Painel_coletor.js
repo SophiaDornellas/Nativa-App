@@ -1,6 +1,8 @@
 import { auth } from "../JS/Firebase-init.js"
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
+const API_URL_SERVIDOR = "https://nativa-app.onrender.com"
+
 document.addEventListener("DOMContentLoaded", () => {
 
     onAuthStateChanged(auth, async (user) => {
@@ -82,7 +84,7 @@ function obterFiltros() {
 async function carregarDadosDoPerfil() {
 
     try {
-        const resposta = await fetch("http://localhost:8080/usuario/perfil", {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/usuario/perfil`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${window.token}`
@@ -107,7 +109,7 @@ async function carregarDadosDoPerfil() {
 
 async function carregarPedidosDisponiveis(param) {
     try {
-        const resposta = await fetch("http://localhost:8080/pedido" + "?" + param)
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido` + "?" + param)
 
         if (resposta.ok) {
             const dados = await resposta.json()
@@ -127,7 +129,7 @@ async function carregarPedidosDisponiveis(param) {
 
 async function carregarMinhaAgenda() {
     try {
-        const resposta = await fetch("http://localhost:8080/pedido/coletor", {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido/coletor`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${window.token}`
@@ -605,7 +607,7 @@ async function aceitarPedido(idPedido) {
 
         // // 2. FORÇA a geração de um token 100% NOVO e VÁLIDO no momento do clique
         // const tokenFresco = await user.getIdToken(true);
-        const resposta = await fetch("http://localhost:8080/pedido/coletor-edita/" + idPedido, {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido/coletor-edita/` + idPedido, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -631,7 +633,7 @@ async function aceitarPedido(idPedido) {
 
 async function cancelarColeta(idPedido) {
     try {
-        const resposta = await fetch("http://localhost:8080/pedido/coletor-edita/" + idPedido, {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido/coletor-edita/` + idPedido, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -739,7 +741,7 @@ function configurarBotaoVoltarSair() {
 
 async function editarPerfil(nome, telefone) {
     try {
-        const resposta = await fetch("http://localhost:8080/usuario", {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/usuario`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -778,7 +780,7 @@ async function editarPerfil(nome, telefone) {
 
     async function finalizarColeta(idPedido) {
     try {
-        const resposta = await fetch("http://localhost:8080/pedido/coletor-edita/" + idPedido, {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/pedido/coletor-edita/` + idPedido, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -813,7 +815,7 @@ async function atualizarXpGerador(idGerador) {
     }
 
     try {
-        const resposta = await fetch("http://localhost:8080/usuario/adicionar-xp/" + idGerador, {
+        const resposta = await fetch(`${API_URL_SERVIDOR}/usuario/adicionar-xp/` + idGerador, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
