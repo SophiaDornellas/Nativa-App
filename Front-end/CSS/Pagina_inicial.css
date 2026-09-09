@@ -1,195 +1,279 @@
- /* ==========================================================================
-           PALETA DE CORES E CONFIGURAÇÕES DO TEMA (Fundo Verde Mais Forte e Fofo)
-           ========================================================================== */
-        :root {
-            --color-bg: #e1f2e5;           /* Verde de fundo mais forte, vivo e aconchegante */
-            --color-primary: #2b7a43;      /* Verde escuro para os textos e destaques */
-            --color-primary-light: #4caf50;/* Verde vivo para a borda fina do hover */
-            --color-dark: #2d3748;         /* Grafite suave para os textos descritivos */
-            --color-white: #ffffff;
-            --color-gray-border: #d2e4d6;
-            --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação suave e fofa */
-        }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        body {
-            background-color: var(--color-bg);
-            color: var(--color-dark);
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+
 
         /* ==========================================================================
-           ESTILOS DO CABEÇALHO (HEADER)
-           ========================================================================== */
-        .css-header {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(5px);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(43, 122, 67, 0.08);
-        }
+   PALETA DE CORES E CONFIGURAÇÕES DO TEMA
+   ========================================================================== */
+:root {
+    --color-bg: #e1f2e5;              /* Fundo menta suave */
+    --color-primary: #2b7a43;         /* Verde clássico da marca */
+    --color-metallic-green: #1f5f3e;  /* Verde escuro metálico elegante para os títulos largos */
+    --color-primary-light: #4caf50;   /* Verde fino do hover */
+    --color-dark: #2d3748;            /* Texto base grafite */
+    --color-white: #ffffff;
+    --color-gray-border: #d2e4d6;
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-        .css-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--color-primary);
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        .css-login-btn {
-            background-color: transparent;
-            color: var(--color-primary);
-            border: 2px solid var(--color-primary);
-            padding: 6px 18px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 20px; /* Botão estilo pílula arredondada */
-            text-decoration: none;
-            transition: var(--transition-bounce);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+body {
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-        .css-login-btn:hover {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            transform: scale(1.05);
-        }
+/* ==========================================================================
+   CABEÇALHO
+   ========================================================================== */
+.css-header {
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(43, 122, 67, 0.08);
+}
 
-        /* ==========================================================================
-           CONTEÚDO PRINCIPAL (HERO E TITULOS)
-           ========================================================================== */
-        .css-main-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 20px;
-            text-align: center;
-            width: 100%;
-        }
+.css-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
 
-        /* Elemento decorativo fofo acima do título */
-        .css-welcome-icon {
-            font-size: 2.2rem;
-            color: var(--color-primary);
-            margin-bottom: 8px;
-            animation: pulse 2s infinite ease-in-out;
-        }
+.css-login-btn {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    padding: 6px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: var(--transition-bounce);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 
-        .css-hero-title {
-            font-size: 1.7rem;
-            color: var(--color-primary);
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
+.css-login-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: scale(1.05);
+}
 
-        .css-hero-subtitle {
-            font-size: 0.95rem;
-            color: #556b5c;
-            margin-bottom: 35px;
-            max-width: 450px;
-        }
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL (HERO)
+   ========================================================================== */
+.css-main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 50px 20px;
+    text-align: center;
+    width: 100%;
+}
 
-        /* ==========================================================================
-           GRID E PERFIS (Caixas menores e bem mais abauladas/fofas)
-           ========================================================================== */
-        .css-options-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 290px; /* Caixas menores e mais compactas */
-        }
+.css-welcome-icon {
+    font-size: 2.3rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    animation: pulse 2.2s infinite ease-in-out;
+}
 
-        .css-card-option {
-            background-color: var(--color-white);
-            border: 2px solid var(--color-gray-border);
-            border-radius: 28px; /* Bordas muito mais abauladas e fofas */
-            padding: 25px 20px;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 6px 16px rgba(43, 122, 67, 0.06);
-            transition: var(--transition-bounce);
-            display: block;
-        }
+.css-hero-title {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
 
-        /* Efeito Hover Solicitado: Aumenta levemente com borda verde fina */
-        .css-card-option:hover {
-            transform: scale(1.06); /* Aumenta levemente de forma elástica */
-            border-color: var(--color-primary-light); /* Borda verde fina */
-            box-shadow: 0 12px 24px rgba(43, 122, 67, 0.12);
-        }
+.css-hero-subtitle {
+    font-size: 1rem;
+    color: #4a6352;
+    margin-bottom: 36px; /* Espaçamento generoso antes dos retângulos */
+    max-width: 620px;
+}
 
-        .css-icon-container {
-            font-size: 2.3rem;
-            color: var(--color-primary);
-            margin-bottom: 12px;
-        }
+/* ==========================================================================
+   RETÂNGULOS LARGOS E COMPACTOS (EXPLICATIVOS)
+   ========================================================================== */
+.css-wide-cards-container {
+    width: 100%;
+    max-width: 1050px; /* Ocupa praticamente a largura inteira da tela */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 45px; /* Espaço amplo antes dos blocos de cadastro */
+}
 
-        .css-card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--color-primary);
-        }
+.css-wide-card {
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-gray-border);
+    border-radius: 20px;
+    padding: 16px 26px; /* Altura compacta */
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(43, 122, 67, 0.05);
+    transition: var(--transition-bounce);
+}
 
-        .css-card-desc {
-            font-size: 0.85rem;
-            color: #666;
-            line-height: 1.4;
-        }
+.css-wide-card:hover {
+    border-color: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(43, 122, 67, 0.08);
+}
 
-        /* Rodapé */
-        .css-footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 0.8rem;
-            color: #7fa88d;
-        }
+.css-wide-card-title {
+    font-size: 1.15rem;
+    font-weight: 800; /* Fonte grossa e marcante */
+    color: var(--color-metallic-green); /* Verde metálico */
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.2px;
+}
 
-        /* Keyframe para um efeito sutil na folha do título */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
+.css-wide-card-text {
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.55;
+    text-align: justify; /* Texto justificado */
+    text-justify: inter-word;
+}
 
-        /* ==========================================================================
-           RESPONSIVIDADE (Ajuste para telas grandes)
-           ========================================================================== */
-        @media (min-width: 768px) {
-            .css-hero-title {
-                font-size: 2.2rem;
-            }
+/* ==========================================================================
+   QUADRADOS DE CADASTRO (LADO A LADO EM BAIXO)
+   ========================================================================== */
+.css-options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 320px;
+}
 
-            .css-options-grid {
-                flex-direction: row;
-                max-width: 620px; /* Mantém compacto mesmo no desktop */
-                gap: 25px;
-            }
+.css-card-option {
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-border);
+    border-radius: 28px;
+    padding: 28px 22px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 6px 18px rgba(43, 122, 67, 0.06);
+    transition: var(--transition-bounce);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-            .css-card-option {
-                flex: 1;
-                padding: 35px 25px;
-            }
-        }
+.css-card-option:hover {
+    transform: scale(1.05);
+    border-color: var(--color-primary-light);
+    box-shadow: 0 12px 26px rgba(43, 122, 67, 0.12);
+}
+
+.css-card-pill {
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.css-icon-container {
+    font-size: 2.4rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.css-card-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--color-primary);
+}
+
+.css-card-desc {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.css-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 20px;
+    margin-top: auto;
+    transition: background-color 0.2s ease;
+}
+
+.css-card-option:hover .css-card-cta {
+    background-color: var(--color-metallic-green);
+}
+
+/* RODAPÉ */
+.css-footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 0.8rem;
+    color: #7fa88d;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   DESKTOP RESPONSIVO (TELAS MÉDIAS E GRANDES)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .css-hero-title {
+        font-size: 2.3rem;
+    }
+
+    .css-options-grid {
+        flex-direction: row;
+        max-width: 720px;
+        gap: 30px;
+    }
+
+    .css-card-option {
+        flex: 1;
+        padding: 32px 24px;
+    }
+}
