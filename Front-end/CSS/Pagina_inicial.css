@@ -1,14 +1,13 @@
 
 
 
-
-        /* ==========================================================================
+/* ==========================================================================
    PALETA DE CORES E CONFIGURAÇÕES DO TEMA
    ========================================================================== */
 :root {
     --color-bg: #e1f2e5;              /* Fundo menta suave */
     --color-primary: #2b7a43;         /* Verde clássico da marca */
-    --color-metallic-green: #1f5f3e;  /* Verde escuro metálico elegante para os títulos largos */
+    --color-metallic-green: #1f5f3e;  /* Verde escuro metálico elegante */
     --color-primary-light: #4caf50;   /* Verde fino do hover */
     --color-dark: #2d3748;            /* Texto base grafite */
     --color-white: #ffffff;
@@ -110,7 +109,7 @@ body {
 .css-hero-subtitle {
     font-size: 1rem;
     color: #4a6352;
-    margin-bottom: 36px; /* Espaçamento generoso antes dos retângulos */
+    margin-bottom: 36px;
     max-width: 620px;
 }
 
@@ -119,18 +118,18 @@ body {
    ========================================================================== */
 .css-wide-cards-container {
     width: 100%;
-    max-width: 1050px; /* Ocupa praticamente a largura inteira da tela */
+    max-width: 1050px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-bottom: 45px; /* Espaço amplo antes dos blocos de cadastro */
+    margin-bottom: 45px;
 }
 
 .css-wide-card {
     background-color: var(--color-white);
     border: 1.5px solid var(--color-gray-border);
     border-radius: 20px;
-    padding: 16px 26px; /* Altura compacta */
+    padding: 16px 26px;
     text-align: left;
     box-shadow: 0 4px 16px rgba(43, 122, 67, 0.05);
     transition: var(--transition-bounce);
@@ -144,8 +143,8 @@ body {
 
 .css-wide-card-title {
     font-size: 1.15rem;
-    font-weight: 800; /* Fonte grossa e marcante */
-    color: var(--color-metallic-green); /* Verde metálico */
+    font-weight: 800;
+    color: var(--color-metallic-green);
     margin-bottom: 6px;
     display: flex;
     align-items: center;
@@ -157,8 +156,33 @@ body {
     font-size: 0.9rem;
     color: #4a5568;
     line-height: 1.55;
-    text-align: justify; /* Texto justificado */
+    text-align: justify;
     text-justify: inter-word;
+}
+
+/* ==========================================================================
+   TÍTULO DE SEÇÃO "CADASTRE-SE" (CENTRALIZADO, ESPAÇADO E DESTACADO)
+   ========================================================================== */
+.css-register-section-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--color-metallic-green);
+    margin-bottom: 22px;
+    text-align: center;
+    letter-spacing: -0.3px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Detalhe sutil abaixo da palavra Cadastre-se */
+.css-register-section-title::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 3px;
+    background-color: var(--color-primary-light);
+    margin: 6px auto 0 auto;
+    border-radius: 2px;
 }
 
 /* ==========================================================================
