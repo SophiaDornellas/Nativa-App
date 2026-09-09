@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,7 +8,6 @@
     <title>Nativa App</title>
     <link rel="stylesheet" href="../CSS/Pagina_inicial.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
 </head>
 <body>
 
@@ -26,24 +27,63 @@
         </div>
         
         <h1 class="css-hero-title">Bem-vindo ao Nativa App</h1>
-        <p class="css-hero-subtitle">Escolha como você quer participar da mudança do fluxo de coleta.</p>
+        <p class="css-hero-subtitle">Conectando quem gera resíduos recicláveis a quem recolhe com autonomia e valor na nossa cidade.</p>
 
+        <!-- SEÇÃO COM OS DOIS RETÂNGULOS LARGOS E COMPACTOS -->
+        <section class="css-wide-cards-container">
+            
+            <!-- RETÂNGULO 1: GERADOR -->
+            <article class="css-wide-card">
+                <h2 class="css-wide-card-title">
+                    <i class="fa-solid fa-hand-holding-heart"></i> O que o Gerador faz?
+                </h2>
+                <p class="css-wide-card-text">
+                    Como dono de comércio, condomínio ou residência, você não precisa mais conviver com o acúmulo de caixas de papelão e embalagens plásticas ocupando o seu espaço físico. A qualquer instante, você agenda retiradas personalizadas pelo sistema informando o material, volume aproximado e a janela de horário mais cômoda. A coleta é realizada na sua porta com total organização, praticidade e de maneira 100% gratuita.
+                </p>
+            </article>
+
+            <!-- RETÂNGULO 2: COLETOR -->
+            <article class="css-wide-card">
+                <h2 class="css-wide-card-title">
+                    <i class="fa-solid fa-truck"></i> O que o Coletor faz?
+                </h2>
+                <p class="css-wide-card-text">
+                    Como coletor autônomo, você tem total autonomia para montar a sua rotina de trabalho com muito mais eficiência e rendimento. Na plataforma, você visualiza em tempo real a listagem completa dos pedidos de coleta abertos em Belo Horizonte, com detalhes de volume, material e localização exata. Você escolhe as viagens que valem a pena, planeja o itinerário ideal, evita percursos ociosos e direciona os recicláveis para os grandes compradores.
+                </p>
+            </article>
+
+        </section>
+
+        <!-- TÍTULO CENTRALIZADO "CADASTRE-SE" -->
+        <h2 class="css-register-section-title">Cadastre-se</h2>
+
+        <!-- QUADRADOS DE CADASTRO -->
         <div class="css-options-grid">
             
             <a href="Cadastro_gerador.html" class="css-card-option">
+                <div class="css-card-pill">Comércios & Residências</div>
                 <div class="css-icon-container">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                 </div>
                 <h2 class="css-card-title">Gerador</h2>
-                <p class="css-card-desc">Quero descartar meus resíduos recicláveis de forma prática.</p>
+                <p class="css-card-desc">Quero agendar a retirada de materiais acumulados no meu estabelecimento.</p>
+                <div class="css-card-cta">
+                    <span>Cadastrar como Gerador</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
             </a>
 
             <a href="Cadastro_coletor.html" class="css-card-option">
+                <div class="css-card-pill">Coletores Autônomos</div>
                 <div class="css-icon-container">
                     <i class="fa-solid fa-truck"></i>
                 </div>
                 <h2 class="css-card-title">Coletor</h2>
-                <p class="css-card-desc">Quero encontrar coletas disponíveis na minha região.</p>
+                <p class="css-card-desc">Quero encontrar retiradas disponíveis perto de mim para coletar e vender.</p>
+                <div class="css-card-cta">
+                    <span>Cadastrar como Coletor</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
             </a>
 
         </div>
