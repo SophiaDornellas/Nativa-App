@@ -1,424 +1,337 @@
- /* ==========================================================================
-           PALETA DE CORES E CONFIGURAÇÕES GLOBAIS
-           ========================================================================== */
-        :root {
-            --color-bg: #e1f2e5;              
-            --color-primary: #2b7a43;         
-            --color-primary-light: #4caf50;   
-            --color-bg-selected: #ccebd3;     
-            --color-dark: #2d3748;            
-            --color-white: #ffffff;           
-            --color-gray-border: #d2e4d6;     
-            --color-danger: #dc3545;          
-            --color-danger-hover: #bd2130;
-            --transition-smooth: all 0.3s ease;
-        }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
 
-        body {
-            background-color: var(--color-bg);
-            color: var(--color-dark);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px;
-            min-height: 100vh;
-        }
 
-        .css-main-wrapper {
-            width: 100%;
-            max-width: 680px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
 
-        /* ==========================================================================
-           PAINEL SUPERIOR DO GERADOR
-           ========================================================================== */
-        .css-top-nav {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--color-primary);
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            width: fit-content;
-        }
 
-        .css-profile-panel {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 20px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 6px 16px rgba(43, 122, 67, 0.15);
-        }
 
-        .css-profile-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
 
-        .css-store-icon {
-            background-color: rgba(255, 255, 255, 0.2);
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
 
-        .css-store-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
 
-        .css-store-sub {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
-
-        .css-badge-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .css-badge {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* ==========================================================================
-           ESTILIZAÇÃO DOS HEADERS RETRÁTEIS (NOVO REQUISITO)
-           ========================================================================== */
-        .css-collapsible-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .css-collapsible-header i.css-arrow {
-            transition: transform 0.3s ease;
-            color: var(--color-primary);
-            font-size: 1.2rem;
-        }
-
-        /* Classe que será alternada via JS para rotacionar a setinha */
-        .css-collapsed i.css-arrow {
-            transform: rotate(-90deg);
-        }
-
-        /* Área de conteúdo que expande/colapsa */
-        .css-collapsible-content {
-            transition: max-height 0.3s ease-out, opacity 0.2s ease;
-            max-height: 1200px; /* Valor alto para acomodar o form aberto */
-            overflow: hidden;
-            opacity: 1;
-        }
-
-        .css-collapsed + .css-collapsible-content {
-            max-height: 0 !important;
-            opacity: 0 !important;
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-        }
-
-        /* ==========================================================================
-           FORMULÁRIO DE NOVA SOLICITAÇÃO (CARD BRANCO)
-           ========================================================================== */
-        .css-form-card {
-            background-color: var(--color-white);
-            border-radius: 24px;
-            padding: 24px;
-            border: 2px solid var(--color-gray-border);
-            box-shadow: 0 8px 24px rgba(43, 122, 67, 0.04);
-        }
-
-        .css-section-title {
-            font-size: 1.15rem;
-            color: var(--color-dark);
-            font-weight: 700;
-        }
-
-        .css-form-group {
-            margin-bottom: 20px;
-        }
-
-        .css-form-label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--color-dark);
-            margin-bottom: 8px;
-        }
-
-        /* Opções de Seleção de Tipo de Material */
-        .css-radio-box {
-            border: 2px solid var(--color-gray-border);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: var(--transition-smooth);
-        }
-
-        /* Mudança: Classe css-selected só será aplicada na ativa por clique */
-        .css-radio-box.css-selected {
-            background-color: #eaf7ed;
-            border-color: var(--color-primary-light);
-            font-weight: 600;
-        }
-
-        /* Sub-opções ocultáveis (Papelão e Plástico) */
-        .css-sub-categories {
-            border-left: 3px solid var(--color-primary-light);
-            margin-left: 12px;
-            padding-left: 16px;
-            margin-bottom: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .css-checkbox-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        /* Grid de Volume Estimado */
-        .css-volume-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        .css-volume-option {
-            border: 2px solid var(--color-gray-border);
-            border-radius: 14px;
-            padding: 12px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        /* Mudança: Removido o 'css-active' fixo do HTML. Só ativa no clique */
-        .css-volume-option.css-active {
-            background-color: #eaf7ed;
-            border-color: var(--color-primary-light);
-        }
-
-        .css-volume-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        .css-volume-desc {
-            font-size: 0.75rem;
-            color: #718096;
-            margin-top: 2px;
-        }
-
-        /* Agendamento e Inputs de Texto */
-        .css-input-row {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .css-input-field {
-            width: 100%;
-            padding: 10px 12px;
-            font-size: 0.85rem;
-            border: 2px solid var(--color-gray-border);
-            border-radius: 12px;
-            outline: none;
-            background-color: #fafdfb;
-            transition: var(--transition-smooth);
-        }
-
-        .css-input-field:focus {
-            border-color: var(--color-primary-light);
-            background-color: var(--color-white);
-        }
-
-        /* Botão Principal de Lançamento */
-        .css-btn-submit {
-            width: 100%;
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border: none;
-            padding: 12px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            border-radius: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-            transition: var(--transition-smooth);
-        }
-
-        .css-btn-submit:hover {
-            background-color: #215d33;
-            transform: translateY(-1px);
-        }
-
-        /* ==========================================================================
-           SEÇÃO: MINHAS COLETAS RECENTES
-           ========================================================================== */
-        .css-history-section {
-            margin-top: 10px;
-        }
-
-        .css-history-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .css-history-card {
-            background-color: var(--color-white);
-            border: 2px solid var(--color-gray-border);
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-        }
-
-        .css-card-main-info {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .css-info-block {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .css-info-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #a0aec0;
-            font-weight: 700;
-        }
-
-        .css-info-value {
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .css-status-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 4px;
-        }
-
-        .css-status-pill {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-align: center;
-            width: fit-content;
-        }
-
-        .css-status-waiting { background-color: #fff5f5; color: #e53e3e; }
-        .css-status-confirmed { background-color: #fefcbf; color: #b7791f; }
-        .css-status-done { background-color: #f0fff4; color: #38a169; }
-
-        /* Dados do Coletor */
-        .css-collector-box {
-            background-color: #f7fafc;
-            border-radius: 10px;
-            padding: 8px 12px;
-            border-left: 3px solid var(--color-primary-light);
-            font-size: 0.8rem;
-        }
-
-        /* Mudança: Layout especial para alinhar o botão de cancelar na mesma linha das infos do coletor */
-        .css-collector-row-layout {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .css-collector-box strong {
-            color: var(--color-primary);
-        }
-
-        /* Botão Cancelar Inteligente e Clean */
-        .css-btn-cancel {
-            background-color: transparent;
-            color: var(--color-danger);
-            border: 1px solid var(--color-danger);
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            width: max-content;
-            white-space: nowrap;
-            transition: var(--transition-smooth);
-        }
-
-        .css-btn-cancel:hover {
-            background-color: var(--color-danger);
-            color: var(--color-white);
-        }
-
-        .css-card-footer-align {
-            display: flex;
-            justify-content: flex-end;
-            width: 100%;
-        }
-
-        /* Classe utilitária hide */
-        .hide {
-            display: none !important;
-        }
-
-        /* ==========================================================================
-   CORREÇÃO DO CARDS DO HISTÓRICO (DESIGN DENSO E ALINHADO)
+/* ==========================================================================
+   PALETA DE CORES E CONFIGURAÇÕES GLOBAIS
    ========================================================================== */
+:root {
+    --color-bg: #e1f2e5;
+    --color-primary: #2b7a43;
+    --color-primary-light: #4caf50;
+    --color-bg-selected: #ccebd3;
+    --color-dark: #2d3748;
+    --color-white: #ffffff;
+    --color-gray-border: #d2e4d6;
+    --color-danger: #dc3545;
+    --color-danger-hover: #bd2130;
+    --transition-smooth: all 0.3s ease;
+}
 
-/* Barra Superior do Card (Data + Status alinhados nas pontas) */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    min-height: 100vh;
+}
+
+.css-main-wrapper {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==========================================================================
+   PAINEL SUPERIOR DO GERADOR
+   ========================================================================== */
+.css-top-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.css-profile-panel {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 20px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 6px 16px rgba(43, 122, 67, 0.15);
+}
+
+.css-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.css-store-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.css-store-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.css-store-sub {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.css-badge-group {
+    display: flex;
+    gap: 8px;
+}
+
+.css-badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.css-badge-btn {
+    text-decoration: none;
+    color: var(--color-white);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.css-badge-btn:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO DOS HEADERS RETRÁTEIS
+   ========================================================================== */
+.css-collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.css-collapsible-header i.css-arrow {
+    transition: transform 0.3s ease;
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.css-collapsed i.css-arrow {
+    transform: rotate(-90deg);
+}
+
+.css-collapsible-content {
+    transition: max-height 0.3s ease-out, opacity 0.2s ease;
+    max-height: 1200px;
+    overflow: hidden;
+    opacity: 1;
+}
+
+.css-collapsed + .css-collapsible-content {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* ==========================================================================
+   FORMULÁRIO DE SOLICITAÇÃO (CARD BRANCO)
+   ========================================================================== */
+.css-form-card {
+    background-color: var(--color-white);
+    border-radius: 24px;
+    padding: 24px;
+    border: 2px solid var(--color-gray-border);
+    box-shadow: 0 8px 24px rgba(43, 122, 67, 0.04);
+}
+
+.css-section-title {
+    font-size: 1.15rem;
+    color: var(--color-dark);
+    font-weight: 700;
+}
+
+.css-form-group {
+    margin-bottom: 20px;
+}
+
+.css-form-label {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 8px;
+}
+
+.css-radio-box {
+    border: 2px solid var(--color-gray-border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-smooth);
+}
+
+.css-radio-box.css-selected {
+    background-color: #eaf7ed;
+    border-color: var(--color-primary-light);
+    font-weight: 600;
+}
+
+.css-sub-categories {
+    border-left: 3px solid var(--color-primary-light);
+    margin-left: 12px;
+    padding-left: 16px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.css-checkbox-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.css-volume-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.css-volume-option {
+    border: 2px solid var(--color-gray-border);
+    border-radius: 14px;
+    padding: 12px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.css-volume-option.css-active {
+    background-color: #eaf7ed;
+    border-color: var(--color-primary-light);
+}
+
+.css-volume-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.css-volume-desc {
+    font-size: 0.75rem;
+    color: #718096;
+    margin-top: 2px;
+}
+
+.css-input-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.css-input-field {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    border: 2px solid var(--color-gray-border);
+    border-radius: 12px;
+    outline: none;
+    background-color: #fafdfb;
+    transition: var(--transition-smooth);
+}
+
+.css-input-field:focus {
+    border-color: var(--color-primary-light);
+    background-color: var(--color-white);
+}
+
+.css-btn-submit {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    transition: var(--transition-smooth);
+}
+
+.css-btn-submit:hover {
+    background-color: #215d33;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   HISTÓRICO DE COLETAS
+   ========================================================================== */
+.css-history-section {
+    margin-top: 10px;
+}
+
+.css-history-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.css-history-card {
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-border);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
 .css-card-top-bar {
     display: flex;
     justify-content: space-between;
@@ -438,7 +351,6 @@
     margin-right: 4px;
 }
 
-/* Reorganização do Grid principal para ficar em 4 colunas perfeitamente alinhadas */
 .css-card-main-info {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
@@ -446,12 +358,41 @@
     padding-top: 6px;
 }
 
+.css-info-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.css-info-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #a0aec0;
+    font-weight: 700;
+}
+
+.css-info-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
 .css-xp-text {
     color: var(--color-primary);
     font-weight: 700;
 }
 
-/* Remove a seta preta feia original do browser no details */
+.css-status-pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    width: fit-content;
+}
+
+.css-status-waiting { background-color: #fff5f5; color: #e53e3e; }
+.css-status-confirmed { background-color: #fefcbf; color: #b7791f; }
+.css-status-done { background-color: #f0fff4; color: #38a169; }
+
 .css-obs-details summary::-webkit-details-marker,
 .css-obs-details summary::marker {
     display: none !important;
@@ -477,7 +418,6 @@
     transition: transform 0.2s ease;
 }
 
-/* Anima a setinha do FontAwesome quando abre */
 .css-obs-details[open] .css-obs-arrow {
     transform: rotate(180deg);
 }
@@ -492,36 +432,57 @@
     border-left: 3px solid var(--color-primary-light);
 }
 
-/* Ajuste mobile para não quebrar em telas bem pequenas */
-@media (max-width: 480px) {
-    .css-card-main-info {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
+.css-collector-box {
+    background-color: #f7fafc;
+    border-radius: 10px;
+    padding: 8px 12px;
+    border-left: 3px solid var(--color-primary-light);
+    font-size: 0.8rem;
 }
 
-        /* ==========================================================================
-           MEDIA QUERIES (DESKTOP E PROPORÇÕES GRANDES)
-           ========================================================================== */
-        @media (min-width: 580px) {
-            .css-volume-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .css-input-row {
-                grid-template-columns: 1fr 1fr;
-            }
-            .css-card-main-info {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .css-status-container {
-                justify-content: flex-end;
-                gap: 12px;
-            }
-        }
+.css-collector-row-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
 
+.css-collector-box strong {
+    color: var(--color-primary);
+}
 
+.css-btn-cancel {
+    background-color: transparent;
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    width: max-content;
+    white-space: nowrap;
+    transition: var(--transition-smooth);
+}
 
-        /* ==========================================================================
-   MODAL DE EDIÇÃO DO PERFIL DO GERADOR (COMPACTO E RESPONSIVO)
+.css-btn-cancel:hover {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+.css-card-footer-align {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.hide {
+    display: none !important;
+}
+
+/* ==========================================================================
+   MODAL DE EDIÇÃO DO PERFIL E LOGOUT
    ========================================================================== */
 .gen-modal-overlay {
     position: fixed;
@@ -557,7 +518,7 @@
     transform: translateY(-20px);
     transition: transform 0.3s ease;
     max-height: 90vh;
-    overflow-y: auto; /* Permite rolar em telas muito pequenas */
+    overflow-y: auto;
 }
 
 .gen-modal-overlay.active .gen-modal-card {
@@ -577,7 +538,7 @@
 }
 
 .gen-modal-close:hover {
-    color: var(--color-red, #dc3545);
+    color: var(--color-danger);
 }
 
 .gen-modal-title {
@@ -630,17 +591,12 @@
     border-color: var(--color-primary, #2b7a43);
 }
 
-/* Grid de duas colunas para otimizar espaço */
 .gen-modal-grid-2 {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* O primeiro campo fica maior que o segundo */
+    grid-template-columns: 2fr 1fr;
     gap: 8px;
 }
 
-
-/* ==========================================================================
-   ESTILOS DO MODAL DE LOGOUT / SAIR
-   ========================================================================== */
 .gen-modal-logout-card {
     max-width: 380px !important;
     text-align: center;
@@ -653,7 +609,6 @@
     margin: 12px 0 20px 0;
 }
 
-/* Botão Vermelho Centralizado de Sair */
 .css-btn-logout-danger {
     width: 100%;
     background-color: var(--color-danger);
@@ -678,7 +633,7 @@
 }
 
 /* ==========================================================================
-   CONTAINER DE NOTIFICAÇÕES (TOASTS)
+   TOASTS DE NOTIFICAÇÃO
    ========================================================================== */
 .css-toast-container {
     position: fixed;
@@ -707,46 +662,175 @@
     transition: opacity 0.3s ease;
 }
 
-.css-toast-accepted {
-    border-left-color: var(--color-primary-light);
-}
-
-.css-toast-cancelled {
-    border-left-color: var(--color-danger);
-}
-
-.css-toast i {
-    font-size: 1.2rem;
-}
-
-.css-toast-accepted i { color: var(--color-primary-light); }
-.css-toast-cancelled i { color: var(--color-danger); }
+.css-toast-accepted { border-left-color: var(--color-primary-light); }
+.css-toast-cancelled { border-left-color: var(--color-danger); }
 
 @keyframes slideInToast {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
-/* BOTÕES DE BADGES (NÍVEL E XP) */
-.css-badge-btn {
-    text-decoration: none;
-    color: var(--color-white);
+/* ==========================================================================
+   ELEMENTOS DO TOUR GUIADO E BOTÕES DE AJUDA (?)
+   ========================================================================== */
+
+/* Botão (?) circular ao lado dos labels */
+.css-tour-help-btn {
+    background-color: #e1f2e5;
+    color: var(--color-primary);
+    border: 1px solid rgba(43, 122, 67, 0.3);
+    border-radius: 50%;
+    width: 19px;
+    height: 19px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
     cursor: pointer;
+    margin-left: 8px;
     transition: var(--transition-smooth);
 }
 
-.css-badge-btn:hover {
-    background-color: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+.css-tour-help-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: scale(1.15);
 }
 
-.css-badge-btn:active {
-    transform: translateY(0);
+/* Backdrop Escurecido */
+.css-tour-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.css-tour-overlay.css-tour-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Destaque do elemento alvo durante o tour */
+.css-tour-highlight {
+    position: relative !important;
+    z-index: 9999 !important;
+    background-color: var(--color-white) !important;
+    box-shadow: 0 0 0 4px var(--color-primary-light), 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 14px;
+}
+
+/* Card/Balão de Dica do Tour */
+.css-tour-tooltip {
+    position: absolute;
+    z-index: 10000;
+    width: 290px;
+    background: var(--color-white);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    border: 1px solid #d2e4d6;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s ease;
+}
+
+.css-tour-tooltip.css-tour-visible {
+    display: flex;
+}
+
+.css-tour-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.css-tour-close:hover {
+    color: var(--color-primary);
+}
+
+.css-tour-header {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.css-tour-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1b4329;
+}
+
+.css-tour-body {
+    font-size: 0.84rem;
+    color: #444;
+    line-height: 1.45;
+}
+
+.css-tour-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.css-tour-btn-skip {
+    background: transparent;
+    border: none;
+    color: #777;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.css-tour-btn-skip:hover {
+    text-decoration: underline;
+}
+
+.css-tour-btn-next {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.css-tour-btn-next:hover {
+    background-color: #1b4329;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (DESKTOP)
+   ========================================================================== */
+@media (min-width: 580px) {
+    .css-volume-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .css-input-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .css-card-main-info {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
