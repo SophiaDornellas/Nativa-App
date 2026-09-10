@@ -601,8 +601,14 @@ body {
     position: relative !important;
     z-index: 9999 !important;
     background-color: #ffffff !important;
+    padding: 12px 14px !important;  
     box-shadow: 0 0 0 4px #4caf50, 0 10px 30px rgba(0, 0, 0, 0.3) !important;
     border-radius: 16px;
+}
+/* Mantém o card verde original do perfil quando ele estiver em destaque no tour */
+#tour-anchor-perfil.css-tour-highlight {
+    background-color: var(--color-primary) !important;
+    color: var(--color-white) !important;
 }
 
 .css-tour-tooltip {
