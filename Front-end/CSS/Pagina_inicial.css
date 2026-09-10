@@ -301,3 +301,40 @@ body {
         padding: 32px 24px;
     }
 }
+
+/* Rolagem suave na página */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Agrupamento dos botões no cabeçalho */
+.css-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Botão Cadastre-se no topo */
+.css-top-register-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-smooth, all 0.25s ease);
+}
+
+.css-top-register-btn:hover {
+    background-color: #215d33;
+    transform: scale(1.03);
+}
+
+/* Margem para o título não ficar colado embaixo do header */
+#secao-cadastro {
+    scroll-margin-top: 80px;
+}
