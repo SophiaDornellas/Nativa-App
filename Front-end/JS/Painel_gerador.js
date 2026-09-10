@@ -725,7 +725,7 @@ function verificarNotificacoes(novosDados) {
 
 
 // Mensagem explicativa padrão
-const MENSAGEM_PRIMEIRA_COLETA = "Quando o coletor aceitar, uma notificação vai chegar e o status da coleta vai mudar para esperando coletor.";
+const MENSAGEM_PRIMEIRA_COLETA = "Quando o coletor aceitar a coleta, uma notificação vai chegar e o status da coleta vai mudar para 'COLETA CONFIRMADA'.";
 
 // 1. Ouvinte para o clique no (?) ao lado de 'Nova Solicitação de Coleta'
 document.getElementById("btnAjudaCriacaoPedido")?.addEventListener("click", (e) => {
