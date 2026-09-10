@@ -12,7 +12,7 @@ const ETAPAS_TOUR = [
     {
         targetId: "tour-step-material",
         title: "Tipo de Material",
-        text: "Informe se os materiais estão misturados (secos) ou se você já separou por fardos/sacos de papelão ou plástico."
+        text: "Informe se os materiais estão misturados (secos) ou se você já separou o papelão do plástico."
     },
     {
         targetId: "tour-step-volume",

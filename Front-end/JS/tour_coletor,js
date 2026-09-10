@@ -12,7 +12,7 @@ const ETAPAS_COLETOR = [
     {
         targetId: "tour-anchor-pedidos-title",
         title: "Pedidos Disponíveis",
-        text: "Nesta área aparecem em tempo real todas as solicitações de busca cadastradas pelos geradores e comércios da sua região."
+        text: "Nesta área aparecem em tempo real todas as solicitações de coletas cadastradas pelos comércios e estabelecimentos da sua região."
     },
     {
         targetId: "tour-anchor-filtros",
