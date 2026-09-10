@@ -175,7 +175,7 @@ body {
 }
 
 /* Detalhe sutil abaixo da palavra Cadastre-se */
-.css-register-section-title::after {
+/* .css-register-section-title::after {
     content: "";
     display: block;
     width: 48px;
@@ -183,6 +183,31 @@ body {
     background-color: var(--color-primary-light);
     margin: 6px auto 0 auto;
     border-radius: 2px;
+} */
+
+.css-register-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;                     /* Espaço entre os tracinhos e a palavra */
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-align: center;
+    margin: 40px auto 25px auto;
+    width: 100%;
+    scroll-margin-top: 80px;      /* Distância para o scroll suave não colar no topo */
+}
+
+/* Tracinho da Esquerda e da Direita */
+.css-register-section-title::before,
+.css-register-section-title::after {
+    content: "";
+    display: inline-block;
+    width: 50px;                   /* Comprimento do tracinho */
+    height: 4px;                   /* Espessura do tracinho */
+    background-color: var(--color-primary);
+    border-radius: 4px;
 }
 
 /* ==========================================================================
@@ -336,5 +361,5 @@ html {
 
 /* Margem para o título não ficar colado embaixo do header */
 #secao-cadastro {
-    scroll-margin-top: 70px;
+    scroll-margin-top: 80px;
 }
