@@ -709,14 +709,6 @@ body {
 }
 
 /* Destaque do elemento alvo durante o tour */
-/* .css-tour-highlight {
-    position: relative !important;
-    z-index: 9999 !important;
-    background-color: var(--color-white) !important;
-    box-shadow: 0 0 0 4px var(--color-primary-light), 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-    border-radius: 14px;
-} */
-
 .css-tour-highlight {
     position: relative !important;
     z-index: 9999 !important;
@@ -725,6 +717,12 @@ body {
     border-radius: 16px !important;
     padding: 12px 14px !important;       /* Cria o respiro interno em volta dos botões */
     /* margin: -12px -14px 8px -14px !important; Compensa o padding para não empurrar os outros campos */
+}
+
+/* Força a cor preta no texto e no ícone quando o botão estiver destacado no tour */
+.css-btn-submit.css-tour-highlight,
+.css-btn-submit.css-tour-highlight i {
+    color: #000000 !important;
 }
 
 /* Card/Balão de Dica do Tour */
