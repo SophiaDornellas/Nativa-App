@@ -200,15 +200,15 @@ body {
 }
 
 /* Tracinho da Esquerda e da Direita */
- .css-register-section-title::before,
+ /* .css-register-section-title::before,
 .css-register-section-title::after {
     content: "";
     display: inline-block;
-    width: 50px;                   /* Comprimento do tracinho */
-     height: 4px;                   /*Espessura do tracinho */
+    width: 50px;                   
+     height: 4px;                   
      background-color: var(--color-primary);
     border-radius: 4px; 
- } 
+ }  */
 
 /* ==========================================================================
    QUADRADOS DE CADASTRO (LADO A LADO EM BAIXO)
