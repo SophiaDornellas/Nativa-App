@@ -838,5 +838,5 @@ body {
 /* // pra aparecer a interroçaão que explica o status do pedido */
 .css-section-title {
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
