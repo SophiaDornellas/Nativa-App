@@ -1,0 +1,182 @@
+// =========================================================================
+// TOUR INTERATIVO DO COLETOR - NATIVA APP
+// =========================================================================
+
+const ETAPAS_COLETOR = [
+    {
+        targetId: "tour-anchor-perfil",
+        title: "Olá, Coletor Parceiro! 🍃",
+        text: "Bem-vindo à sua central de coletas! Aqui você encontra pedidos de recicláveis por toda a cidade e organiza o seu itinerário de trabalho com total autonomia.",
+        isFirst: true
+    },
+    {
+        targetId: "tour-anchor-pedidos-title",
+        title: "Pedidos Disponíveis",
+        text: "Nesta área aparecem em tempo real todas as solicitações de busca cadastradas pelos geradores e comércios da sua região."
+    },
+    {
+        targetId: "tour-anchor-filtros",
+        title: "Filtros Estratégicos",
+        text: "Use esses filtros para encontrar coletas por Tipo de Resíduo (papelão, plástico), Volume da carga, Data agendada ou por Região de Belo Horizonte."
+    },
+    {
+        targetId: "tour-anchor-agenda-title",
+        title: "Minha Agenda de Trabalho",
+        text: "Assim que você aceitar um pedido, ele virá para cá! Aqui você terá a Rota no mapa, botão para Finalizar e receber seu bônus, ou Cancelar caso haja imprevistos.",
+        isLast: true
+    }
+];
+
+let indiceAtual = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+    montarEstruturaTour();
+    vincularBotoesAjuda();
+
+    // Inicia no primeiro acesso
+    const tourFeito = localStorage.getItem("nativa_tour_coletor_concluido");
+    if (!tourFeito) {
+        setTimeout(() => {
+            iniciarTourCompleto();
+        }, 500);
+    }
+});
+
+function montarEstruturaTour() {
+    const overlay = document.createElement("div");
+    overlay.id = "tour-overlay";
+    overlay.className = "css-tour-overlay";
+    document.body.appendChild(overlay);
+
+    const tooltip = document.createElement("div");
+    tooltip.id = "tour-tooltip";
+    tooltip.className = "css-tour-tooltip";
+    tooltip.innerHTML = `
+        <button type="button" class="css-tour-close" id="tour-btn-close" title="Fechar">&times;</button>
+        <div class="css-tour-header">
+            <span class="css-tour-title" id="tour-tooltip-title"></span>
+        </div>
+        <div class="css-tour-body" id="tour-tooltip-text"></div>
+        <div class="css-tour-footer" id="tour-tooltip-footer"></div>
+    `;
+    document.body.appendChild(tooltip);
+
+    document.getElementById("tour-btn-close").addEventListener("click", fecharOuAvancar);
+}
+
+function iniciarTourCompleto() {
+    indiceAtual = 0;
+    apresentarPasso(indiceAtual);
+}
+
+function apresentarPasso(indice) {
+    const passo = ETAPAS_COLETOR[indice];
+    if (!passo) {
+        encerrarTour();
+        return;
+    }
+
+    const elementoAlvo = document.getElementById(passo.targetId);
+    if (!elementoAlvo) {
+        fecharOuAvancar();
+        return;
+    }
+
+    document.querySelectorAll(".css-tour-highlight").forEach(el => el.classList.remove("css-tour-highlight"));
+
+    elementoAlvo.classList.add("css-tour-highlight");
+    elementoAlvo.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    document.getElementById("tour-tooltip-title").textContent = passo.title;
+    document.getElementById("tour-tooltip-text").textContent = passo.text;
+
+    const footer = document.getElementById("tour-tooltip-footer");
+    footer.innerHTML = "";
+
+    if (!passo.isLast) {
+        const btnPular = document.createElement("button");
+        btnPular.type = "button";
+        btnPular.className = "css-tour-btn-skip";
+        btnPular.textContent = "Pular Tour";
+        btnPular.addEventListener("click", encerrarTour);
+        footer.appendChild(btnPular);
+
+        const btnProximo = document.createElement("button");
+        btnProximo.type = "button";
+        btnProximo.className = "css-tour-btn-next";
+        btnProximo.textContent = passo.isFirst ? "Começar Tour" : "Próximo";
+        btnProximo.addEventListener("click", fecharOuAvancar);
+        footer.appendChild(btnProximo);
+    } else {
+        const btnConcluir = document.createElement("button");
+        btnConcluir.type = "button";
+        btnConcluir.className = "css-tour-btn-next";
+        btnConcluir.textContent = "Entendido!";
+        btnConcluir.addEventListener("click", encerrarTour);
+        footer.appendChild(btnConcluir);
+    }
+
+    ajustarPosicao(elementoAlvo);
+
+    document.getElementById("tour-overlay").classList.add("css-tour-visible");
+    document.getElementById("tour-tooltip").classList.add("css-tour-visible");
+}
+
+function ajustarPosicao(alvo) {
+    const tooltip = document.getElementById("tour-tooltip");
+    const rect = alvo.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    let topo = rect.bottom + scrollTop + 10;
+    let esquerda = rect.left + (rect.width / 2) - 145;
+
+    if (esquerda < 16) esquerda = 16;
+    if (esquerda + 300 > window.innerWidth) {
+        esquerda = window.innerWidth - 306;
+    }
+
+    tooltip.style.top = `${topo}px`;
+    tooltip.style.left = `${esquerda}px`;
+}
+
+function fecharOuAvancar() {
+    indiceAtual++;
+    if (indiceAtual < ETAPAS_COLETOR.length) {
+        apresentarPasso(indiceAtual);
+    } else {
+        encerrarTour();
+    }
+}
+
+function encerrarTour() {
+    document.querySelectorAll(".css-tour-highlight").forEach(el => el.classList.remove("css-tour-highlight"));
+    document.getElementById("tour-overlay")?.classList.remove("css-tour-visible");
+    document.getElementById("tour-tooltip")?.classList.remove("css-tour-visible");
+    localStorage.setItem("nativa_tour_coletor_concluido", "true");
+}
+
+function vincularBotoesAjuda() {
+    const botoes = document.querySelectorAll(".css-tour-help-btn");
+    botoes.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const stepIndex = parseInt(btn.getAttribute("data-tour-step"), 10);
+            if (!isNaN(stepIndex)) {
+                indiceAtual = stepIndex;
+                apresentarPasso(indiceAtual);
+            }
+        });
+    });
+}
+
+// Disparado no primeiro pedido que o coletor aceitar na plataforma
+window.notificarPrimeiroPedidoAceito = function() {
+    const jaAceitou = localStorage.getItem("nativa_primeiro_pedido_aceito");
+    if (!jaAceitou) {
+        localStorage.setItem("nativa_primeiro_pedido_aceito", "true");
+        setTimeout(() => {
+            indiceAtual = 3; // Abre a explicação de "Minha Agenda de Trabalho"
+            apresentarPasso(indiceAtual);
+        }, 600);
+    }
+};
