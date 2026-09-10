@@ -205,7 +205,7 @@ body {
     content: "";
     display: inline-block;
     width: 50px;                   /* Comprimento do tracinho */
-    height: 4px;                   /* Espessura do tracinho */
+    /* height: 4px;                   Espessura do tracinho */
     /* background-color: var(--color-primary);
     border-radius: 4px; */
 /* } */ 
