@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Coletor - Nativa App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- <link rel="stylesheet" href="../CSS/Painel_coletor.css"> -->
-     <!-- <link rel="stylesheet" href="../CSS/Painel_coletor.css?v=2"> -->
-      <link rel="stylesheet" href="../CSS/Painel_coletor.css?v=3">
+    <link rel="stylesheet" href="../CSS/Painel_coletor.css">
     <style>
+        /* 1. Ajusta o container pai para separar o "Voltar" (esquerda) da "Engrenagem" (direita) */
         .css-header-back {
             display: flex;
             justify-content: space-between;
@@ -17,6 +16,7 @@
             width: 100%;
         }
 
+        /* 2. Atualização da classe .css-top-nav */
         .css-top-nav {
             display: flex;
             align-items: center;
@@ -39,9 +39,7 @@
                 <i class="fa-solid fa-gear"></i>
             </a>
         </div>
-        
-        <!-- ÂNCORA 0: CARD DE PERFIL -->
-        <div class="css-profile-card" id="tour-anchor-perfil">
+        <div class="css-profile-card">
             <div class="css-profile-info">
                 <div class="css-profile-avatar">
                     <i class="fa-solid fa-truck"></i>
@@ -61,18 +59,13 @@
     <main class="css-main-content">
 
         <details class="css-collapsible-section" open>
-            <!-- ÂNCORA 1: TÍTULO COM (?) -->
-            <summary class="css-section-title" id="tour-anchor-pedidos-title">
-                <span>
-                    Pedidos Disponíveis na Rede
-                    <button type="button" class="css-tour-help-btn" data-tour-step="1" title="Sobre os pedidos">?</button>
-                </span>
+            <summary class="css-section-title">
+                Pedidos Disponíveis na Rede
                 <i class="fa-solid fa-chevron-down css-arrow-icon"></i>
             </summary>
 
             <div class="css-collapsible-body">
-                <!-- ÂNCORA 2: FILTROS COM (?) -->
-                <form class="css-filter-grid" id="tour-anchor-filtros" onsubmit="return false;">
+                <form class="css-filter-grid" onsubmit="return false;">
                     <div class="css-filter-item">
                         <select class="css-select-input" id="tipoResiduoFiltro">
                             <option value=""> Todos tipos de resíduos</option>
@@ -92,7 +85,7 @@
                     <div class="css-filter-item">
                         <input type="date" class="css-select-input" id="dataFiltro" placeholder="Todas datas">
                     </div>
-                    <div class="css-filter-item" style="display: flex; align-items: center; gap: 4px;">
+                    <div class="css-filter-item">
                         <select class="css-select-input" id="regiaoFiltro">
                             <option value=""> Todas Regiões</option>
                             <option value="barreiro">Barreiro</option>
@@ -105,49 +98,102 @@
                             <option value="norte">Norte</option>
                             <option value="oeste">Oeste</option>
                         </select>
-                        <button type="button" class="css-tour-help-btn" data-tour-step="2" title="Como filtrar pedidos">?</button>
                     </div>
                 </form>
 
-                <div class="css-cards-list"></div>
+                <div class="css-cards-list">
+                    <!-- <div class="css-request-card">
+                        <div class="css-card-header">
+                            <h3>Padaria do Toninho</h3>
+                            <span class="css-status-badge css-status-red">PENDENTE</span>
+                        </div>
+
+                        <span class="css-tag-info"><i class="fa-solid fa-leaf"></i> Resíduo Seco Misturado</span>
+
+                        <div class="css-card-details">
+                            <p><i class="fa-solid fa-box"></i> <strong>Volume estimado:</strong> Médio</p>
+                            <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha</p>
+                            <p><i class="fa-solid fa-clock"></i> Segunda-feira, 08h00 — 11h00</p>
+                            <p><i class="fa-solid fa-phone"></i> <strong>Contato:</strong> (31) 98888-7777</p>
+                        </div>
+
+                        <details class="css-obs-details">
+                            <summary>Observação <i class="fa-solid fa-chevron-down"></i></summary>
+                            <p>Entrar pela garagem lateral. Interfonar na recepção de carga e descarga de resíduos.</p>
+                        </details>
+
+                        <button class="css-btn-action css-btn-green">Aceitar e Reservar</button>
+                    </div> -->
+                </div>
             </div>
         </details>
 
+
+
         <details class="css-collapsible-section" open>
-            <!-- ÂNCORA 3: AGENDA COM (?) -->
-            <summary class="css-section-title" id="tour-anchor-agenda-title">
-                <h2 class="css-section-static-title">
-                    Minha Agenda de Trabalho
-                    <button type="button" class="css-tour-help-btn" data-tour-step="3" title="Sobre sua agenda e ações">?</button>
-                </h2>
+            <summary class="css-section-title">
+                <h2 class="css-section-static-title">Minha Agenda de Trabalho</h2>
                 <i class="fa-solid fa-chevron-down css-arrow-icon"></i>
             </summary>
 
             <section class="css-static-section">
-                <div class="css-cards-list"></div>
+
+                <!-- <span class="css-day-divider">SEGUNDA-FEIRA</span> -->
+
+                <div class="css-cards-list">
+                    <!-- <div class="css-request-card css-agenda-card">
+                        <div class="css-card-header">
+                            <h3>Padaria do Toninho</h3>
+                            <span class="css-status-badge css-status-orange">Coleta Confirmada</span>
+                        </div>
+
+                        <div class="css-card-details">
+                            <div class="css-address-row">
+                                <p><i class="fa-solid fa-location-dot"></i> Av. Otacílio Negrão de Lima, 1200 — Pampulha
+                                </p>
+                                <button class="css-btn-route"><i class="fa-solid fa-map-location-dot"></i> Rota</button>
+                            </div>
+                            <p><i class="fa-solid fa-clock"></i> 08h00 — 11h00</p>
+                            <p><i class="fa-solid fa-leaf"></i> Residuo Seco Misturado</p>
+                            <p><i class="fa-solid fa-box"></i> <strong>Volume:</strong> Médio</p>
+                        </div>
+
+                        <div class="css-action-group-split">
+                            <button class="css-btn-action css-btn-red-outline">Cancelar Coleta</button>
+                            <button class="css-btn-action css-btn-blue">Finalizar Coleta</button>
+                        </div>
+                    </div> -->
+                </div>
             </section>
         </details>
 
     </main>
 
-    <!-- MODAL DE EDIÇÃO DE PERFIL -->
+    <!-- =========================================================================
+         MODAL DE EDIÇÃO DE PERFIL (FLUTUANTE)
+         ========================================================================= -->
     <div class="css-modal-overlay" id="modalEditarPerfil">
         <div class="css-modal-card">
+            <!-- Botão de Fechar (X) -->
             <button class="css-modal-close" id="btnFecharModal">
                 <i class="fa-solid fa-xmark"></i>
             </button>
+
             <h3 class="css-modal-title">
                 <i class="fa-solid fa-user-pen"></i> Editar Perfil
             </h3>
+
             <form id="formEditarPerfil" onsubmit="return false;">
                 <div class="css-modal-field">
                     <label for="editNome">Nome:</label>
                     <input type="text" id="editNome" class="css-modal-input" placeholder="Digite seu nome">
                 </div>
+
                 <div class="css-modal-field">
                     <label for="editTelefone">Telefone:</label>
                     <input type="tel" id="editTelefone" class="css-modal-input" placeholder="(31) 99999-9999">
                 </div>
+
                 <button type="submit" class="css-btn-action css-btn-green" style="margin-top: 10px;">
                     Salvar Alterações
                 </button>
@@ -155,27 +201,32 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMAÇÃO DE LOGOUT -->
-    <div class="css-modal-overlay" id="modalConfirmarSair">
-        <div class="css-modal-card gen-modal-logout-card">
-            <button class="css-modal-close" id="btnFecharModalSair">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 class="css-modal-title" style="justify-content: center; color: var(--color-red);">
-                <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
-            </h3>
-            <p class="gen-modal-logout-text">
-                Tem certeza de que deseja encerrar sua sessão no aplicativo?
-            </p>
-            <button type="button" id="btnConfirmarLogout" class="css-btn-logout-danger">
-                <i class="fa-solid fa-power-off"></i> Sair
-            </button>
-        </div>
-    </div>
+    <!-- =========================================================================
+     MODAL DE CONFIRMAÇÃO DE SAIR (FLUTUANTE)
+     ========================================================================= -->
+  <div class="css-modal-overlay" id="modalConfirmarSair">
+    <div class="css-modal-card gen-modal-logout-card">
+        <button class="css-modal-close" id="btnFecharModalSair">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
 
-    <!-- SCRIPTS -->
+        <h3 class="css-modal-title" style="justify-content: center; color: var(--color-red);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+        </h3>
+
+        <p class="gen-modal-logout-text">
+            Tem certeza de que deseja encerrar sua sessão no aplicativo?
+        </p>
+
+        <button type="button" id="btnConfirmarLogout" class="css-btn-logout-danger">
+            <i class="fa-solid fa-power-off"></i> Sair
+        </button>
+    </div>
+</div>
+
     <script type="module" src="../JS/Painel_coletor.js"></script>
-    <script src="../JS/tour_coletor.js" type="module"></script>
+
 </body>
 
 </html>
+

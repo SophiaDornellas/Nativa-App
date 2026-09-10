@@ -12,9 +12,9 @@
     --color-orange: #f0a924;
     --color-blue: #0d6efd;
     --transition-fast: all 0.3s ease;
-    --color-danger: #dc3545;
-    --color-danger-hover: #bb2d3b;
-    --transition-smooth: all 0.3s ease;
+    --color-danger: #dc3545; /* 👈 ADICIONADO */
+    --color-danger-hover: #bb2d3b; /* 👈 ADICIONADO */
+    --transition-smooth: all 0.3s ease; /* 👈 ADICIONADO */
 }
 
 /* RESET E CONFIGURAÇÕES CORE */
@@ -33,7 +33,7 @@ body {
 }
 
 /* ==========================================================================
-   HEADER / PERFIL
+   HEADER / PERFIL (MÓVEL PRIMEIRO)
    ========================================================================== */
 .css-user-header {
     background: transparent;
@@ -122,6 +122,7 @@ body {
     gap: 20px;
 }
 
+/* SEÇÕES RETRÁTEIS (DETAILS/SUMMARY) */
 .css-collapsible-section {
     width: 100%;
 }
@@ -135,10 +136,10 @@ body {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    list-style: none;
+    list-style: none; /* Remove seta padrão */
 }
 .css-section-title::-webkit-details-marker {
-    display: none;
+    display: none; /* Remove seta padrão Chrome */
 }
 
 .css-arrow-icon {
@@ -146,12 +147,13 @@ body {
     font-size: 0.9rem;
 }
 
+/* Rotação automática da seta nativa */
 .css-collapsible-section[open] .css-arrow-icon {
     transform: rotate(180deg);
 }
 
 /* ==========================================================================
-   FORMULÁRIO DE FILTROS
+   FORMULÁRIO DE FILTROS ENXUTO
    ========================================================================== */
 .css-filter-grid {
     display: grid;
@@ -180,7 +182,7 @@ body {
 }
 
 /* ==========================================================================
-   CARDS DE PEDIDO
+   CARDS DE PEDIDO (DESIGN DENSO DO PRINT)
    ========================================================================== */
 .css-cards-list {
     display: flex;
@@ -232,12 +234,6 @@ body {
     border: 1px solid #fde7be;
 }
 
-.css-status-green {
-    background-color: rgba(43, 122, 67, 0.12);
-    color: var(--color-primary);
-    border: 1px solid rgba(43, 122, 67, 0.3);
-}
-
 /* CONTEÚDO DOS CARDS */
 .css-tag-info {
     display: inline-flex;
@@ -268,6 +264,7 @@ body {
     margin-right: 4px;
 }
 
+/* LINHA DE ENDEREÇO + BOTAO ROTA */
 .css-address-row {
     display: flex;
     justify-content: space-between;
@@ -293,6 +290,7 @@ body {
     color: var(--color-white);
 }
 
+/* CAMPO OBSERVAÇÃO RETRÁTIL IN-CARD */
 .css-obs-details {
     margin: 8px 0 14px 0;
     border-top: 1px dashed var(--color-gray-border);
@@ -320,6 +318,7 @@ body {
     border-radius: 8px;
 }
 
+/* DIVISOR DE AGENDA */
 .css-day-divider {
     display: block;
     font-size: 0.75rem;
@@ -330,7 +329,7 @@ body {
 }
 
 /* ==========================================================================
-   BOTÕES DE AÇÃO
+   BOTÕES DE AÇÃO PRINCIPAIS
    ========================================================================== */
 .css-btn-action {
     width: 100%;
@@ -372,29 +371,49 @@ body {
     color: var(--color-white);
 }
 
+/* GRUPO DE BOTÕES LADO A LADO (SPLIT) */
 .css-action-group-split {
     display: flex;
     gap: 10px;
     width: 100%;
 }
 .css-action-group-split .css-btn-action {
-    flex: 1;
-}
-
-.css-finished-text {
-    text-align: center;
-    font-weight: 700;
-    font-size: 0.88rem;
-    color: var(--color-primary);
-    background-color: var(--color-bg);
-    padding: 8px 12px;
-    border-radius: 12px;
-    border: 1px dashed var(--color-primary);
-    width: 100%;
+    flex: 1; /* Garante metade do tamanho exato para cada um */
 }
 
 /* ==========================================================================
-   MODAIS
+   MEDIA QUERY: ADAPTAÇÕES PARA TELAS GRANDES (DESKTOP/TABLET)
+   ========================================================================== */
+@media (min-width: 600px) {
+    .css-user-header {
+        padding: 25px 0 5px 0;
+    }
+    
+    .css-profile-card {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .css-bonus-box {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+        text-align: right;
+    }
+
+    /* Filtros organizados em grid de 2 ou 4 colunas em telas maiores */
+    .css-filter-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 12px;
+    }
+}
+
+
+/* ==========================================================================
+   MODAL FLUTUANTE DE EDIÇÃO DE PERFIL
    ========================================================================== */
 .css-modal-overlay {
     position: fixed;
@@ -402,18 +421,21 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido semitransparente */
+    backdrop-filter: blur(4px); /* Efeito de desfoque sutil no fundo */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 16px;
     z-index: 9999;
+    
+    /* Estado oculto padrão */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* CLASSE QUE FAZ O MODAL APARECER */
 .css-modal-overlay.active {
     opacity: 1;
     pointer-events: auto;
@@ -435,6 +457,7 @@ body {
     transform: translateY(0);
 }
 
+/* Botão de Fechar (X) */
 .css-modal-close {
     position: absolute;
     top: 14px;
@@ -488,6 +511,10 @@ body {
     border-color: var(--color-primary);
 }
 
+
+/* ==========================================================================
+   ESTILOS DO MODAL DE LOGOUT / SAIR
+   ========================================================================== */
 .gen-modal-logout-card {
     max-width: 380px !important;
     text-align: center;
@@ -500,6 +527,7 @@ body {
     margin: 12px 0 20px 0;
 }
 
+/* Botão Vermelho Centralizado de Sair */
 .css-btn-logout-danger {
     width: 100%;
     background-color: var(--color-danger);
@@ -523,173 +551,27 @@ body {
     transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   MEDIA QUERY: DESKTOP / TABLET
-   ========================================================================== */
-@media (min-width: 600px) {
-    .css-user-header {
-        padding: 25px 0 5px 0;
-    }
-    
-    .css-profile-card {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .css-bonus-box {
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 2px;
-        text-align: right;
-    }
-
-    .css-filter-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        padding: 12px;
-    }
-}
-
-/* ==========================================================================
-   ESTILOS DO TOUR INTERATIVO E INTERROGAÇÕES (?)
-   ========================================================================== */
-.css-tour-help-btn {
-    background-color: #e1f2e5;
+/* BADGE VERDE PARA STATUS FINALIZADO */
+.css-status-green {
+    background-color: rgba(43, 122, 67, 0.12);
     color: var(--color-primary);
     border: 1px solid rgba(43, 122, 67, 0.3);
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    margin-left: 8px;
-    vertical-align: middle;
-    transition: var(--transition-fast);
 }
 
-.css-tour-help-btn:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    transform: scale(1.15);
-}
-
-.css-tour-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 9998;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.css-tour-overlay.css-tour-visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.css-tour-highlight {
-    position: relative !important;
-    z-index: 9999 !important;
-    background-color: #ffffff !important;
-    padding: 12px 14px !important;  
-    box-shadow: 0 0 0 4px #4caf50, 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-    border-radius: 16px;
-}
-/* Mantém o card verde original do perfil quando ele estiver em destaque no tour */
-#tour-anchor-perfil.css-tour-highlight {
-    background-color: var(--color-primary) !important;
-    color: var(--color-white) !important;
-}
-
-.css-tour-tooltip {
-    position: absolute;
-    z-index: 10000;
-    width: 290px;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
-    border: 1px solid #d2e4d6;
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.css-tour-tooltip.css-tour-visible {
-    display: flex;
-}
-
-.css-tour-close {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    background: transparent;
-    border: none;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-}
-
-.css-tour-close:hover {
-    color: var(--color-primary);
-}
-
-.css-tour-title {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--color-primary);
-}
-
-.css-tour-body {
-    font-size: 0.84rem;
-    color: #444;
-    line-height: 1.45;
-}
-
-.css-tour-footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    margin-top: 6px;
-}
-
-.css-tour-btn-skip {
-    background: transparent;
-    border: none;
-    color: #777;
-    font-size: 0.8rem;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.css-tour-btn-skip:hover {
-    text-decoration: underline;
-}
-
-.css-tour-btn-next {
-    background-color: var(--color-primary);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    padding: 6px 14px;
-    font-size: 0.82rem;
+/* MENSAGEM DE FINALIZADO NO LUGAR DOS BOTÕES */
+.css-finished-text {
+    text-align: center;
     font-weight: 700;
-    cursor: pointer;
-    transition: var(--transition-fast);
+    font-size: 0.88rem;
+    color: var(--color-primary);
+    background-color: var(--color-bg);
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px dashed var(--color-primary);
+    width: 100%;
 }
 
-.css-tour-btn-next:hover {
-    background-color: #1b4329;
-}
+
+
+
+

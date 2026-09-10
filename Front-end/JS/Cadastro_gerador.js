@@ -6,8 +6,21 @@ const form_cadastro_gerador = document.querySelector("#form_cadastro_gerador")
 
 form_cadastro_gerador.addEventListener("submit", (e) => {
    e.preventDefault()
+
+   const senha_gerador = document.querySelector("#input_senha_gerador").value;
+
+    // 🔒 Checagem de Senha Forte antes de disparar o Firebase
+    const checagem = validarSenha(senha_gerador);
+    if (!checagem.tudoValido) {
+        boxRegras.classList.add("active");
+        inputSenha.focus();
+        alert("Crie uma senha forte atendendo a todos os requisitos antes de continuar!");
+        return; // Interrompe e não cadastra no Firebase
+    } 
+
+
    const email_gerador = document.querySelector("#input_email_gerador").value
-   const senha_gerador = document.querySelector("#input_senha_gerador").value
+   // const senha_gerador = document.querySelector("#input_senha_gerador").value
    const nome_gerador = document.querySelector("#input_nome_gerador").value
    const telefone_gerador = document.querySelector("#input_telefone_gerador").value
 
@@ -153,3 +166,71 @@ async function postarUsuario(idToken, email, nome, telefone, enderecoCompleto_ge
 //             return; // Impede o envio do cadastro
 //         }
 //     });
+
+
+// =========================================================================
+// VALIDAÇÃO PROFISSIONAL DE SENHA FORTE
+// =========================================================================
+
+const inputSenha = document.querySelector("#input_senha_gerador");
+const boxRegras = document.querySelector("#boxRegrasSenha");
+
+const itemTamanho = document.querySelector("#regra-tamanho");
+const itemMaiuscula = document.querySelector("#regra-maiuscula");
+const itemEspecial = document.querySelector("#regra-especial");
+
+// Abre a caixinha com as regras ao focar no campo
+if (inputSenha && boxRegras) {
+    inputSenha.addEventListener("focus", () => {
+        boxRegras.classList.add("active");
+    });
+
+    // Opcional: fecha ao clicar fora caso a senha já esteja toda válida
+    inputSenha.addEventListener("blur", () => {
+        if (validarSenha(inputSenha.value).tudoValido) {
+            boxRegras.classList.remove("active");
+        }
+    });
+
+    // Monitora a digitação em tempo real
+    inputSenha.addEventListener("input", () => {
+        validarSenha(inputSenha.value);
+    });
+}
+
+function validarSenha(senha) {
+    // Critérios
+    const temTamanho = senha.length >= 6;
+    const temMaiuscula = /[A-Z]/.test(senha);
+    const temEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
+
+    // Atualiza linha do Tamanho
+    atualizarStatusRegra(itemTamanho, temTamanho);
+
+    // Atualiza linha da Maiúscula
+    atualizarStatusRegra(itemMaiuscula, temMaiuscula);
+
+    // Atualiza linha do Caractere Especial
+    atualizarStatusRegra(itemEspecial, temEspecial);
+
+    return {
+        tudoValido: temTamanho && temMaiuscula && temEspecial
+    };
+}
+
+function atualizarStatusRegra(elemento, estaValido) {
+    if (!elemento) return;
+    const icone = elemento.querySelector("i");
+
+    if (estaValido) {
+        elemento.classList.add("valido");
+        if (icone) {
+            icone.className = "fa-solid fa-check";
+        }
+    } else {
+        elemento.classList.remove("valido");
+        if (icone) {
+            icone.className = "fa-solid fa-circle";
+        }
+    }
+}

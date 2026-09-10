@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -24,22 +27,6 @@
         </div>
 
         <!-- PERFIL SUPERIOR -->
-        <!-- <div class="css-profile-panel">
-            <div class="css-profile-info">
-                <div class="css-store-icon">
-                    <i class="fa-solid fa-store"></i>
-                </div>
-                <div>
-                    <div class="css-store-name">Padaria do Toninho</div>
-                    <div class="css-store-sub">Rua das Flores, 123 - Bairro Verde</div>
-                </div>
-            </div>
-            <div class="css-badge-group">
-                <div class="css-badge"><i class="fa-solid fa-medal"></i> Nível 3</div>
-                <div class="css-badge"><i class="fa-solid fa-leaf"></i> 350 XP</div>
-            </div>
-        </div> -->
-
         <div class="css-profile-panel">
             <div class="css-profile-info">
                 <div class="css-store-icon">
@@ -61,19 +48,23 @@
             </div>
         </div>
 
-        <!-- FORMULÁRIO DE NOVA SOLICITAÇÃO -->
+        <!-- FORMULÁRIO DE NOVA SOLICITAÇÃO (PASSO 0 DO TOUR NO HEADER) -->
         <main class="css-form-card">
             <div class="css-collapsible-header" id="js-toggle-form">
                 <h2 class="css-section-title">Nova Solicitação de Coleta</h2>
                 <i class="fa-solid fa-chevron-down css-arrow"></i>
             </div>
 
-            <!-- Div retrátil direta (Irmã adjacente da .css-collapsible-header) -->
+            <!-- Div retrátil direta -->
             <div class="css-collapsible-content">
                 <form id="formLancarPedido" style="margin-top: 20px;">
                     
-                    <div class="css-form-group">
-                        <label class="css-form-label">Tipo de Material</label>
+                    <!-- PASSO 1: TIPO DE MATERIAL -->
+                    <div class="css-form-group" id="tour-step-material">
+                        <label class="css-form-label">
+                            Tipo de Material
+                            <button type="button" class="css-tour-help-btn" data-tour-step="1" title="Ajuda com este campo">?</button>
+                        </label>
 
                         <div class="css-radio-box css-selected" id="js-radio-mixed">
                             <i class="fa-regular fa-circle-dot" id="js-icon-mixed"></i>
@@ -95,8 +86,12 @@
                         </div>
                     </div>
 
-                    <div class="css-form-group">
-                        <label class="css-form-label">Volume Estimado</label>
+                    <!-- PASSO 2: VOLUME ESTIMADO -->
+                    <div class="css-form-group" id="tour-step-volume">
+                        <label class="css-form-label">
+                            Volume Estimado
+                            <button type="button" class="css-tour-help-btn" data-tour-step="2" title="Ajuda com este campo">?</button>
+                        </label>
                         <div class="css-volume-grid">
                             <div class="css-volume-option js-vol">
                                 <div class="css-volume-title" id="opcaoVolumePouco">Pouco</div>
@@ -113,8 +108,12 @@
                         </div>
                     </div>
 
-                    <div class="css-form-group">
-                        <label class="css-form-label">Agendamento de Retirada</label>
+                    <!-- PASSO 3: AGENDAMENTO -->
+                    <div class="css-form-group" id="tour-step-agendamento">
+                        <label class="css-form-label">
+                            Agendamento de Retirada
+                            <button type="button" class="css-tour-help-btn" data-tour-step="3" title="Ajuda com este campo">?</button>
+                        </label>
                         <div class="css-input-row">
                             <div>
                                 <span style="font-size:0.75rem; font-weight:600; display:block; margin-bottom:4px;">Data da coleta</span>
@@ -132,17 +131,19 @@
                         <input type="text" class="css-input-field" id="iputObservacaoColeta" placeholder="Ex: Entrar pelo portão lateral...">
                     </div>
 
-                    <button type="submit" id="lancarPedido" class="css-btn-submit">
+                    <!-- PASSO 4: LANÇAR PEDIDO -->
+                    <button type="submit" id="tour-step-submit" class="css-btn-submit">
                         <i class="fa-solid fa-paper-plane"></i> Lançar Pedido de Busca
                     </button>
                 </form>
             </div>
         </main>
 
-        <!-- SEÇÃO DE HISTÓRICO (INCLUÍDA DENTRO DO MAIN-WRAPPER PARA EXPANDIR) -->
+        <!-- SEÇÃO DE HISTÓRICO -->
         <section class="css-history-section">
             <div class="css-collapsible-header" id="js-toggle-history" style="margin-bottom: 14px;">
                 <h3 class="css-history-title">Minhas Coletas Recentes</h3>
+                <button type="button" class="css-tour-help-btn" id="btnAjudaCriacaoPedido" title="Entenda o status do pedido">?</button>
                 <i class="fa-solid fa-chevron-down css-arrow"></i>
             </div>
 
@@ -171,7 +172,7 @@
                     </div>
                 </div>
 
-                <!-- CARD 2: COLETA CONFIRMADA -->
+                <!-- CARD 2: CONFIRMADA -->
                 <div class="css-history-card">
                     <div class="css-card-top-bar">
                         <span class="css-date-tag"><i class="fa-regular fa-calendar"></i> 12/06/2026</span>
@@ -224,9 +225,9 @@
             </div>
         </section>
 
-    </div> <!-- FIM DO CSS-MAIN-WRAPPER -->
+    </div>
 
-    <!-- MODAL FLUTUANTE EDITAR PERFIL-->
+    <!-- MODAL EDITAR PERFIL -->
     <div class="gen-modal-overlay" id="modalEditarPerfilGerador">
         <div class="gen-modal-card">
             <button class="gen-modal-close" id="btnFecharModalGerador">
@@ -310,33 +311,35 @@
         </div>
     </div>
 
-    <!-- =========================================================================
-     MODAL DE CONFIRMAÇÃO DE SAIR (FLUTUANTE)
-     ========================================================================= -->
-<div class="gen-modal-overlay" id="modalConfirmarSair">
-    <div class="gen-modal-card gen-modal-logout-card">
-        <!-- Botão Fechar (X) -->
-        <button class="gen-modal-close" id="btnFecharModalSair">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+    <!-- MODAL CONFIRMAR SAIR -->
+    <div class="gen-modal-overlay" id="modalConfirmarSair">
+        <div class="gen-modal-card gen-modal-logout-card">
+            <button class="gen-modal-close" id="btnFecharModalSair">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-        <h3 class="gen-modal-title" style="justify-content: center; color: var(--color-danger);">
-            <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
-        </h3>
+            <h3 class="gen-modal-title" style="justify-content: center; color: var(--color-danger);">
+                <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+            </h3>
 
-        <p class="gen-modal-logout-text">
-            Tem certeza de que deseja encerrar sua sessão no aplicativo?
-        </p>
+            <p class="gen-modal-logout-text">
+                Tem certeza de que deseja encerrar sua sessão no aplicativo?
+            </p>
 
-        <!-- Botão Principal de Logout -->
-        <button type="button" id="btnConfirmarLogout" class="css-btn-logout-danger">
-            <i class="fa-solid fa-power-off"></i> Sair
-        </button>
+            <button type="button" id="btnConfirmarLogout" class="css-btn-logout-danger">
+                <i class="fa-solid fa-power-off"></i> Sair
+            </button>
+        </div>
     </div>
-</div>
-<div id="toastContainer" class="css-toast-container"></div>
 
+    <div id="toastContainer" class="css-toast-container"></div>
+
+    <!-- SCRIPT PRINCIPAL DO PAINEL -->
     <script type="module" src="../JS/Painel_gerador.js"></script>
+
+    <!-- SCRIPT DO TOUR GUIADO -->
+    <script src="../JS/tour_gerador.js"></script>
+
     <script>
         function setupCollapsible(triggerId) {
             document.getElementById(triggerId).addEventListener('click', function() {
