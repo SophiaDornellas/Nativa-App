@@ -8,9 +8,20 @@ const API_URL_SERVIDOR = "https://nativa-app.onrender.com"
 
 form_cadastro_coletor.addEventListener("submit", (e)=>{
    e.preventDefault()
+
+   const senha_coletor = document.querySelector("#input_senha_coletor").value 
+
+    // 🔒 Checagem de Senha Forte antes de disparar o Firebase
+    const checagem = validarSenha(senha_coletor);
+    if (!checagem.tudoValido) {
+        boxRegras.classList.add("active");
+        inputSenha.focus();
+        alert("Crie uma senha forte atendendo a todos os requisitos antes de continuar!");
+        return; // Interrompe e não cadastra no Firebase
+    } 
    
    const email_coletor = document.querySelector("#input_email_coletor").value
-   const senha_coletor = document.querySelector("#input_senha_coletor").value 
+   
    const nome_coletor = document.querySelector("#input_nome_coletor").value
    const telefone_coletor = document.querySelector("#input_telefone_coletor").value
    
