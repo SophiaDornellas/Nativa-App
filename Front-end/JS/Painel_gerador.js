@@ -730,11 +730,11 @@ const MENSAGEM_PRIMEIRA_COLETA = "Quando o coletor aceitar, uma notificação va
 // 1. Ouvinte para o clique no (?) ao lado de 'Nova Solicitação de Coleta'
 document.getElementById("btnAjudaCriacaoPedido")?.addEventListener("click", (e) => {
     e.stopPropagation(); // Evita abrir/fechar o formulário retrátil
-    exibirNotificacao(MENSAGEM_PRIMEIRA_COLETA, "info");
+    exibirNotificacaoExplicativa(MENSAGEM_PRIMEIRA_COLETA, "info");
 });
 
 // 2. Função auxiliar de notificação (Toast)
-function exibirNotificacao(texto, tipo = "info") {
+function exibirNotificacaoExplicativa(texto, tipo = "info") {
     const container = document.getElementById("toastContainer");
     if (!container) return;
 
@@ -758,7 +758,7 @@ function checarPrimeiroPedidoLancado() {
     const jaLancouAntes = localStorage.getItem("nativa_primeira_coleta_lancada");
 
     if (!jaLancouAntes) {
-        exibirNotificacao(MENSAGEM_PRIMEIRA_COLETA, "accepted");
+        exibirNotificacaoExplicativa(MENSAGEM_PRIMEIRA_COLETA, "accepted");
         localStorage.setItem("nativa_primeira_coleta_lancada", "true");
     }
 }
