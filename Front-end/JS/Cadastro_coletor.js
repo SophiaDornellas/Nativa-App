@@ -81,7 +81,7 @@ async function postarUsuario(idToken, email, nome, telefone){
 // VALIDAÇÃO PROFISSIONAL DE SENHA FORTE
 // =========================================================================
 
-const inputSenha = document.querySelector("#input_senha_gerador");
+const inputSenha = document.querySelector("#input_senha_coletor");
 const boxRegras = document.querySelector("#boxRegrasSenha");
 
 const itemTamanho = document.querySelector("#regra-tamanho");
