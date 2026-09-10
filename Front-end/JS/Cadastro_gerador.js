@@ -18,9 +18,9 @@ form_cadastro_gerador.addEventListener("submit", (e) => {
         return; // Interrompe e não cadastra no Firebase
     } 
 
-    
+
    const email_gerador = document.querySelector("#input_email_gerador").value
-   const senha_gerador = document.querySelector("#input_senha_gerador").value
+   // const senha_gerador = document.querySelector("#input_senha_gerador").value
    const nome_gerador = document.querySelector("#input_nome_gerador").value
    const telefone_gerador = document.querySelector("#input_telefone_gerador").value
 
