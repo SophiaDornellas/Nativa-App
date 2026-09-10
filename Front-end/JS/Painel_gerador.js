@@ -85,6 +85,7 @@ async function criarNovoPedido(pedidoBody) {
             // Recarrega o histórico na tela e limpa os campos
             if (typeof carregarHistoricoColetas === "function") {
                 carregarHistoricoColetas();
+                checarPrimeiroPedidoLancado(); // para aparecer a explicação do status do pedido, que tá dentro da interrogação
             }
         } else {
             console.error("Erro ao criar pedido. Status:", resposta.status);

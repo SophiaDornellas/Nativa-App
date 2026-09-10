@@ -833,3 +833,10 @@ body {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 }
+
+
+/* // pra aparecer a interroçaão que explica o status do pedido */
+.css-section-title {
+    display: flex;
+    align-items: center;
+}
