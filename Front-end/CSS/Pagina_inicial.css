@@ -339,27 +339,51 @@ html {
     gap: 10px;
 }
 
-/* Botão Cadastre-se no topo */
+/* BOTÃO CADASTRE-SE NO TOPO */
 .css-top-register-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    padding: 8px 16px;
+    padding: 6px 18px;             /* Mesmo padding do Login */
+    border: 2px solid var(--color-primary); /* Mesma espessura de borda para igualar a altura */
     border-radius: 20px;
     background-color: var(--color-primary);
     color: var(--color-white);
-    font-size: 0.80rem;
+    font-size: 0.9rem;             /* Mesmo tamanho de fonte do Login */
     font-weight: 600;
     text-decoration: none;
-    transition: var(--transition-smooth, all 0.25s ease);
+    white-space: nowrap;           /* IMPEDE o texto de quebrar a linha */
+    transition: var(--transition-bounce);
 }
 
 .css-top-register-btn:hover {
     background-color: #215d33;
-    transform: scale(1.03);
+    border-color: #215d33;
+    color: var(--color-white);
+    transform: scale(1.05);
 }
 
-/* Margem para o título não ficar colado embaixo do header */
-#secao-cadastro {
-    scroll-margin-top: 80px;
+/* BOTÃO LOGIN NO TOPO */
+.css-login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 18px;
+    border: 2px solid var(--color-primary);
+    border-radius: 20px;
+    background-color: transparent;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;           /* Garante que o Login também nunca quebre */
+    transition: var(--transition-bounce);
+}
+
+.css-login-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: scale(1.05);
 }
